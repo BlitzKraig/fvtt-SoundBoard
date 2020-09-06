@@ -6,7 +6,7 @@
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Q5Q01YIEJ)
 
 Looking for collaborators - Hoping to build a decent library of sounds to bundle with the module to provide a nice starting point for users.
-Anyone who is able to create or provide sound effects with the proper licensing, please contace me on Discord.
+Anyone who is able to create or provide sound effects with the proper licensing, please contact me on Discord.
 
 An easy to use soundboard for the GM.
 
