@@ -1,0 +1,11 @@
+{
+    "SOUNDBOARD.button.openSoundboard": "Open SoundBoard",
+    "SOUNDBOARD.log.invalidSound": "is not a valid audio file, skipping",
+    "SOUNDBOARD.settings.name.directory": "SoundBoard Directory",
+    "SOUNDBOARD.settings.hint.directory": "This should point to a folder containing subfolders, each containing audio files. See modules/SoundBoard/audio/ for an example",
+    "SOUNDBOARD.settings.name.volume": "Client Volume",
+    "SOUNDBOARD.app.title": "Sound Board",
+    "SOUNDBOARD.app.instructions": "Click a sound button to broadcast it to all players.",
+    "SOUNDBOARD.app.volume": "Volume",
+    "SOUNDBOARD.button.stopAll": "Stop All"
+}

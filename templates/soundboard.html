@@ -1,0 +1,18 @@
+<div class="soundboard-container">
+    <p class="notes">{{localize 'SOUNDBOARD.app.instructions'}}</p>
+    <hr/>
+    <!-- <button onclick="SoundBoard.stopAllSounds()">{{localize 'SOUNDBOARD.button.stopAll'}}</button>
+    <hr/> -->
+    <div class="soundboard-sounds">
+        {{#each sounds}}
+            <div class="row">
+                <h2>{{categoryName}}</h2>
+
+                {{#each files}}
+                    <button onclick="SoundBoard.playSound({{id}})">{{name}}</button>
+                {{/each}}
+
+            </div>
+        {{/each}}
+    </div>
+</div>

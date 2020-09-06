@@ -1,0 +1,23 @@
+
+/* TODO: Bootstrapify */
+
+#soundboard-app {
+  text-align: center;
+}
+
+#soundboard-app button {
+  width: 32%;
+  vertical-align: middle;
+  margin-bottom: 10px;
+  max-height: 100px;
+  overflow: hidden;
+  inline-size: fit-content;
+}
+#soundboard-app button:active{
+  margin-top: 2px;
+  margin-bottom: 8px;
+}
+
+.soundboard-container {
+  margin: 0px 20px 20px 20px;
+}
