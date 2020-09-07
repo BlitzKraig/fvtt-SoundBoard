@@ -7,9 +7,10 @@
     <!-- <button onclick="SoundBoard.stopAllSounds()">{{localize 'SOUNDBOARD.button.stopAll'}}</button>
     <hr/> -->
     <div class="soundboard-sounds">
+        <h3><small class="text-muted">Sounds: {{totalCount}}</small></h3>
         {{#each sounds}}
-        <h2 data-toggle="collapse" data-target="#{{categoryName}}" aria-expanded="true" aria-controls="{{categoryName}}">{{categoryName}} <small class="text-muted">({{length}})</small></h2>
-            <div class="collapse show row" id="{{categoryName}}">
+        <h2 data-toggle="collapse" data-target="#{{soundboard-safeid categoryName}}" aria-expanded="true" aria-controls="{{soundboard-safeid categoryName}}">{{categoryName}} <small class="text-muted">({{length}})</small></h2>
+            <div class="collapse show row" id="{{soundboard-safeid categoryName}}">
                 {{#each files}}
             <button class="btn btn-outline-dark col" onclick="SoundBoard.playSound({{id}})" oncontextmenu="SoundBoard.previewSound({{id}})">{{name}}</button>
                 {{/each}}

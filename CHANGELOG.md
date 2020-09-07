@@ -1,4 +1,10 @@
-# 0.0.3 - 2020/09/07
+# 0.1.1 - 2020/09/07
+
+* Added support for folders with spaces
+* Tweaked CSS for better scrolling behaviour
+* Added total sound count
+
+# 0.1.0 - 2020/09/07
 
 * Added bootstrap styling
 * Added collapsible categories

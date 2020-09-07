@@ -12,14 +12,16 @@ class SoundBoardApplication extends Application {
     formatName(name) {
         name = name.split('.')[0];
         name = name.match(/[A-Z]+(?![a-z])|[A-Z]?[a-z]+|\d+/g).join(' ');
-        name = name.replace(/_|-/g, ' ');
+        name = name.replace(/_|-|[%20]/g, ' ');
         name = name.split(' ').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ');
         return name;
     }
     getData() {
         var sounds = []
+        var totalCount = 0;
 
         Object.keys(SoundBoard.sounds).forEach(key => {
+            totalCount += SoundBoard.sounds[key].length;
             if (SoundBoard.sounds[key].length > 0) {
                 sounds.push({
                     categoryName: this.formatName(key),
@@ -34,7 +36,8 @@ class SoundBoardApplication extends Application {
         var volume = game.settings.get("SoundBoard", "soundboardServerVolume");
         return {
             sounds,
-            volume
+            volume,
+            totalCount
         }
     }
    
@@ -69,6 +72,12 @@ class SoundBoard {
                 console.log(`SoundBoard | ${message}`);
                 break;
         }
+    }
+    
+    static handlebarsHelpers = {
+        "soundboard-safeid": (str) => {
+			return str.replace(/\s/g, '-');
+		}
     }
 
     static openSoundBoard() {
@@ -172,6 +181,7 @@ class SoundBoard {
             };
         }
     }
+    
     static async onInit() {
         // Consider checking for GM to skip this on connected clients, though can't get that on init
         game.settings.register("SoundBoard", "soundboardDirectory", {
@@ -205,6 +215,8 @@ class SoundBoard {
         })
 
         await SoundBoard.getSounds();
+        
+        Handlebars.registerHelper(SoundBoard.handlebarsHelpers);
 
         // setInterval(() => {
         //     SoundBoard.clearStoppedSounds();
