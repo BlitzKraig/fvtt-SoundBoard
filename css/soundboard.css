@@ -1,9 +1,8 @@
 
 /* TODO: Bootstrapify */
 
-#soundboard-app {
-  text-align: center;
-}
+/* #soundboard-app {
+} */
 
 #soundboard-app button {
   width: 32%;
@@ -20,4 +19,5 @@
 
 .soundboard-container {
   margin: 0px 20px 20px 20px;
+  text-align: center;
 }

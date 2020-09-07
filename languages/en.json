@@ -4,8 +4,9 @@
     "SOUNDBOARD.settings.name.directory": "SoundBoard Directory",
     "SOUNDBOARD.settings.hint.directory": "This should point to a folder containing subfolders, each containing audio files. See modules/SoundBoard/audio/ for an example",
     "SOUNDBOARD.settings.name.volume": "Client Volume",
-    "SOUNDBOARD.app.title": "Sound Board",
+    "SOUNDBOARD.app.title": "SoundBoard",
     "SOUNDBOARD.app.instructions": "Click a sound button to broadcast it to all players.",
+    "SOUNDBOARD.app.instructionsExtended": "Click 'Stop All' to end all currently playing sounds",
     "SOUNDBOARD.app.volume": "Volume",
     "SOUNDBOARD.button.stopAll": "Stop All"
 }
