@@ -18,7 +18,7 @@ Create a directory for your sounds, with a single subdirectory for each sound ca
 
 Place your sounds in these folders. WAV, MP3 & OGG are supported.
 
-Sounds in the parent directory will show up under Uncategorized.
+Place another directory inside one of these category directories to create a 'Wildcard Sound'. Clicking these sounds will play a random selection from any sound files placed inside this directory
 
 Sound effect names are generated from the file name. CamelCase, underscores and hypens/dashes are all parsed, split and recapitalized to generate the sound name.
 
@@ -28,10 +28,13 @@ eg.
 
 
 - soundboard/
-    - uncategorized-scream.wav
     - battle/
         - swordhit.ogg
         - arrowwhizz.mp3
+        - gunshot/
+            - gunshot1.mp3
+            - magnumfire.ogg
+            - distantpistol.wav
     - tavern/
         - pour.ogg
         - laughter.ogg

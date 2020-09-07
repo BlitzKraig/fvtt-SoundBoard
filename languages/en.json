@@ -4,9 +4,11 @@
     "SOUNDBOARD.settings.name.directory": "SoundBoard Directory",
     "SOUNDBOARD.settings.hint.directory": "This should point to a folder containing subfolders, each containing audio files. See modules/SoundBoard/audio/ for an example",
     "SOUNDBOARD.settings.name.volume": "Client Volume",
-    "SOUNDBOARD.app.title": "SoundBoard",
+    "SOUNDBOARD.app.title": "SoundBoard by Blitz",
     "SOUNDBOARD.app.instructions": "Left click a sound button to broadcast it to all players, right click a sound to preview a sound for the GM only. Click a category name to collapse or expand it.",
     "SOUNDBOARD.app.instructionsExtended": "Click 'Stop All' to end all currently playing sounds",
     "SOUNDBOARD.app.volume": "Volume",
-    "SOUNDBOARD.button.stopAll": "Stop All"
+    "SOUNDBOARD.app.filterText": "Search...",
+    "SOUNDBOARD.button.stopAll": "Stop All",
+    "SOUNDBOARD.notif.soundsNotLoaded": "Sounds are still loading, please try again shortly"
 }

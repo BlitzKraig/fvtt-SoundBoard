@@ -14,6 +14,7 @@ class SoundBoardApplication extends Application {
         name = name.match(/[A-Z]+(?![a-z])|[A-Z]?[a-z]+|\d+/g).join(' ');
         name = name.replace(/_|-|[%20]/g, ' ');
         name = name.split(' ').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ');
+        name = name.replace(/\s\s+/g, ' ');
         return name;
     }
     getData() {
@@ -57,6 +58,8 @@ class SoundBoard {
         ERR: 2
     }
 
+    static soundsLoaded = false;
+
     static log(message, logLevel = SoundBoard.LOGTYPE.LOG) {
         switch (logLevel) {
             case SoundBoard.LOGTYPE.LOG:
@@ -77,10 +80,17 @@ class SoundBoard {
     static handlebarsHelpers = {
         "soundboard-safeid": (str) => {
 			return str.replace(/\s/g, '-');
-		}
+        },
+        "soundboard-getarraycount": (array) => {
+            return array.length;
+        }
     }
 
     static openSoundBoard() {
+        if(!SoundBoard.soundsLoaded){
+            ui.notifications.warn(game.i18n.localize("SOUNDBOARD.notif.soundsNotLoaded"))
+            return;
+        }
         new SoundBoardApplication().render(true);
     }
 
@@ -100,8 +110,9 @@ class SoundBoard {
         //     autoplay: true,
         //     loop: false
         // }, true));
+        let src = SoundBoard.soundIdPairs[soundId][Math.floor(Math.random() * SoundBoard.soundIdPairs[soundId].length)]
         AudioHelper.play({
-            src: SoundBoard.soundIdPairs[soundId],
+            src: src,
             volume: SoundBoard.getVolume(),
             autoplay: true,
             loop: false
@@ -109,8 +120,9 @@ class SoundBoard {
     }
 
     static async previewSound(soundId, volume = 0.8) {
+        let src = SoundBoard.soundIdPairs[soundId][Math.floor(Math.random() * SoundBoard.soundIdPairs[soundId].length)]
         AudioHelper.play({
-            src: SoundBoard.soundIdPairs[soundId],
+            src: src,
             volume: SoundBoard.getVolume(),
             autoplay: true,
             loop: false
@@ -137,29 +149,53 @@ class SoundBoard {
         SoundBoard.soundIdPairs = [];
         var soundboardDirArray = await FilePicker.browse("data", game.settings.get("SoundBoard", "soundboardDirectory"));
         var id = 0;
-        for (const file of soundboardDirArray.files) {
-            switch (file.substring(file.length - 4)) {
-                case ".ogg":
-                case ".mp3":
-                case ".wav":
-                case "flac":
-                    SoundBoard.sounds.uncategorized.push({
-                        name: file.split(/[\/]+/).pop(),
-                        src: file,
-                        id: id
-                    });
-                    SoundBoard.soundIdPairs[id++] = file;
-                    break;
+        // for (const file of soundboardDirArray.files) {
+        //     switch (file.substring(file.length - 4)) {
+        //         case ".ogg":
+        //         case ".mp3":
+        //         case ".wav":
+        //         case "flac":
+        //             SoundBoard.sounds.uncategorized.push({
+        //                 name: file.split(/[\/]+/).pop(),
+        //                 src: file,
+        //                 id: id
+        //             });
+        //             SoundBoard.soundIdPairs[id++] = file;
+        //             break;
 
-                default:
-                    SoundBoard.log(`${file} ${game.i18n.localize("SOUNDBOARD.log.invalidSound")}`, SoundBoard.LOGTYPE.WARN);
-                    break;
-            }
-        };
+        //         default:
+        //             SoundBoard.log(`${file} ${game.i18n.localize("SOUNDBOARD.log.invalidSound")}`, SoundBoard.LOGTYPE.WARN);
+        //             break;
+        //     }
+        // };
         for (const dir of soundboardDirArray.dirs) {
             const dirShortName = dir.split(/[\/]+/).pop();
             SoundBoard.sounds[dirShortName] = [];
             let innerDirArray = await FilePicker.browse("data", dir);
+            for (const wildcardDir of innerDirArray.dirs) {
+                let wildcardFileArray = await FilePicker.browse("data", wildcardDir);
+                wildcardFileArray = wildcardFileArray.files;
+                wildcardFileArray = wildcardFileArray.filter(function (file) {
+                    switch (file.substring(file.length - 4)) {
+                        case ".ogg":
+                        case ".mp3":
+                        case ".wav":
+                        case "flac":
+                            return true;
+                        default:
+                            SoundBoard.log(`${file} ${game.i18n.localize("SOUNDBOARD.log.invalidSound")}`, SoundBoard.LOGTYPE.WARN);
+                            return false;
+                    }
+                });
+                SoundBoard.sounds[dirShortName].push({
+                    name: wildcardDir.split(/[\/]+/).pop(),
+                    src: wildcardFileArray,
+                    id: id,
+                    isWild: true
+                });
+                SoundBoard.soundIdPairs[id++] = wildcardFileArray;
+               
+            };
             for (const file of innerDirArray.files) {
                 switch (file.substring(file.length - 4)) {
                     case ".ogg":
@@ -168,10 +204,11 @@ class SoundBoard {
                     case "flac":
                         SoundBoard.sounds[dirShortName].push({
                             name: file.split(/[\/]+/).pop(),
-                            src: file,
-                            id: id
+                            src: [file],
+                            id: id,
+                            isWild: false
                         });
-                        SoundBoard.soundIdPairs[id++] = file;
+                        SoundBoard.soundIdPairs[id++] = [file];
                         break;
 
                     default:
@@ -213,8 +250,9 @@ class SoundBoard {
             type: Number,
             default: 100
         })
-
+        SoundBoard.soundsLoaded = false;
         await SoundBoard.getSounds();
+        SoundBoard.soundsLoaded = true;
         
         Handlebars.registerHelper(SoundBoard.handlebarsHelpers);
 

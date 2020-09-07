@@ -1,18 +1,37 @@
+<script>
+    $(document).ready(function(){
+      $("#sound-search").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#soundboard-filterable button").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+        $("#soundboard-filterable h2").filter(function() {
+            console.log("Test");
+          $(this).toggle($(this).next().find(":visible").length > 0)
+        });
+      });
+    });
+    </script>
 <div class="soundboard-container">
     <div id="volume-container" class="row no-gutters">
         <p id="volume-text" class="col text-right">{{localize 'SOUNDBOARD.app.volume'}}</p>
         <input type="range" min="1" max="100" value="{{volume}}" class="slider col" id="volumeRange" onchange="SoundBoard.updateVolume(this.value)"> 
       </div>
     <p class="text-muted notes">{{localize 'SOUNDBOARD.app.instructions'}}</p>
+    <h3><small class="text-muted">Sounds: {{totalCount}}</small></h3>
+    <input id="sound-search" type="text" placeholder="{{localize 'SOUNDBOARD.app.filterText'}}">
     <!-- <button onclick="SoundBoard.stopAllSounds()">{{localize 'SOUNDBOARD.button.stopAll'}}</button>
     <hr/> -->
-    <div class="soundboard-sounds">
-        <h3><small class="text-muted">Sounds: {{totalCount}}</small></h3>
+    <div id="soundboard-filterable" class="soundboard-sounds">
         {{#each sounds}}
         <h2 data-toggle="collapse" data-target="#{{soundboard-safeid categoryName}}" aria-expanded="true" aria-controls="{{soundboard-safeid categoryName}}">{{categoryName}} <small class="text-muted">({{length}})</small></h2>
             <div class="collapse show row" id="{{soundboard-safeid categoryName}}">
                 {{#each files}}
-            <button class="btn btn-outline-dark col" onclick="SoundBoard.playSound({{id}})" oncontextmenu="SoundBoard.previewSound({{id}})">{{name}}</button>
+                {{#if isWild}}
+                <button class="btn btn-outline-info col" onclick="SoundBoard.playSound({{id}})" oncontextmenu="SoundBoard.previewSound({{id}})">{{name}} <span class="badge badge-light">{{soundboard-getarraycount src}}</span></button>
+                {{else}}
+                <button class="btn btn-outline-dark col" onclick="SoundBoard.playSound({{id}})" oncontextmenu="SoundBoard.previewSound({{id}})">{{name}}</button>
+                {{/if}}
                 {{/each}}
 
             </div>

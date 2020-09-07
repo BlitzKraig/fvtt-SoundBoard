@@ -2,7 +2,7 @@
   "name": "SoundBoard",
   "title": "SoundBoard by Blitz",
   "description": "Simple soundboard for the Gamemaster, broadcasted to all connected clients",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "author": "Blitzkraig",
   "scripts": ["./soundboard.js", "./dependencies/bootstrap.min.js"],
   "styles": ["./css/soundboard.css", "./css/soundboard-bootstrap.min.css"],
@@ -14,7 +14,7 @@
 		}
 	],
   "minimumCoreVersion": "0.6.2",
-  "compatibleCoreVersion": "0.7.0",
+  "compatibleCoreVersion": "0.7.1",
   "url": "https://github.com/BlitzKraig/fvtt-SoundBoard",
   "manifest": "https://raw.githubusercontent.com/BlitzKraig/fvtt-SoundBoard/master/module.json",
   "download": "https://github.com/BlitzKraig/fvtt-SoundBoard/releases/download/latest/soundboard-release.zip"

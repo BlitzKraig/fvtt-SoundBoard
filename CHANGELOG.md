@@ -1,3 +1,9 @@
+# 0.2.0 - 2020/09/07
+
+* Added live filtering to soundboard
+* Added 'wildcard' directories
+    * Removed 'uncategorized' sounds. Sounds in the root dir will no longer appear in your soundboard
+
 # 0.1.1 - 2020/09/07
 
 * Added support for folders with spaces
