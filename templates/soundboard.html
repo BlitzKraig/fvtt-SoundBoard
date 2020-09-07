@@ -1,15 +1,17 @@
 <div class="soundboard-container">
-    <p class="notes">{{localize 'SOUNDBOARD.app.instructions'}}</p>
-    <hr/>
+    <div id="volume-container" class="row no-gutters">
+        <p id="volume-text" class="col text-right">{{localize 'SOUNDBOARD.app.volume'}}</p>
+        <input type="range" min="1" max="100" value="{{volume}}" class="slider col" id="volumeRange" onchange="SoundBoard.updateVolume(this.value)"> 
+      </div>
+    <p class="text-muted notes">{{localize 'SOUNDBOARD.app.instructions'}}</p>
     <!-- <button onclick="SoundBoard.stopAllSounds()">{{localize 'SOUNDBOARD.button.stopAll'}}</button>
     <hr/> -->
     <div class="soundboard-sounds">
         {{#each sounds}}
-            <div class="row">
-                <h2>{{categoryName}}</h2>
-
+        <h2 data-toggle="collapse" data-target="#{{categoryName}}" aria-expanded="true" aria-controls="{{categoryName}}">{{categoryName}} <small class="text-muted">({{length}})</small></h2>
+            <div class="collapse show row" id="{{categoryName}}">
                 {{#each files}}
-                    <button onclick="SoundBoard.playSound({{id}})">{{name}}</button>
+            <button class="btn btn-outline-dark col" onclick="SoundBoard.playSound({{id}})" oncontextmenu="SoundBoard.previewSound({{id}})">{{name}}</button>
                 {{/each}}
 
             </div>

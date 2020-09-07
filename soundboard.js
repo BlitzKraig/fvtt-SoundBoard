@@ -4,7 +4,7 @@ class SoundBoardApplication extends Application {
         options.title = game.i18n.localize("SOUNDBOARD.app.title");
         options.id = "soundboard-app";
         options.template = "modules/SoundBoard/templates/soundboard.html";
-        options.width = 600;
+        options.width = 700;
         options.resizable = true;
         return options;
         // TODO: Look into TabsV2 impl.
@@ -23,6 +23,7 @@ class SoundBoardApplication extends Application {
             if (SoundBoard.sounds[key].length > 0) {
                 sounds.push({
                     categoryName: this.formatName(key),
+                    length: SoundBoard.sounds[key].length,
                     files: SoundBoard.sounds[key].map(element => {
                         element.name = this.formatName(element.name);
                         return element;
@@ -30,12 +31,13 @@ class SoundBoardApplication extends Application {
                 });
             }
         });
-        var volume = SoundBoard.currentVolume;
+        var volume = game.settings.get("SoundBoard", "soundboardServerVolume");
         return {
             sounds,
             volume
         }
     }
+   
 }
 
 class SoundBoard {
@@ -45,8 +47,6 @@ class SoundBoard {
     }
     static soundIdPairs = [];
     static currentlyPlayingSounds = [];
-
-    static currentVolume = 80;
 
     static LOGTYPE = {
         LOG: 0,
@@ -75,6 +75,15 @@ class SoundBoard {
         new SoundBoardApplication().render(true);
     }
 
+    static updateVolume(volumePercentage) {
+        game.settings.set("SoundBoard", "soundboardServerVolume", volumePercentage)
+    }
+
+    static getVolume() {
+        let serverVolume = game.settings.get("SoundBoard", "soundboardServerVolume") / 100;
+        return serverVolume;
+    }
+
     static async playSound(soundId, volume = 0.8) {
         // SoundBoard.currentlyPlayingSounds.push(AudioHelper.play({
         //     src: SoundBoard.soundIdPairs[soundId],
@@ -84,10 +93,19 @@ class SoundBoard {
         // }, true));
         AudioHelper.play({
             src: SoundBoard.soundIdPairs[soundId],
-            volume: game.settings.get("SoundBoard", "soundboardVolume"),
+            volume: SoundBoard.getVolume(),
             autoplay: true,
             loop: false
         }, true)
+    }
+
+    static async previewSound(soundId, volume = 0.8) {
+        AudioHelper.play({
+            src: SoundBoard.soundIdPairs[soundId],
+            volume: SoundBoard.getVolume(),
+            autoplay: true,
+            loop: false
+        }, false)
     }
 
     static stopAllSounds() {
@@ -139,8 +157,6 @@ class SoundBoard {
                     case ".mp3":
                     case ".wav":
                     case "flac":
-                        // file is valid
-
                         SoundBoard.sounds[dirShortName].push({
                             name: file.split(/[\/]+/).pop(),
                             src: file,
@@ -168,17 +184,24 @@ class SoundBoard {
                 SoundBoard.getSounds();
             }
         });
-        game.settings.register("SoundBoard", "soundboardVolume", {
-            name: "SOUNDBOARD.settings.name.volume",
-            scope: "client",
-            config: true,
+        // game.settings.register("SoundBoard", "soundboardVolume", {
+        //     name: "SOUNDBOARD.settings.name.volume",
+        //     scope: "client",
+        //     config: true,
+        //     type: Number,
+        //     range: {
+        //         min: 0.1,
+        //         max: 1,
+        //         step: 0.05
+        //     },
+        //     default: 1
+        // })
+        game.settings.register("SoundBoard", "soundboardServerVolume", {
+            name: "Server Volume",
+            scope: "world",
+            config: false,
             type: Number,
-            range: {
-                min: 0.1,
-                max: 1,
-                step: 0.05
-            },
-            default: 0.8
+            default: 100
         })
 
         await SoundBoard.getSounds();
@@ -200,7 +223,13 @@ class SoundBoard {
             button: true
         })
     }
+
+    // static onApplicationRender(application, html, data) {
+    //     let element = html.find(".window-header .window-title")
+	// 	PopoutModule.addPopout(element, application, `ui.windows[${application.appId}]`, "renderSidebar");
+    // }
 }
 
 Hooks.on("init", SoundBoard.onInit);
-Hooks.on('getSceneControlButtons', SoundBoard.addSoundBoard);
+Hooks.on("getSceneControlButtons", SoundBoard.addSoundBoard);
+// Hooks.on("renderSoundBoardApplication", SoundBoard.onApplicationRender);

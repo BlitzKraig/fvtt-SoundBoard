@@ -20,7 +20,7 @@ Place your sounds in these folders. WAV, MP3 & OGG are supported.
 
 Sounds in the parent directory will show up under Uncategorized.
 
-Sound effect names are generated from the file name. CamelCase, underscores and hypens/dashes are all parse, split and recapitalized to generate the sound name.
+Sound effect names are generated from the file name. CamelCase, underscores and hypens/dashes are all parsed, split and recapitalized to generate the sound name.
 
 Open module settings and set the path pointing to your new soundboard directory
 
@@ -38,15 +38,23 @@ eg.
 
 Select the Ambient Sound Controls in Foundry, then the new Open Soundboard control
 
+Note that the Volume slider on SoundBoard is a broadcasted-volume. Players will hear a louder/quiter sound when this is changed. Players should use their "Interface" volume in the Playlists sidebar to tweak the volume of soundboard if it's too quiet or too loud for them individually.
+
 ## Known issues / future improvements
 
 Currently no way to stop the sounds immediately (they will stop once the sound has finished playing). I hope to add a stop all button in future
 
-Styling needs some improvement
-
-A better volume setting is needed
-
 File picker should be used in Module Settings to select the directory
+
+Ability to add "wild-card" sounds, where a button press will play a random sound from a selection
+
+Ability to play a random sound from a category
+
+Add option to keep module library and add your own, instead of one-or-the-other
+
+Add TabsV2
+
+Add option for non-gm users to use the soundboard
 
 ## Troubleshooting
 
