@@ -9,6 +9,8 @@
     "SOUNDBOARD.app.instructionsExtended": "Click 'Stop All' to end all currently playing sounds",
     "SOUNDBOARD.app.volume": "Volume",
     "SOUNDBOARD.app.filterText": "Search...",
+    "SOUNDBOARD.app.expandall":"Expand All",
+    "SOUNDBOARD.app.collapseall":"Collapse All",
     "SOUNDBOARD.button.stopAll": "Stop All",
     "SOUNDBOARD.notif.soundsNotLoaded": "Sounds are still loading, please try again shortly"
 }

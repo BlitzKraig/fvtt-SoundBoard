@@ -1,7 +1,7 @@
 class SoundBoardApplication extends Application {
     static get defaultOptions() {
         const options = super.defaultOptions;
-        options.title = game.i18n.localize("SOUNDBOARD.app.title");
+        options.title = `🔊${game.i18n.localize("SOUNDBOARD.app.title")}`;
         options.id = "soundboard-app";
         options.template = "modules/SoundBoard/templates/soundboard.html";
         options.width = 700;
@@ -273,6 +273,16 @@ class SoundBoard {
             button: true
         })
     }
+    static addSoundBoardSidebar(app, html) {
+        if(!game.user.isGM){
+            return;
+        }
+        if (app.options.id == "playlists") {
+            let button = $("<button class='open-soundboard'><i class='fas fa-border-all'></i> "+game.i18n.localize('SOUNDBOARD.button.openSoundboard')+"</button>");
+            button.click(SoundBoard.openSoundBoard);
+            html.find(".directory-footer").prepend(button);
+        }
+    }
 
     // static onApplicationRender(application, html, data) {
     //     let element = html.find(".window-header .window-title")
@@ -282,4 +292,5 @@ class SoundBoard {
 
 Hooks.on("init", SoundBoard.onInit);
 Hooks.on("getSceneControlButtons", SoundBoard.addSoundBoard);
+Hooks.on("renderSidebarTab", SoundBoard.addSoundBoardSidebar);
 // Hooks.on("renderSoundBoardApplication", SoundBoard.onApplicationRender);

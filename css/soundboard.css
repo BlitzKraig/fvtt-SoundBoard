@@ -1,8 +1,49 @@
 
+/* #soundboard-app {
+  opacity: 0.8;
+  animation-name: fade-out;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+#soundboard-app:hover {
+  animation-name: fade-in;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+} */
+
+/* @keyframes fade-out {
+  from {opacity: 1;}
+  to {opacity: 0.8;}
+}
+@keyframes fade-in {
+  from {opacity: 0.8;}
+  to {opacity: 1;}
+} */
+
+button.open-soundboard {
+  flex-shrink: 1 !important;
+  flex: unset !important;
+  margin: 3px !important;
+}
+
 #soundboard-app h2 {
   cursor: pointer;
   font-size: 1.5rem;
   padding-top: 10px;
+}
+
+#soundboard-app button {
+  margin: 1px;
+}
+
+#soundboard-app .short {
+  padding: 0;
+  margin: 0;
+  height: fit-content;
+}
+
+#soundboard-app .dark {
+  background: linear-gradient(180deg, rgba(68,68,68,1) 3%, rgba(80,80,80,1) 49%, rgba(68,68,68,1) 98%);
 }
 
 #soundboard-app .notes {
@@ -19,6 +60,10 @@
   padding: 5px 30px;
   z-index: 1;
   height: 30px;
+  border-radius: 0 0 5px 5px;
+}
+#soundboard-app #expand-collapse-container {
+  padding: 5px 16px;
 }
 
 #soundboard-app .window-content {
@@ -31,9 +76,11 @@
 }
 #soundboard-app .window-resizable-handle {
   z-index: 2;
+  border-radius: 4px 0 5px 0;
 }
 
 .soundboard-container {
   margin: 0px 20px 20px 20px;
   text-align: center;
 }
+

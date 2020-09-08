@@ -2,7 +2,7 @@
   "name": "SoundBoard",
   "title": "SoundBoard by Blitz",
   "description": "Simple soundboard for the Gamemaster, broadcasted to all connected clients",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "Blitzkraig",
   "scripts": ["./soundboard.js", "./dependencies/bootstrap.min.js"],
   "styles": ["./css/soundboard.css", "./css/soundboard-bootstrap.min.css"],

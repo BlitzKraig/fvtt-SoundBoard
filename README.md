@@ -49,10 +49,6 @@ Currently no way to stop the sounds immediately (they will stop once the sound h
 
 File picker should be used in Module Settings to select the directory
 
-Ability to add "wild-card" sounds, where a button press will play a random sound from a selection
-
-Ability to play a random sound from a category
-
 Add option to keep module library and add your own, instead of one-or-the-other
 
 Add TabsV2

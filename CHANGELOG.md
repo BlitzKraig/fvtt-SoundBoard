@@ -1,3 +1,12 @@
+# 0.2.1 - 2020/09/08
+
+* Bugfix - Filtering when a category is collapsed no longer breaks the UI
+* UI Tweaks
+* Added button to Playlists sidebar to open soundboard (tool button is also still there)
+* Improved filtering - Now matches against all words split by spaces (eg. 'thun str' will match 'thunder strike', 'cloth rip' will match 'ripping cloth 2' etc.)
+* Added 500ms timeout on filter search, should make larger soundboard a bit easier to filter
+* Added collapse/expand all buttons
+
 # 0.2.0 - 2020/09/07
 
 * Added live filtering to soundboard
