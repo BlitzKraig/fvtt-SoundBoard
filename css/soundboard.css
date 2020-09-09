@@ -34,6 +34,11 @@ button.open-soundboard {
 
 #soundboard-app button {
   margin: 1px;
+  white-space: initial; /* Counteract Plutioniums css*/
+}
+
+#soundboard-app .row {
+  width: initial; /* Counteract Plutioniums css*/
 }
 
 #soundboard-app .short {

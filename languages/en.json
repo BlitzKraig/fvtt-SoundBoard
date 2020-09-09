@@ -12,5 +12,6 @@
     "SOUNDBOARD.app.expandall":"Expand All",
     "SOUNDBOARD.app.collapseall":"Collapse All",
     "SOUNDBOARD.button.stopAll": "Stop All",
-    "SOUNDBOARD.notif.soundsNotLoaded": "Sounds are still loading, please try again shortly"
+    "SOUNDBOARD.notif.soundsNotLoaded": "Sounds are still loading, please try again shortly",
+    "SOUNDBOARD.notif.soundsError": "Error loading sounds. Check your path in module settings"
 }

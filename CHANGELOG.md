@@ -1,3 +1,9 @@
+# 0.2.2 - 2020/09/09
+
+* Added more css rules to stop clobbering from a popular module
+* Code refactor
+* Added error handling for incorrect dirs
+
 # 0.2.1 - 2020/09/08
 
 * Bugfix - Filtering when a category is collapsed no longer breaks the UI
