@@ -71,8 +71,8 @@
         <div class="btn btn-outline-info col">
           {{name}}
           <span class="badge badge-light">{{soundboard-getarraycount src}}</span>
-          <button class="sb-play-button" onclick="SoundBoard.playSound({{id}})"
-            oncontextmenu="SoundBoard.previewSound({{id}})"></button>
+          <button class="sb-play-button" onclick="SoundBoard.playSound('{{identifyingPath}}')"
+            oncontextmenu="SoundBoard.previewSound('{{identifyingPath}}')"></button>
           <button class="sb-more-button" onclick="SoundBoardApplication.toggleExtendedOptions(this, '{{identifyingPath}}', '{{../../tab.fav}}')">
             <i class="fas fa-ellipsis-v"></i>
           </button>
@@ -80,8 +80,8 @@
         {{else}}
         <div class="btn btn-outline-dark col">
           {{name}}
-          <button class="sb-play-button" onclick="SoundBoard.playSound({{id}})"
-            oncontextmenu="SoundBoard.previewSound({{id}})"></button>
+          <button class="sb-play-button" onclick="SoundBoard.playSound('{{identifyingPath}}')"
+            oncontextmenu="SoundBoard.previewSound('{{identifyingPath}}')"></button>
           <button class="sb-more-button" onclick="SoundBoardApplication.toggleExtendedOptions(this, '{{identifyingPath}}', '{{../../tab.fav}}')">
             <i class="fas fa-ellipsis-v"></i>
           </button>

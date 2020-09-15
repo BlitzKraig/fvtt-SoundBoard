@@ -3,8 +3,6 @@ class SoundBoard {
     static sounds = {}
     static favoriteSounds = {};
     static bundledSounds = {};
-    static soundIdCounter = 0;
-    static soundIdPairs = [];
     static currentlyPlayingSounds = [];
 
     static LOGTYPE = {
@@ -80,9 +78,10 @@ class SoundBoard {
         return serverVolume;
     }
 
-    static async playSound(soundId, push = true) {
+    static async playSound(identifyingPath, push = true) {
+        let sound = SoundBoard.getSoundFromIdentifyingPath(identifyingPath)
         let volume = SoundBoard.getVolume();
-        let src = SoundBoard.soundIdPairs[soundId][Math.floor(Math.random() * SoundBoard.soundIdPairs[soundId].length)]
+        let src = sound.src[Math.floor(Math.random() * sound.src.length)]
         let payload = {
             src,
             volume
@@ -96,8 +95,8 @@ class SoundBoard {
         }
     }
 
-    static async previewSound(soundId) {
-        SoundBoard.playSound(soundId, false);
+    static async previewSound(identifyingPath) {
+        SoundBoard.playSound(identifyingPath, false);
     }
 
     static getSoundFromIdentifyingPath(identifyingPath) {
@@ -131,10 +130,6 @@ class SoundBoard {
         game.settings.set("SoundBoard", "favoritedSounds", favoriteArray);
 
         SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isFavorite = true;
-        // Get sound by identifyingPath, set isFavorite to true
-        // In fav app, getData - only use isFavs
-        // On sound parse, check if identifyingPath is in favs. If so, set isFav
-
     }
 
     static unfavoriteSound(identifyingPath) {
@@ -148,9 +143,6 @@ class SoundBoard {
         game.settings.set("SoundBoard", "favoritedSounds", favoriteArray);
 
         SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isFavorite = false;
-        // SoundBoard.soundIdPairs[soundId] returns an array of filenames
-        // Find this array in favorites object, remove it
-        // Find this array in favorites setting, re-save without it
     }
 
     static startLoop(identifyingPath){
@@ -207,7 +199,6 @@ class SoundBoard {
                         isWild: true,
                         isFavorite: favoritesArray.includes(wildcardDir)
                     });
-                    SoundBoard.soundIdPairs[SoundBoard.soundIdCounter++] = wildcardFileArray;
 
                 };
                 for (const file of innerDirArray.files) {
@@ -224,7 +215,6 @@ class SoundBoard {
                                 isWild: false,
                                 isFavorite: favoritesArray.includes(file)
                             });
-                            SoundBoard.soundIdPairs[SoundBoard.soundIdCounter++] = [file];
                             break;
 
                         default:
@@ -244,7 +234,6 @@ class SoundBoard {
         SoundBoard.soundsLoaded = false;
         try {
             SoundBoard.sounds = {};
-            SoundBoard.soundIdPairs = [];
             var soundboardDirArray = await FilePicker.browse("data", game.settings.get("SoundBoard", "soundboardDirectory"));
             if (soundboardDirArray.target != game.settings.get("SoundBoard", "soundboardDirectory")) {
                 throw "Filepicker target did not match input. Parent directory may be correct. Soft failure.";
@@ -278,7 +267,6 @@ class SoundBoard {
                         isWild: true,
                         isFavorite: favoritesArray.includes(wildcardDir)
                     });
-                    SoundBoard.soundIdPairs[SoundBoard.soundIdCounter++] = wildcardFileArray;
 
                 };
                 for (const file of innerDirArray.files) {
@@ -295,7 +283,6 @@ class SoundBoard {
                                 isWild: false,
                                 isFavorite: favoritesArray.includes(file)
                             });
-                            SoundBoard.soundIdPairs[SoundBoard.soundIdCounter++] = [file];
                             break;
 
                         default:
