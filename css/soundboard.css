@@ -1,4 +1,3 @@
-
 /* #soundboard-app {
   opacity: 0.8;
   animation-name: fade-out;
@@ -20,6 +19,44 @@
   to {opacity: 1;}
 } */
 
+@keyframes expand-options {
+  0% {
+    visibility: visible;
+    left: -100%;
+  }
+
+  100% {
+    left: 0;
+  }
+}
+
+/* @keyframes shrink-options {
+  0% {
+    width: calc(100% - 15px);
+    visibility: visible;
+  }
+
+  99% {
+    visibility: visible;
+  }
+  100% {
+    width: 0px;
+    visibility: hidden;
+  }
+} */
+
+/* @keyframes expand-button {
+  from {min-width: 0%;}
+  to {min-width: 100%;}
+}
+
+#soundboard-app .fullwidth {
+  animation-name: expand-button;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+} */
+
+
 button.open-soundboard {
   flex-shrink: 1 !important;
   flex: unset !important;
@@ -32,13 +69,111 @@ button.open-soundboard {
   padding-top: 10px;
 }
 
-#soundboard-app button {
+#soundboard-app .btn {
   margin: 1px;
-  white-space: initial; /* Counteract Plutioniums css*/
+  white-space: initial;
+  /* Counteract Plutioniums css*/
 }
 
+#soundboard-app .sb-play-button {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: unset;
+  border: unset;
+}
+
+#soundboard-app .sb-play-button:hover {
+  box-shadow: unset;
+}
+
+#soundboard-app .sb-play-button:focus {
+  outline: unset;
+}
+
+#soundboard-app .sb-play-button:hover~.sb-more-button {
+  color: rgba(150, 150, 150, 1);
+}
+
+#soundboard-app .sb-more-button {
+  width: 15px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 30px;
+  line-height: 0px;
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0);
+}
+
+#soundboard-app .sb-more-button:hover {
+  box-shadow: none;
+  color: #dddddd;
+}
+
+#soundboard-app .sb-more-button:focus {
+  outline: none;
+}
+
+#soundboard-app .sb-extended-option-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 15px;
+  height: auto;
+  min-height: 100%;
+  overflow: hidden;
+}
+
+#soundboard-app .sb-extended-options {
+  background: rgba(100,100,120,0.8);
+  position: absolute;
+  left: -100%;
+  top: 0;
+  visibility: hidden;
+  border-radius: 2px;
+  width: 100% !important;
+}
+
+#soundboard-app .sb-extended-options.active {
+  height: auto;
+  min-height: 100%;
+  visibility: visible;
+  animation-name: expand-options;
+  animation-duration: 0.2s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+}
+
+#soundboard-app .sb-extended-info-button {
+  background: none;
+  border: none;
+}
+
+#soundboard-app .sb-extended-info-button:hover {
+  box-shadow: none;
+  background: rgba(200,200,200,0.5);
+}
+
+#soundboard-app .sb-extended-info-button:focus {
+  outline: none;
+}
+
+#soundboard-app .sb-fav-button{
+
+}
+#soundboard-app .sb-repeat-button{
+
+}
+#soundboard-app .sb-repeatdelay-button{
+
+}
 #soundboard-app .row {
-  width: initial; /* Counteract Plutioniums css*/
+  width: initial;
+  /* Counteract Plutioniums css*/
 }
 
 #soundboard-app .short {
@@ -48,12 +183,16 @@ button.open-soundboard {
 }
 
 #soundboard-app .dark {
-  background: linear-gradient(180deg, rgba(68,68,68,1) 3%, rgba(80,80,80,1) 49%, rgba(68,68,68,1) 98%);
+  background: linear-gradient(180deg, rgba(68, 68, 68, 1) 3%, rgba(80, 80, 80, 1) 49%, rgba(68, 68, 68, 1) 98%);
 }
 
 #soundboard-app .notes {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+#soundboard-app #stop-all {
+  line-height: 0px;
 }
 
 #soundboard-app #volume-container {
@@ -62,11 +201,12 @@ button.open-soundboard {
   width: 100%;
   left: 0;
   background: #444444;
-  padding: 5px 30px;
+  padding: 5px 15px;
   z-index: 1;
   height: 30px;
   border-radius: 0 0 5px 5px;
 }
+
 #soundboard-app #expand-collapse-container {
   padding: 5px 16px;
 }
@@ -79,6 +219,11 @@ button.open-soundboard {
   margin: 0px 10px;
   color: white;
 }
+
+#soundboard-app i.fas.fa-star {
+  color: #bbaa00;
+}
+
 #soundboard-app .window-resizable-handle {
   z-index: 2;
   border-radius: 4px 0 5px 0;
@@ -88,4 +233,3 @@ button.open-soundboard {
   margin: 0px 20px 20px 20px;
   text-align: center;
 }
-

@@ -2,9 +2,9 @@
   "name": "SoundBoard",
   "title": "SoundBoard by Blitz",
   "description": "Simple soundboard for the Gamemaster, broadcasted to all connected clients",
-  "version": "0.2.2",
+  "version": "1.0.0",
   "author": "Blitzkraig",
-  "scripts": ["./soundboard.js", "./soundboardapp.js", "./dependencies/bootstrap.min.js"],
+  "scripts": ["./soundboard.js", "./soundboardapp.js", "./soundboardfavapp.js", "./soundboardbundledapp.js", "./soundboardsockethelper.js", "./soundboardaudiohelper.js", "./dependencies/bootstrap.min.js"],
   "styles": ["./css/soundboard.css", "./css/soundboard-bootstrap.min.css"],
   "packs": [],
   "languages": [
@@ -12,7 +12,8 @@
 			"lang": "en",
 			"path": "languages/en.json"
 		}
-	],
+  ],
+  "socket": true,
   "minimumCoreVersion": "0.6.2",
   "compatibleCoreVersion": "0.7.1",
   "url": "https://github.com/BlitzKraig/fvtt-SoundBoard",

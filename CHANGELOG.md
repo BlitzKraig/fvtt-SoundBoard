@@ -1,3 +1,21 @@
+# 1.0.0 - 2020/09/15
+
+* Removed initial processing for non-gm users (faster player ready-time)
+* Improved sound parsing speed
+* Added option to use both bundled and custom sounds
+* Added Favorites board
+* Added Bundled board
+* Added Bundled sounds (Initial version, not many sounds yet)
+* Auto-collapse soundboard categories when using more than 2000 sounds
+* Added more options per-sound
+    * Favoriting sounds
+    * Looping sounds
+    * Looping sounds with a delay
+* Added socket-based player for custom audio handling
+    * Added stop all sounds button, without killing playlist audio
+    * Linked client volume to "Interface" volume, renamed to "SoundBoard" or localized string
+    * Support for new sound options
+
 # 0.2.2 - 2020/09/09
 
 * Added more css rules to stop clobbering from a popular module

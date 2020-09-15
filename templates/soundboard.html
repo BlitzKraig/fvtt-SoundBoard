@@ -15,7 +15,7 @@
       filterTimeout = setTimeout(() => {
         var value = $(this).val().toLowerCase();
         $("#soundboard-filterable div").addClass("show")
-        $("#soundboard-filterable button").filter(function () {
+        $("#soundboard-filterable .btn").filter(function () {
           let searchArray = value.split(' ');
           let buttonText = $(this).text().toLowerCase();
           $(this).toggle(searchArray.every(v => buttonText.indexOf(v) > -1))
@@ -29,17 +29,30 @@
   });
 </script>
 <div class="soundboard-container">
+  <div id="faketabs-container" class="row">
+    <button id="btn-my-sb" class="btn btn-{{#unless tab.main}}outline-{{/unless}}secondary col short text-truncate"
+      onclick="SoundBoard.openSoundBoard()">{{localize 'SOUNDBOARD.app.nav.mySounds'}}</button>
+    <button id="btn-fav-sb" class="btn btn-{{#unless tab.fav}}outline-{{/unless}}secondary col short text-truncate"
+      onclick="SoundBoard.openSoundBoardFav()">{{localize 'SOUNDBOARD.app.nav.favorites'}}</button>
+    <button id="btn-bundle-sb" class="btn btn-{{#unless tab.bundled}}outline-{{/unless}}secondary col short text-truncate" 
+      onclick="SoundBoard.openSoundBoardBundled()">{{localize 'SOUNDBOARD.app.nav.bundled'}}</button>
+  </div>
   <div id="volume-container" class="row no-gutters">
+    <button id="stop-all" class="btn btn-outline-danger col"
+      onclick="SoundBoard.stopAllSounds()">{{localize 'SOUNDBOARD.app.stopAll'}}</button>
     <p id="volume-text" class="col text-right">{{localize 'SOUNDBOARD.app.volume'}}</p>
     <input type="range" min="1" max="100" value="{{volume}}" class="slider col" id="volumeRange"
       onchange="SoundBoard.updateVolume(this.value)">
   </div>
   <p class="text-muted notes">{{localize 'SOUNDBOARD.app.instructions'}}</p>
   <h3><small class="text-muted">Sounds: {{totalCount}}</small></h3>
+  
   <input id="sound-search" type="text" placeholder="{{localize 'SOUNDBOARD.app.filterText'}}">
   <div id="expand-collapse-container" class="row">
-    <button id="collapse-all" class="btn btn-outline-secondary col short text-truncate">{{localize 'SOUNDBOARD.app.collapseall'}}</button>
-    <button id="expand-all" class="btn btn-outline-secondary col short text-truncate">{{localize 'SOUNDBOARD.app.expandall'}}</button>
+    <button id="collapse-all"
+      class="btn btn-outline-secondary col short text-truncate">{{localize 'SOUNDBOARD.app.collapseAll'}}</button>
+    <button id="expand-all"
+      class="btn btn-outline-secondary col short text-truncate">{{localize 'SOUNDBOARD.app.expandAll'}}</button>
   </div>
   <!-- <button onclick="SoundBoard.stopAllSounds()">{{localize 'SOUNDBOARD.button.stopAll'}}</button>
     <hr/> -->
@@ -48,19 +61,34 @@
     <h2 data-toggle="collapse" data-target="#{{soundboard-safeid categoryName}}" aria-expanded="true"
       aria-controls="{{soundboard-safeid categoryName}}">{{categoryName}} <small class="text-muted">({{length}})</small>
     </h2>
-    <div class="collapse show row" id="{{soundboard-safeid categoryName}}">
-      {{#each files}}
-      {{#if isWild}}
-      <button class="btn btn-outline-info col" onclick="SoundBoard.playSound({{id}})"
-        oncontextmenu="SoundBoard.previewSound({{id}})">{{name}} <span
-          class="badge badge-light">{{soundboard-getarraycount src}}</span></button>
+    {{#if ../collapse}}
+    <div class="collapse row" id="{{soundboard-safeid categoryName}}">
       {{else}}
-      <button class="btn btn-outline-dark col" onclick="SoundBoard.playSound({{id}})"
-        oncontextmenu="SoundBoard.previewSound({{id}})">{{name}}</button>
-      {{/if}}
+      <div class="collapse show row" id="{{soundboard-safeid categoryName}}">
+        {{/if}}
+        {{#each files}}
+        {{#if isWild}}
+        <div class="btn btn-outline-info col">
+          {{name}}
+          <span class="badge badge-light">{{soundboard-getarraycount src}}</span>
+          <button class="sb-play-button" onclick="SoundBoard.playSound({{id}})"
+            oncontextmenu="SoundBoard.previewSound({{id}})"></button>
+          <button class="sb-more-button" onclick="SoundBoardApplication.toggleExtendedOptions(this, '{{identifyingPath}}', '{{../../tab.fav}}')">
+            <i class="fas fa-ellipsis-v"></i>
+          </button>
+        </div>
+        {{else}}
+        <div class="btn btn-outline-dark col">
+          {{name}}
+          <button class="sb-play-button" onclick="SoundBoard.playSound({{id}})"
+            oncontextmenu="SoundBoard.previewSound({{id}})"></button>
+          <button class="sb-more-button" onclick="SoundBoardApplication.toggleExtendedOptions(this, '{{identifyingPath}}', '{{../../tab.fav}}')">
+            <i class="fas fa-ellipsis-v"></i>
+          </button>
+        </div>
+        {{/if}}
+        {{/each}}
+      </div>
       {{/each}}
-
     </div>
-    {{/each}}
   </div>
-</div>
