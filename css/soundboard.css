@@ -19,6 +19,17 @@
   to {opacity: 1;}
 } */
 
+@-webkit-keyframes expand-options {
+  0% {
+    visibility: visible;
+    left: -100%;
+  }
+
+  100% {
+    left: 0;
+  }
+}
+
 @keyframes expand-options {
   0% {
     visibility: visible;
@@ -27,6 +38,34 @@
 
   100% {
     left: 0;
+  }
+}
+
+@-webkit-keyframes looping-border {
+
+  from,
+  to {
+    border-color: #084b346c;
+    background-color: #23da50;
+  }
+
+  50% {
+    border-color: #23da50;
+    background-color: #084b346c;
+  }
+}
+
+@keyframes looping-border {
+
+  from,
+  to {
+    border-color: #084b346c;
+    background-color: #23da50;
+  }
+
+  50% {
+    border-color: #23da50;
+    background-color: #084b346c;
   }
 }
 
@@ -73,6 +112,11 @@ button.open-soundboard {
   margin: 1px;
   white-space: initial;
   /* Counteract Plutioniums css*/
+}
+
+#soundboard-app .btn.loop-active {
+  -webkit-animation: looping-border 1s linear infinite;
+  animation: looping-border 1s linear infinite;
 }
 
 #soundboard-app .sb-play-button {
@@ -129,7 +173,7 @@ button.open-soundboard {
 }
 
 #soundboard-app .sb-extended-options {
-  background: rgba(100,100,120,0.8);
+  background: rgba(100, 100, 120, 0.8);
   position: absolute;
   left: -100%;
   top: 0;
@@ -155,22 +199,19 @@ button.open-soundboard {
 
 #soundboard-app .sb-extended-info-button:hover {
   box-shadow: none;
-  background: rgba(200,200,200,0.5);
+  background: rgba(200, 200, 200, 0.5);
 }
 
 #soundboard-app .sb-extended-info-button:focus {
   outline: none;
 }
 
-#soundboard-app .sb-fav-button{
+#soundboard-app .sb-fav-button {}
 
-}
-#soundboard-app .sb-repeat-button{
+#soundboard-app .sb-repeat-button {}
 
-}
-#soundboard-app .sb-repeatdelay-button{
+#soundboard-app .sb-repeatdelay-button {}
 
-}
 #soundboard-app .row {
   width: initial;
   /* Counteract Plutioniums css*/
@@ -201,7 +242,7 @@ button.open-soundboard {
   width: 100%;
   left: 0;
   background: #444444;
-  padding: 5px 15px;
+  padding: 5px 25px 5px 15px;
   z-index: 1;
   height: 30px;
   border-radius: 0 0 5px 5px;
@@ -222,6 +263,10 @@ button.open-soundboard {
 
 #soundboard-app i.fas.fa-star {
   color: #bbaa00;
+}
+
+#soundboard-app .sb-extended-info-button .loop-active {
+  color: #42e600;
 }
 
 #soundboard-app .window-resizable-handle {

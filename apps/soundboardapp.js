@@ -23,20 +23,12 @@ class SoundBoardApplication extends Application {
         if($(element).parent().find('.sb-extended-option-container').length > 0) {
             $(element).parent().find('.sb-extended-option-container').fadeOut(300, function() { $(this).remove(); });
         } else {
-            // Get isFavorite from identifyingPath, set favorite icon and behaviour based on this
-            // let data = `<div class="sb-extended-option-container">
-            // <div class="sb-extended-options row no-gutters active">
-            // <button class="sb-fav-button sb-extended-info-button col" onclick="SoundBoard.favoriteSound('${identifyingPath}')"><i class="far fa-star"></i></button>
-            // <button class="sb-repeat-button sb-extended-info-button col"><i class="fas fa-sync-alt"></i></button>
-            // <button class="sb-repeatdelay-button sb-extended-info-button col"><i class="fas fa-history"></i></button>
-            // </div>
-            // </div>`
-            // $(element).parent().append(data);
             let isFavorite = SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isFavorite;
-            let isLooping = SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isLooping;
+            let isLooping = SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isLoop;
             $.get("modules/SoundBoard/templates/extendedoptions.html", function(data){
                 data = data.replace(/\$identifyingPath/g, identifyingPath);
                 data = data.replace('$star', isFavorite?'fas fa-star':'far fa-star');
+                data = data.replace('$loopClass', isLooping?'loop-active':'')
                 data = data.replace('$favoriteFn', isFavorite?'unfavoriteSound':'favoriteSound');
                 data = data.replace('$loopFn', isLooping?'stopLoop':'startLoop');
                 if(favTab){

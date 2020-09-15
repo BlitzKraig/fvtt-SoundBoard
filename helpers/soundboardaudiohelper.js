@@ -6,12 +6,18 @@ class SBAudioHelper {
 
     }
 
-    play({src, volume}) {
+    play({src, volume}, sound) {
         volume *= game.settings.get("core", "globalInterfaceVolume");
         let sbhowl = new Howl({src, volume, onend: (id)=>{
             this.removeActiveSound(id)
+            if(sound?.isLoop){
+                SoundBoard.playSound(sound.identifyingPath, true);
+            }
         },
         onstop: (id)=>{
+            if(sound?.isLoop){
+                sound.isLoop = false;
+            }
             this.removeActiveSound(id)
         }});
         sbhowl.play();

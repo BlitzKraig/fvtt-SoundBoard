@@ -78,6 +78,15 @@ class SoundBoard {
         return serverVolume;
     }
 
+    static async playSoundOrStopLoop(identifyingPath) {
+        let sound = SoundBoard.getSoundFromIdentifyingPath(identifyingPath);
+        if(sound.isLoop){
+            SoundBoard.stopLoop(identifyingPath);
+        } else {
+            SoundBoard.playSound(identifyingPath);
+        }
+    }
+
     static async playSound(identifyingPath, push = true) {
         let sound = SoundBoard.getSoundFromIdentifyingPath(identifyingPath)
         let volume = SoundBoard.getVolume();
@@ -86,7 +95,7 @@ class SoundBoard {
             src,
             volume
         }
-        SoundBoard.audioHelper.play(payload);
+        SoundBoard.audioHelper.play(payload, sound);
         if (push) {
             SoundBoard.socketHelper.sendData({
                 type: SBSocketHelper.SOCKETMESSAGETYPE.PLAY,
@@ -147,10 +156,14 @@ class SoundBoard {
 
     static startLoop(identifyingPath){
         SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isLoop = true;
+        SoundBoard.playSound(identifyingPath);
+
+        $('#soundboard-app .btn').filter(`[uuid=${$.escapeSelector(identifyingPath)}]`).addClass('loop-active');
     }
     
     static stopLoop(identifyingPath){
         SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isLoop = false;
+        $('#soundboard-app .btn').filter(`[uuid=${$.escapeSelector(identifyingPath)}]`).removeClass('loop-active');
     }
 
     static stopAllSounds() {
@@ -158,6 +171,7 @@ class SoundBoard {
         SoundBoard.socketHelper.sendData({
             type: SBSocketHelper.SOCKETMESSAGETYPE.STOPALL
         });
+        $('#soundboard-app .btn').removeClass('loop-active');
 
     }
 
