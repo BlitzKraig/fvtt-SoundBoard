@@ -35,10 +35,10 @@ class SoundBoardApplication extends Application {
             let isFavorite = SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isFavorite;
             let isLooping = SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isLooping;
             $.get("modules/SoundBoard/templates/extendedoptions.html", function(data){
-                data = data.replaceAll('$identifyingPath', identifyingPath);
+                data = data.replace(/\$identifyingPath/g, identifyingPath);
                 data = data.replace('$star', isFavorite?'fas fa-star':'far fa-star');
                 data = data.replace('$favoriteFn', isFavorite?'unfavoriteSound':'favoriteSound');
-                // data = data.replace('$loopFn', isLooping?'stopLoop':'startLoop');
+                data = data.replace('$loopFn', isLooping?'stopLoop':'startLoop');
                 if(favTab){
                     data = data.replace('$removeFavFn', '$(this).parent().parent().parent().remove();');
                 } else {

@@ -153,6 +153,14 @@ class SoundBoard {
         // Find this array in favorites setting, re-save without it
     }
 
+    static startLoop(identifyingPath){
+        SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isLoop = true;
+    }
+    
+    static stopLoop(identifyingPath){
+        SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isLoop = false;
+    }
+
     static stopAllSounds() {
         SoundBoard.audioHelper.stopAll();
         SoundBoard.socketHelper.sendData({
