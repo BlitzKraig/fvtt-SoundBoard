@@ -1,4 +1,15 @@
-# 1.0.0 - 2020/09/15
+# 1.0.0 - 2020/09/16
+
+## The Headlines
+
+* Looping audio (supports wildcard audio, choosing a random sound each loop)
+* Looping audio with a delay
+* Favoriting audio
+* Stop All Sounds button. Stop currently playing sounds for all connected players without killing Playlist & other audio
+* New Bundled board
+* New Favorites board
+
+--
 
 * Removed initial processing for non-gm users (faster player ready-time)
 * Improved sound parsing speed
@@ -7,6 +18,7 @@
 * Added Bundled board
 * Added Bundled sounds (Initial version, not many sounds yet)
 * Auto-collapse soundboard categories when using more than 2000 sounds
+* Added Stop button to stop all SoundBoard sounds for all connected players, without killing playlists & other sounds
 * Added more options per-sound
     * Favoriting sounds
     * Looping sounds
@@ -15,6 +27,7 @@
     * Added stop all sounds button, without killing playlist audio
     * Linked client volume to "Interface" volume, renamed to "SoundBoard" or localized string
     * Support for new sound options
+* Further tweaks and twiddles 🔧
 
 # 0.2.2 - 2020/09/09
 

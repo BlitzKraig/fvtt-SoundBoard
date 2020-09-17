@@ -129,6 +129,19 @@ class SoundBoard {
         return sound;
     }
 
+    static updateAllSounds(property, value) {
+        Object.keys(SoundBoard.sounds).forEach((key) => {
+            SoundBoard.sounds[key].forEach((o, i, a) => {
+                a[i][property] = value;
+            })
+        });
+        Object.keys(SoundBoard.bundledSounds).forEach((key) => {
+            SoundBoard.bundledSounds[key].forEach((o, i, a) => {
+                a[i][property] = value;
+            })
+        });
+    }
+
     static favoriteSound(identifyingPath) {
         let favoriteArray = game.settings.get("SoundBoard", "favoritedSounds");
         if(favoriteArray.includes(identifyingPath)){
@@ -139,6 +152,7 @@ class SoundBoard {
         game.settings.set("SoundBoard", "favoritedSounds", favoriteArray);
 
         SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isFavorite = true;
+        $('#soundboard-app .btn').filter(`[uuid=${$.escapeSelector(identifyingPath)}]`).addClass('favorited');
     }
 
     static unfavoriteSound(identifyingPath) {
@@ -152,10 +166,16 @@ class SoundBoard {
         game.settings.set("SoundBoard", "favoritedSounds", favoriteArray);
 
         SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isFavorite = false;
+        
+        $('#soundboard-app .btn').filter(`[uuid=${$.escapeSelector(identifyingPath)}]`).removeClass('favorited');
     }
 
     static startLoop(identifyingPath){
-        SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isLoop = true;
+        let sound = SoundBoard.getSoundFromIdentifyingPath(identifyingPath)
+        if (sound.isLoop){
+            return;
+        }
+        sound.isLoop = true;
         SoundBoard.playSound(identifyingPath);
 
         $('#soundboard-app .btn').filter(`[uuid=${$.escapeSelector(identifyingPath)}]`).addClass('loop-active');
@@ -166,11 +186,29 @@ class SoundBoard {
         $('#soundboard-app .btn').filter(`[uuid=${$.escapeSelector(identifyingPath)}]`).removeClass('loop-active');
     }
 
+    static setLoopDelay(identifyingPath, delayInSeconds, button) {
+        if(delayInSeconds < 0){
+            delayInSeconds = 0;
+        } else if (delayInSeconds > 600){
+            delayInSeconds = 600;
+        }
+        SoundBoard.getSoundFromIdentifyingPath(identifyingPath).loopDelay = delayInSeconds;
+        if(!SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isLoop){
+            SoundBoard.startLoop(identifyingPath);
+        }
+        $(button).siblings('.dropdown-item').removeClass('active');
+        $(button).siblings().children('.dropdown-item').removeClass('active');
+        $(button).parent().siblings('.dropdown-item').removeClass('active');
+        $(button).addClass('active');
+    }
+
     static stopAllSounds() {
         SoundBoard.audioHelper.stopAll();
         SoundBoard.socketHelper.sendData({
             type: SBSocketHelper.SOCKETMESSAGETYPE.STOPALL
         });
+        SoundBoard.audioHelper.delayIntervals.clearAll();
+        SoundBoard.updateAllSounds('isLoop', false);
         $('#soundboard-app .btn').removeClass('loop-active');
 
     }
@@ -329,18 +367,6 @@ class SoundBoard {
             }
         });
 
-        game.settings.register("SoundBoard", "includeBundledAudio", {
-            name: "SOUNDBOARD.settings.name.bundled",
-            hint: "SOUNDBOARD.settings.hint.bundled",
-            scope: "world",
-            type: Boolean,
-            config: true,
-            default: true,
-            onChange: value => {
-                SoundBoard.getSounds();
-            }
-        });
-
         game.settings.register("SoundBoard", "soundboardServerVolume", {
             name: "Server Volume",
             scope: "world",
@@ -391,6 +417,14 @@ class SoundBoard {
             icon: "fas fa-box-open",
             visible: game.user.isGM,
             onClick: SoundBoard.openSoundBoardBundled,
+            button: true
+        });
+        soundControls.tools.push({
+            name: "soundboardstop",
+            title: "SOUNDBOARD.button.stopAllTool",
+            icon: "far fa-stop-circle",
+            visible: game.user.isGM,
+            onClick: SoundBoard.stopAllSounds,
             button: true
         });
     }

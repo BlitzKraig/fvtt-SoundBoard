@@ -12,7 +12,7 @@ An easy to use soundboard for the GM.
 
 ## Configuration
 
-See the `audio/` directory in the module, and the default setup for an example.
+See the `exampleAudio/` directory in the module, and the default setup for an example.
 
 Create a directory for your sounds, with a single subdirectory for each sound category.
 
@@ -45,15 +45,13 @@ Note that the Volume slider on SoundBoard is a broadcasted-volume. Players will 
 
 ## Known issues / future improvements
 
-Currently no way to stop the sounds immediately (they will stop once the sound has finished playing). I hope to add a stop all button in future
-
 File picker should be used in Module Settings to select the directory
 
-Add option to keep module library and add your own, instead of one-or-the-other
-
-Add TabsV2
-
 Add option for non-gm users to use the soundboard
+
+Option for per-sound volume levels
+
+Option to save a "soundscape". All currently looping & delayed looping sounds linked to 1 button
 
 ## Troubleshooting
 
@@ -79,5 +77,5 @@ All sounds have been modified from their originals.
 
 -
 
-Other sound effects CC0 from https://freesound.org
+'Bundled' SoundBoard sounds all royalty free, from the GDC Audio Bundles on sonniss.com
 

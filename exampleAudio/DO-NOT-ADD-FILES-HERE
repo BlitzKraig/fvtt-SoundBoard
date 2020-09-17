@@ -1,0 +1,5 @@
+Do not add your custom audio here. This folder is to demonstrate the custom board functionality, it will be lost whenever SoundBoard updates.
+
+Instead, add your files to another folder in your data directory, then point SoundBoard at that directory in Module Settings.
+
+Ta! 😃

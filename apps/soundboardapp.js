@@ -14,23 +14,36 @@ class SoundBoardApplication extends Application {
 
     static toggleExtendedOptions(element, identifyingPath, favTab) {
         if(!identifyingPath){
-            // Nasty... There must be a better way to do this
+            // Nasty... Fix this soon
             if($(element).parent().parent().parent().find('.sb-extended-option-container').length > 0) {
                 $(element).parent().parent().parent().find('.sb-extended-option-container').fadeOut(300, function() { $(this).remove(); });
+                return;
+            }
+            if($(element).parent().parent().parent().parent().find('.sb-extended-option-container').length > 0) {
+                $(element).parent().parent().parent().parent().find('.sb-extended-option-container').fadeOut(300, function() { $(this).remove(); });
+                return;
+            }
+            if($(element).parent().parent().parent().parent().parent().find('.sb-extended-option-container').length > 0) {
+                $(element).parent().parent().parent().parent().parent().find('.sb-extended-option-container').fadeOut(300, function() { $(this).remove(); });
+                return;
             }
             return;
         }
         if($(element).parent().find('.sb-extended-option-container').length > 0) {
             $(element).parent().find('.sb-extended-option-container').fadeOut(300, function() { $(this).remove(); });
         } else {
-            let isFavorite = SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isFavorite;
-            let isLooping = SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isLoop;
+            let sound = SoundBoard.getSoundFromIdentifyingPath(identifyingPath);
+            let isFavorite = sound.isFavorite;
+            let isLooping = sound.isLoop;
+            let delayValue = sound.loopDelay || 0;
             $.get("modules/SoundBoard/templates/extendedoptions.html", function(data){
                 data = data.replace(/\$identifyingPath/g, identifyingPath);
-                data = data.replace('$star', isFavorite?'fas fa-star':'far fa-star');
                 data = data.replace('$loopClass', isLooping?'loop-active':'')
-                data = data.replace('$favoriteFn', isFavorite?'unfavoriteSound':'favoriteSound');
                 data = data.replace('$loopFn', isLooping?'stopLoop':'startLoop');
+                data = data.replace('$star', isFavorite?'fas fa-star':'far fa-star');
+                data = data.replace('$favoriteFn', isFavorite?'unfavoriteSound':'favoriteSound');
+                data = data.replace(/\$delayValue/g, delayValue);
+                data = data.replace('$delayClass', delayValue==0?'hidden':'')
                 if(favTab){
                     data = data.replace('$removeFavFn', '$(this).parent().parent().parent().remove();');
                 } else {

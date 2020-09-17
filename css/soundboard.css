@@ -19,25 +19,42 @@
   to {opacity: 1;}
 } */
 
+:root {
+  --SoundBoard-loop-bg-from: #01701c;
+  --SoundBoard-loop-bg-to: #1b291e;
+  --SoundBoard-loop-animation-time: 1s;
+  --SoundBoard-loop-active-icon-color: #42e600;
+  --SoundBoard-loop-text-color: #fff;
+  --SoundBoard-favorite-color: #feeb20;
+  --SoundBoard-text-shadow: 0 0 2px #000;
+  --SoundBoard-more-button-active-color:#969696;
+  --SoundBoard-more-button-inactive-color:rgba(0, 0, 0, 0);
+  --SoundBoard-more-button-hover-color: #dddddd;
+  --SoundBoard-extended-options-bg: rgba(100, 100, 120, 0.94);
+  --SoundBoard-extended-options-icon-color: #fff;
+  --SoundBoard-btn-text-size: 1rem;
+  --SoundBoard-volume-text-color: #fff;
+}
+
 @-webkit-keyframes expand-options {
   0% {
     visibility: visible;
-    left: -100%;
+    opacity: 0;
   }
 
   100% {
-    left: 0;
+    opacity: 1;
   }
 }
 
 @keyframes expand-options {
   0% {
     visibility: visible;
-    left: -100%;
+    opacity: 0;
   }
 
   100% {
-    left: 0;
+    opacity: 1;
   }
 }
 
@@ -45,13 +62,12 @@
 
   from,
   to {
-    border-color: #084b346c;
-    background-color: #23da50;
+    background-color: var(--SoundBoard-loop-bg-from)
   }
 
   50% {
-    border-color: #23da50;
-    background-color: #084b346c;
+
+    background-color: var(--SoundBoard-loop-bg-to);
   }
 }
 
@@ -59,47 +75,25 @@
 
   from,
   to {
-    border-color: #084b346c;
-    background-color: #23da50;
+
+    background-color: var(--SoundBoard-loop-bg-from);
   }
 
   50% {
-    border-color: #23da50;
-    background-color: #084b346c;
+
+    background-color: var(--SoundBoard-loop-bg-to);
   }
 }
-
-/* @keyframes shrink-options {
-  0% {
-    width: calc(100% - 15px);
-    visibility: visible;
-  }
-
-  99% {
-    visibility: visible;
-  }
-  100% {
-    width: 0px;
-    visibility: hidden;
-  }
-} */
-
-/* @keyframes expand-button {
-  from {min-width: 0%;}
-  to {min-width: 100%;}
-}
-
-#soundboard-app .fullwidth {
-  animation-name: expand-button;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
-} */
-
 
 button.open-soundboard {
   flex-shrink: 1 !important;
   flex: unset !important;
   margin: 3px !important;
+}
+
+#soundboard-app {
+  width: 700px;
+  height: 700px;
 }
 
 #soundboard-app h2 {
@@ -111,12 +105,20 @@ button.open-soundboard {
 #soundboard-app .btn {
   margin: 1px;
   white-space: initial;
+  font-size: var(--SoundBoard-btn-text-size);
   /* Counteract Plutioniums css*/
 }
 
 #soundboard-app .btn.loop-active {
-  -webkit-animation: looping-border 1s linear infinite;
-  animation: looping-border 1s linear infinite;
+  -webkit-animation: looping-border var(--SoundBoard-loop-animation-time) linear infinite;
+  animation: looping-border var(--SoundBoard-loop-animation-time) linear infinite;
+  color: var(--SoundBoard-loop-text-color);
+  text-shadow: var(--SoundBoard-text-shadow)
+}
+
+#soundboard-app .btn.favorited {
+  border-color: var(--SoundBoard-favorite-color);
+  box-shadow: 0 0 2px #000;
 }
 
 #soundboard-app .sb-play-button {
@@ -137,7 +139,7 @@ button.open-soundboard {
 }
 
 #soundboard-app .sb-play-button:hover~.sb-more-button {
-  color: rgba(150, 150, 150, 1);
+  color: var(--SoundBoard-more-button-active-color);
 }
 
 #soundboard-app .sb-more-button {
@@ -150,12 +152,12 @@ button.open-soundboard {
   background: none;
   border: none;
   font-size: 14px;
-  color: rgba(0, 0, 0, 0);
+  color: var(--SoundBoard-more-button-inactive-color)
 }
 
 #soundboard-app .sb-more-button:hover {
   box-shadow: none;
-  color: #dddddd;
+  color: var(--SoundBoard-more-button-hover-color);
 }
 
 #soundboard-app .sb-more-button:focus {
@@ -169,13 +171,13 @@ button.open-soundboard {
   right: 15px;
   height: auto;
   min-height: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 #soundboard-app .sb-extended-options {
-  background: rgba(100, 100, 120, 0.8);
+  background: var(--SoundBoard-extended-options-bg);
   position: absolute;
-  left: -100%;
+  /* left: -100%; */
   top: 0;
   visibility: hidden;
   border-radius: 2px;
@@ -195,6 +197,12 @@ button.open-soundboard {
 #soundboard-app .sb-extended-info-button {
   background: none;
   border: none;
+  color: var(--SoundBoard-extended-options-icon-color);
+  text-shadow: var(--SoundBoard-text-shadow)
+}
+
+#soundboard-app .badge {
+  text-shadow: none;
 }
 
 #soundboard-app .sb-extended-info-button:hover {
@@ -206,14 +214,17 @@ button.open-soundboard {
   outline: none;
 }
 
-#soundboard-app .sb-fav-button {}
+#soundboard-app #custom-time-input {
+  margin-left: 20px;
+}
 
-#soundboard-app .sb-repeat-button {}
-
-#soundboard-app .sb-repeatdelay-button {}
+#soundboard-app .custom-time-button {
+  padding: 0;
+}
 
 #soundboard-app .row {
   width: initial;
+  z-index: 1;
   /* Counteract Plutioniums css*/
 }
 
@@ -244,7 +255,7 @@ button.open-soundboard {
   background: #444444;
   padding: 5px 25px 5px 15px;
   z-index: 1;
-  height: 30px;
+  height: 36px;
   border-radius: 0 0 5px 5px;
 }
 
@@ -258,15 +269,21 @@ button.open-soundboard {
 
 #soundboard-app #volume-text {
   margin: 0px 10px;
-  color: white;
+  color: var(--SoundBoard-volume-text-color);
+  align-self: center;
+  text-shadow: var(--SoundBoard-text-shadow)
 }
 
 #soundboard-app i.fas.fa-star {
-  color: #bbaa00;
+  color: var(--SoundBoard-favorite-color)
+}
+
+#soundboard-app .hidden {
+  display: none;
 }
 
 #soundboard-app .sb-extended-info-button .loop-active {
-  color: #42e600;
+  color: var(--SoundBoard-loop-active-icon-color)
 }
 
 #soundboard-app .window-resizable-handle {

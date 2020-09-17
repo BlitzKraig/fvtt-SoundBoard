@@ -38,7 +38,7 @@
       onclick="SoundBoard.openSoundBoardBundled()">{{localize 'SOUNDBOARD.app.nav.bundled'}}</button>
   </div>
   <div id="volume-container" class="row no-gutters">
-    <button id="stop-all" class="btn btn-outline-danger col"
+    <button id="stop-all" class="btn btn-danger col"
       onclick="SoundBoard.stopAllSounds()">{{localize 'SOUNDBOARD.app.stopAll'}}</button>
     <p id="volume-text" class="col text-right">{{localize 'SOUNDBOARD.app.volume'}}</p>
     <input type="range" min="1" max="100" value="{{volume}}" class="slider col" id="volumeRange"
@@ -68,7 +68,7 @@
         {{/if}}
         {{#each files}}
         {{#if isWild}}
-        <div class="btn btn-outline-info col{{#if isLoop}} loop-active{{/if}}" uuid="{{identifyingPath}}">
+        <div class="btn btn-outline-info col{{#if isLoop}} loop-active{{/if}}{{#if isFavorite}} favorited{{/if}}" uuid="{{identifyingPath}}">
           {{name}}
           <span class="badge badge-light">{{soundboard-getarraycount src}}</span>
           <button class="sb-play-button" onclick="SoundBoard.playSoundOrStopLoop('{{identifyingPath}}')"
@@ -78,7 +78,7 @@
           </button>
         </div>
         {{else}}
-        <div class="btn btn-outline-dark col{{#if isLoop}} loop-active{{/if}}" uuid="{{identifyingPath}}">
+        <div class="btn btn-outline-dark col{{#if isLoop}} loop-active{{/if}}{{#if isFavorite}} favorited{{/if}}" uuid="{{identifyingPath}}">
           {{name}}
           <button class="sb-play-button" onclick="SoundBoard.playSoundOrStopLoop('{{identifyingPath}}')"
             oncontextmenu="SoundBoard.previewSound('{{identifyingPath}}')"></button>

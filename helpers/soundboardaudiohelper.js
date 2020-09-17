@@ -6,12 +6,41 @@ class SBAudioHelper {
 
     }
 
+    delayIntervals = {
+        intervals : new Set(),
+        make(callback, time) {
+            var newInterval = setInterval(callback, time);
+            this.intervals.add(newInterval);
+            return newInterval;
+        },
+    
+        // clear a single interval
+        clear(id) {
+            this.intervals.delete(id);
+            return clearInterval(id);
+        },
+    
+        // clear all intervals
+        clearAll() {
+            for (var id of this.intervals) {
+                this.clear(id);
+            }
+        }
+    }
+
     play({src, volume}, sound) {
         volume *= game.settings.get("core", "globalInterfaceVolume");
         let sbhowl = new Howl({src, volume, onend: (id)=>{
             this.removeActiveSound(id)
             if(sound?.isLoop){
-                SoundBoard.playSound(sound.identifyingPath, true);
+                if(!sound?.loopDelay || sound?.loopDelay == 0){
+                    SoundBoard.playSound(sound.identifyingPath, true);
+                } else {
+                    let interval = this.delayIntervals.make(() => {
+                        SoundBoard.playSound(sound.identifyingPath, true);
+                        this.delayIntervals.clear(interval);
+                    }, sound.loopDelay * 1000);
+                }
             }
         },
         onstop: (id)=>{
