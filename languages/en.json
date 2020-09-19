@@ -1,26 +1,112 @@
 {
-    "SOUNDBOARD.button.openSoundboard": "Open SoundBoard",
-    "SOUNDBOARD.button.openSoundboardFav": "Open SoundBoard Favorites",
-    "SOUNDBOARD.button.openSoundboardBundled": "Open SoundBoard Bundled",
-    "SOUNDBOARD.button.stopAllTool": "Stop All SoundBoard Sounds",
-    "SOUNDBOARD.slider.interface": "SoundBoard",
-    "SOUNDBOARD.log.invalidSound": "is not a valid audio file, skipping",
-    "SOUNDBOARD.settings.name.directory": "Custom SoundBoard Directory",
-    "SOUNDBOARD.settings.hint.directory": "This should point to a folder containing subfolders, each containing audio files. See modules/SoundBoard/exampleAudio/ for an example",
-    "SOUNDBOARD.app.title": "My Sounds - SoundBoard by Blitz",
-    "SOUNDBOARD.app.favTitle": "Favorite Sounds - SoundBoard by Blitz",
-    "SOUNDBOARD.app.bundledTitle": "Bundled Sounds - SoundBoard by Blitz",
-    "SOUNDBOARD.app.instructions": "Left click a sound button to broadcast it to all players, right click to preview a sound for the GM only. Click the 3 dots to open options for Favoriting and Looping sounds. Click a looping sound to stop it after the current loop. Click Stop to stop all sounds immediately.",
-    "SOUNDBOARD.app.instructionsExtended": "Click 'Stop All' to end all currently playing sounds",
-    "SOUNDBOARD.app.volume": "Volume",
-    "SOUNDBOARD.app.filterText": "Search...",
-    "SOUNDBOARD.app.expandAll":"Expand All",
-    "SOUNDBOARD.app.collapseAll":"Collapse All",
-    "SOUNDBOARD.app.stopAll": "Stop",
-    "SOUNDBOARD.app.nav.mySounds": "My Sounds",
-    "SOUNDBOARD.app.nav.favorites": "Favorite Sounds",
-    "SOUNDBOARD.app.nav.bundled": "Bundled Sounds",
-    "SOUNDBOARD.button.stopAll": "Stop All",
-    "SOUNDBOARD.notif.soundsNotLoaded": "Sounds are still loading, please try again shortly",
-    "SOUNDBOARD.notif.soundsError": "Error loading sounds. Check your path in module settings"
+    "SOUNDBOARD": {
+        "button": {
+            "openSoundboard": "Open SoundBoard",
+            "openSoundboardFav": "Open SoundBoard Favorites",
+            "openSoundboardBundled": "Open SoundBoard Bundled",
+            "stopAllTool": "Stop All SoundBoard Sounds",
+            "stopAll": "Stop All"
+        },
+        "slider":{
+            "interface": "SoundBoard"
+        },
+        "log" :{
+            "invalidSound": "is not a valid audio file, skipping"
+        },
+        "settings": {
+            "directory": {
+                "name": "Custom SoundBoard Directory",
+                "hint": "This should point to a folder containing subfolders, each containing audio files. See modules/SoundBoard/exampleAudio/ for an example"
+            }
+
+        },
+
+        "app": {
+            "title": "My Sounds - SoundBoard by Blitz",
+            "favTitle": "Favorite Sounds - SoundBoard by Blitz",
+            "bundledTitle": "Bundled Sounds - SoundBoard by Blitz",
+            "instructions": "Left click a sound button to broadcast it to all players, right click to preview a sound for the GM only. Click the 3 dots to open options for Favoriting and Looping sounds. Click a looping sound to stop it after the current loop. Click Stop to stop all sounds immediately.",
+            "instructionsExtended": "Click 'Stop All' to end all currently playing sounds",
+            "volume": "Volume",
+            "filterText": "Search...",
+            "expandAll": "Expand All",
+            "collapseAll": "Collapse All",
+            "stopAll": "Stop",
+            "nav": {
+                "mySounds": "My Sounds",
+                "favorites": "Favorite Sounds",
+                "bundled": "Bundled Sounds"
+            }
+        },
+        "notif": {
+            "soundsNotLoaded": "Sounds are still loading, please try again shortly",
+            "soundsError": "Error loading sounds. Check your path in module settings"
+        },
+
+        "whetstone": {
+            "theme": {
+                "default": {
+                    "title": "SoundBoard Default",
+                    "description": "The default theme for SoundBoard, customisable through Whetstone"
+                }
+            },
+            "var": {
+                "loopbgfrom":{
+                    "title":"Active Loop Background Start Color"
+                },
+                "loopbgto":{
+                    "title":"Active Loop Background End Color",
+                    "hint":"Animates between Start and End colors"
+                },
+                "loopanimationtime":{
+                    "title":"Active Loop Animation Time",
+                    "hint":""
+                },
+                "loopactiveiconcolor":{
+                    "title":"Active Loop Icon Color",
+                    "hint":"Color for the looping icon in extended options"
+                },
+                "looptextcolor":{
+                    "title":"Active Loop Text Color",
+                    "hint": "Button text color for actively looping item"
+                },
+                "favoritecolor":{
+                    "title": "Favorites Color",
+                    "hint": "Changes the favorite star color, and button border color"
+                },
+                "textshadow":{
+                    "title": "General Text Shadow",
+                    "hint": ""
+                },
+                "morebuttonactive":{
+                    "title": "More Button Active",
+                    "hint": "Color of the three-dot More button when a sound button is moused over"
+                },
+                "morebuttoninactive":{
+                    "title": "More Button Inactive",
+                    "hint": "Color of the three-dot More button when a sound button is not moused over"
+                },
+                "morebuttonhover":{
+                    "title": "More Button Hover",
+                    "hint": "Color of the three-dot More button when the three-dot button is hovered over"
+                },
+                "extendedoptionsbg":{
+                    "title": "Extended Options Background",
+                    "hint": "Color of the layout seen when the three-dot More button is clicked"
+                },
+                "extendedoptionsicon":{
+                    "title": "Extended Options Icons",
+                    "hint": "Color of the favorite, loop and delay icons when they are not active"
+                },
+                "btntextsize":{
+                    "title": "Button Text Size"
+                },
+                "volumetextcolor":{
+                    "title": "Volume Text Color",
+                    "hint": "Color of the Volume label at the bottom of the SoundBoard"
+                }
+            }
+
+        }
+    }
 }

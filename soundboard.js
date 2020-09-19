@@ -354,8 +354,8 @@ class SoundBoard {
 
     static async onInit() {
         game.settings.register("SoundBoard", "soundboardDirectory", {
-            name: "SOUNDBOARD.settings.name.directory",
-            hint: "SOUNDBOARD.settings.hint.directory",
+            name: "SOUNDBOARD.settings.directory.name",
+            hint: "SOUNDBOARD.settings.directory.hint",
             scope: "world",
             config: true,
             default: "modules/SoundBoard/exampleAudio/",
