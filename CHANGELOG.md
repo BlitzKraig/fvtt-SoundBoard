@@ -1,5 +1,6 @@
-# 1.0.1 - 2020/09/19
+# 1.1.0 - 2020/09/19
 
+* Added player-targetted sounds - Send sounds directly to a single player
 * Added Whetstone support!
     * Added a customisable default theme
 * Updated translation file for easier maintenance

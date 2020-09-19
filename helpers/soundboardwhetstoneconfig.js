@@ -110,11 +110,19 @@ Hooks.once('WhetstoneReady', () => {
             hint: ''
         },
         {
-            name: '--SoundBoard-volume-text-color',
-            default: '#ffffff',
+            name: '--SoundBoard-toolbar-color',
+            default: '#444444',
             type: 'color',
-            title: 'volumetextcolor',
-            hint: '',
+            title: 'toolbarcolor',
+            hint: 'toolbarcolor',
+            presets: 'palette'
+        },
+        {
+            name: '--SoundBoard-toolbar-btn-active-color',
+            default: '#01701c',
+            type: 'color',
+            title: 'toolbarbtnactivecolor',
+            hint: 'toolbarbtnactivecolor',
             presets: 'palette'
         }
     ]

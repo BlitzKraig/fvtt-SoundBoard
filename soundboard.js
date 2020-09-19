@@ -14,6 +14,8 @@ class SoundBoard {
     static soundsLoaded = false;
     static soundsError = false;
 
+    static targettedPlayerID;
+
     static socketHelper;
     static audioHelper;
 
@@ -95,6 +97,9 @@ class SoundBoard {
             src,
             volume
         }
+        if(SoundBoard.targettedPlayerID){
+            payload.target = SoundBoard.targettedPlayerID;
+        }
         SoundBoard.audioHelper.play(payload, sound);
         if (push) {
             SoundBoard.socketHelper.sendData({
@@ -106,6 +111,20 @@ class SoundBoard {
 
     static async previewSound(identifyingPath) {
         SoundBoard.playSound(identifyingPath, false);
+    }
+
+    static async targetPlayer(html, id) {
+        // console.log(html);
+        $(html).addClass('active');
+        $(html).siblings().removeClass('active');
+        if(!id){
+            $(html).parent().siblings("#granular-send").removeClass('active');
+            SoundBoard.targettedPlayerID = undefined;
+        } else {
+            $(html).parent().siblings("#granular-send").addClass('active');
+            SoundBoard.targettedPlayerID = id;
+            // TODO Consider making this an array, and allowing multi targets
+        }
     }
 
     static getSoundFromIdentifyingPath(identifyingPath) {

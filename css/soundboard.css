@@ -34,6 +34,8 @@
   --SoundBoard-extended-options-icon-color: #fff;
   --SoundBoard-btn-text-size: 1rem;
   --SoundBoard-volume-text-color: #fff;
+  --SoundBoard-toolbar-color: #444444;
+  --SoundBoard-toolbar-btn-active-color: #01701c;
 }
 
 @-webkit-keyframes expand-options {
@@ -94,6 +96,13 @@ button.open-soundboard {
 #soundboard-app {
   width: 700px;
   height: 700px;
+  min-height: 300px;
+}
+
+#soundboard-app .window-header {
+  background: var(--SoundBoard-toolbar-color);
+  border-radius: 10px 10px 0 0;
+  border-bottom: none;
 }
 
 #soundboard-app h2 {
@@ -119,6 +128,10 @@ button.open-soundboard {
 #soundboard-app .btn.favorited {
   border-color: var(--SoundBoard-favorite-color);
   box-shadow: 0 0 2px #000;
+}
+
+#soundboard-app .dropdown-smalltext {
+  margin: 0 25px;
 }
 
 #soundboard-app .sb-play-button {
@@ -252,11 +265,38 @@ button.open-soundboard {
   bottom: 0;
   width: 100%;
   left: 0;
-  background: #444444;
+  background: var(--SoundBoard-toolbar-color);
   padding: 5px 25px 5px 15px;
   z-index: 1;
   height: 36px;
   border-radius: 0 0 5px 5px;
+}
+
+#soundboard-app #toolbar {
+  position: absolute;
+  width: 100%;
+  top: 30px;
+  left: 0;
+  background: var(--SoundBoard-toolbar-color);
+  z-index: 1;
+  height: 25px;
+}
+
+#soundboard-app .toolbar-btn {
+  line-height: 0px;
+}
+
+#soundboard-app .toolbar-btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+#soundboard-app .toolbar-btn.active {
+  background: var(--SoundBoard-toolbar-btn-active-color);
+}
+
+#soundboard-app .toolbar-btn * {
+  line-height: 0px;
 }
 
 #soundboard-app #expand-collapse-container {
@@ -264,7 +304,8 @@ button.open-soundboard {
 }
 
 #soundboard-app .window-content {
-  margin-bottom: 30px;
+  margin-bottom: 30px; /* volume-container */
+  margin-top: 25px; /* toolbar */
 }
 
 #soundboard-app #volume-text {

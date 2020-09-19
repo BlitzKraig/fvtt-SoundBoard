@@ -14,7 +14,9 @@ class SBSocketHelper {
         console.log(data);
         switch (data.type) {
             case SBSocketHelper.SOCKETMESSAGETYPE.PLAY:
-                SoundBoard.audioHelper.play(data.payload);
+                if(!data.payload.target || data.payload.target == game.userId){
+                    SoundBoard.audioHelper.play(data.payload);
+                }
                 break;
             case SBSocketHelper.SOCKETMESSAGETYPE.STOP:
                 SoundBoard.audioHelper.stop(data.payload);

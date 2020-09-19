@@ -7,10 +7,10 @@
             "stopAllTool": "Stop All SoundBoard Sounds",
             "stopAll": "Stop All"
         },
-        "slider":{
+        "slider": {
             "interface": "SoundBoard"
         },
-        "log" :{
+        "log": {
             "invalidSound": "is not a valid audio file, skipping"
         },
         "settings": {
@@ -36,6 +36,9 @@
                 "mySounds": "My Sounds",
                 "favorites": "Favorite Sounds",
                 "bundled": "Bundled Sounds"
+            },
+            "toolbar": {
+                "target": "Send sounds to a specific player only"
             }
         },
         "notif": {
@@ -51,59 +54,67 @@
                 }
             },
             "var": {
-                "loopbgfrom":{
-                    "title":"Active Loop Background Start Color"
+                "loopbgfrom": {
+                    "title": "Active Loop Background Start Color"
                 },
-                "loopbgto":{
-                    "title":"Active Loop Background End Color",
-                    "hint":"Animates between Start and End colors"
+                "loopbgto": {
+                    "title": "Active Loop Background End Color",
+                    "hint": "Animates between Start and End colors"
                 },
-                "loopanimationtime":{
-                    "title":"Active Loop Animation Time",
-                    "hint":""
+                "loopanimationtime": {
+                    "title": "Active Loop Animation Time",
+                    "hint": ""
                 },
-                "loopactiveiconcolor":{
-                    "title":"Active Loop Icon Color",
-                    "hint":"Color for the looping icon in extended options"
+                "loopactiveiconcolor": {
+                    "title": "Active Loop Icon Color",
+                    "hint": "Color for the looping icon in extended options"
                 },
-                "looptextcolor":{
-                    "title":"Active Loop Text Color",
+                "looptextcolor": {
+                    "title": "Active Loop Text Color",
                     "hint": "Button text color for actively looping item"
                 },
-                "favoritecolor":{
+                "favoritecolor": {
                     "title": "Favorites Color",
                     "hint": "Changes the favorite star color, and button border color"
                 },
-                "textshadow":{
+                "textshadow": {
                     "title": "General Text Shadow",
                     "hint": ""
                 },
-                "morebuttonactive":{
+                "morebuttonactive": {
                     "title": "More Button Active",
                     "hint": "Color of the three-dot More button when a sound button is moused over"
                 },
-                "morebuttoninactive":{
+                "morebuttoninactive": {
                     "title": "More Button Inactive",
                     "hint": "Color of the three-dot More button when a sound button is not moused over"
                 },
-                "morebuttonhover":{
+                "morebuttonhover": {
                     "title": "More Button Hover",
                     "hint": "Color of the three-dot More button when the three-dot button is hovered over"
                 },
-                "extendedoptionsbg":{
+                "extendedoptionsbg": {
                     "title": "Extended Options Background",
                     "hint": "Color of the layout seen when the three-dot More button is clicked"
                 },
-                "extendedoptionsicon":{
+                "extendedoptionsicon": {
                     "title": "Extended Options Icons",
                     "hint": "Color of the favorite, loop and delay icons when they are not active"
                 },
-                "btntextsize":{
+                "btntextsize": {
                     "title": "Button Text Size"
                 },
-                "volumetextcolor":{
+                "volumetextcolor": {
                     "title": "Volume Text Color",
                     "hint": "Color of the Volume label at the bottom of the SoundBoard"
+                },
+                "toolbarcolor": {
+                    "title": "Toolbar/Container Color",
+                    "hint": "Color of the toolbar, volume container and header bar"
+                },
+                "toolbarbtnactivecolor": {
+                    "title": "Active Toolbar Button Color",
+                    "hint": "Color of a currently active toolbar button (eg. Target Player is selected)"
                 }
             }
 

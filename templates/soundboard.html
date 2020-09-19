@@ -29,14 +29,39 @@
   });
 </script>
 <div class="soundboard-container">
+
+  <div id="toolbar" class="row no-gutters">
+    <button id="granular-send" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-secondary toolbar-btn {{#if targettedPlayer}}active{{/if}}" onclick="">
+      <i class="fas fa-users"></i>
+    </button>
+    <div class="dropdown-menu" aria-labelledby="granular-send">
+      <small class="dropdown-smalltext">{{localize 'SOUNDBOARD.app.toolbar.target'}}</small>
+      <button class="dropdown-item {{#unless targettedPlayer}}active{{/unless}}"
+        onclick="SoundBoard.targetPlayer(this)">
+        Everyone
+      </button>
+      {{#each players}}
+      <button class="dropdown-item {{#if isTarget}}active{{/if}}"
+        onclick="SoundBoard.targetPlayer(this, '{{id}}')">
+        {{name}}
+        <small>{{id}}</small>
+      </button>
+      {{/each}}
+      <!-- FOREACH players, create a button -->
+    </div>
+  </div>
+ 
+
   <div id="faketabs-container" class="row">
     <button id="btn-my-sb" class="btn btn-{{#unless tab.main}}outline-{{/unless}}secondary col short text-truncate"
       onclick="SoundBoard.openSoundBoard()">{{localize 'SOUNDBOARD.app.nav.mySounds'}}</button>
     <button id="btn-fav-sb" class="btn btn-{{#unless tab.fav}}outline-{{/unless}}secondary col short text-truncate"
       onclick="SoundBoard.openSoundBoardFav()">{{localize 'SOUNDBOARD.app.nav.favorites'}}</button>
-    <button id="btn-bundle-sb" class="btn btn-{{#unless tab.bundled}}outline-{{/unless}}secondary col short text-truncate" 
+    <button id="btn-bundle-sb"
+      class="btn btn-{{#unless tab.bundled}}outline-{{/unless}}secondary col short text-truncate"
       onclick="SoundBoard.openSoundBoardBundled()">{{localize 'SOUNDBOARD.app.nav.bundled'}}</button>
   </div>
+
   <div id="volume-container" class="row no-gutters">
     <button id="stop-all" class="btn btn-danger col"
       onclick="SoundBoard.stopAllSounds()">{{localize 'SOUNDBOARD.app.stopAll'}}</button>
@@ -46,7 +71,7 @@
   </div>
   <p class="text-muted notes">{{localize 'SOUNDBOARD.app.instructions'}}</p>
   <h3><small class="text-muted">Sounds: {{totalCount}}</small></h3>
-  
+
   <input id="sound-search" type="text" placeholder="{{localize 'SOUNDBOARD.app.filterText'}}">
   <div id="expand-collapse-container" class="row">
     <button id="collapse-all"
@@ -68,21 +93,25 @@
         {{/if}}
         {{#each files}}
         {{#if isWild}}
-        <div class="btn btn-outline-info col{{#if isLoop}} loop-active{{/if}}{{#if isFavorite}} favorited{{/if}}" uuid="{{identifyingPath}}">
+        <div class="btn btn-outline-info col{{#if isLoop}} loop-active{{/if}}{{#if isFavorite}} favorited{{/if}}"
+          uuid="{{identifyingPath}}">
           {{name}}
           <span class="badge badge-light">{{soundboard-getarraycount src}}</span>
           <button class="sb-play-button" onclick="SoundBoard.playSoundOrStopLoop('{{identifyingPath}}')"
             oncontextmenu="SoundBoard.previewSound('{{identifyingPath}}')"></button>
-          <button class="sb-more-button" onclick="SoundBoardApplication.toggleExtendedOptions(this, '{{identifyingPath}}', '{{../../tab.fav}}')">
+          <button class="sb-more-button"
+            onclick="SoundBoardApplication.toggleExtendedOptions(this, '{{identifyingPath}}', '{{../../tab.fav}}')">
             <i class="fas fa-ellipsis-v"></i>
           </button>
         </div>
         {{else}}
-        <div class="btn btn-outline-dark col{{#if isLoop}} loop-active{{/if}}{{#if isFavorite}} favorited{{/if}}" uuid="{{identifyingPath}}">
+        <div class="btn btn-outline-dark col{{#if isLoop}} loop-active{{/if}}{{#if isFavorite}} favorited{{/if}}"
+          uuid="{{identifyingPath}}">
           {{name}}
           <button class="sb-play-button" onclick="SoundBoard.playSoundOrStopLoop('{{identifyingPath}}')"
             oncontextmenu="SoundBoard.previewSound('{{identifyingPath}}')"></button>
-          <button class="sb-more-button" onclick="SoundBoardApplication.toggleExtendedOptions(this, '{{identifyingPath}}', '{{../../tab.fav}}')">
+          <button class="sb-more-button"
+            onclick="SoundBoardApplication.toggleExtendedOptions(this, '{{identifyingPath}}', '{{../../tab.fav}}')">
             <i class="fas fa-ellipsis-v"></i>
           </button>
         </div>
