@@ -301,11 +301,13 @@ class SoundBoard {
     static async getSounds() {
         const favoritesArray = game.settings.get("SoundBoard", "favoritedSounds");
 
+        var forge = game.settings.get("SoundBoard", "usingForgeAssets");
+
         SoundBoard.soundsError = false;
         SoundBoard.soundsLoaded = false;
         try {
             SoundBoard.sounds = {};
-            var soundboardDirArray = await FilePicker.browse("data", game.settings.get("SoundBoard", "soundboardDirectory"));
+            var soundboardDirArray = await FilePicker.browse(forge?"forgevtt":"data", game.settings.get("SoundBoard", "soundboardDirectory"));
             if (soundboardDirArray.target != game.settings.get("SoundBoard", "soundboardDirectory")) {
                 throw "Filepicker target did not match input. Parent directory may be correct. Soft failure.";
             }
@@ -314,9 +316,9 @@ class SoundBoard {
             for (const dir of soundboardDirArray.dirs) {
                 const dirShortName = dir.split(/[\/]+/).pop();
                 SoundBoard.sounds[dirShortName] = [];
-                let innerDirArray = await FilePicker.browse("data", dir);
+                let innerDirArray = await FilePicker.browse(forge?"forgevtt":"data", dir);
                 for (const wildcardDir of innerDirArray.dirs) {
-                    let wildcardFileArray = await FilePicker.browse("data", wildcardDir);
+                    let wildcardFileArray = await FilePicker.browse(forge?"forgevtt":"data", wildcardDir);
                     wildcardFileArray = wildcardFileArray.files;
                     wildcardFileArray = wildcardFileArray.filter(function (file) {
                         switch (file.substring(file.length - 4)) {
@@ -382,6 +384,17 @@ class SoundBoard {
                 if (value.length <= 0) {
                     game.settings.set("SoundBoard", "soundboardDirectory", "modules/SoundBoard/exampleAudio/")
                 }
+                SoundBoard.getSounds();
+            }
+        });
+        game.settings.register("SoundBoard", "usingForgeAssets", {
+            name: "SOUNDBOARD.settings.forge.name",
+            hint: "SOUNDBOARD.settings.forge.hint",
+            scope: "world",
+            config: true,
+            type: Boolean,
+            default: false,
+            onChange: value => {
                 SoundBoard.getSounds();
             }
         });

@@ -17,8 +17,11 @@
             "directory": {
                 "name": "Custom SoundBoard Directory",
                 "hint": "This should point to a folder containing subfolders, each containing audio files. See modules/SoundBoard/exampleAudio/ for an example"
+            },
+            "forge": {
+                "name" : "Use ForgeVTT Assets",
+                "hint" : "This should be enabled if you are using a Forge Asset Library"
             }
-
         },
 
         "app": {

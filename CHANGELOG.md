@@ -1,3 +1,7 @@
+# 1.1.1 - 2020/09/22
+
+* Added basic Forge support
+
 # 1.1.0 - 2020/09/19
 
 * Added player-targetted sounds - Send sounds directly to a single player
