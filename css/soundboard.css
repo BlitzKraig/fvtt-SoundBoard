@@ -284,6 +284,7 @@ button.open-soundboard {
 
 #soundboard-app .toolbar-btn {
   line-height: 0px;
+  width: initial;
 }
 
 #soundboard-app .toolbar-btn:focus {
