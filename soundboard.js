@@ -5,6 +5,8 @@ class SoundBoard {
     static bundledSounds = {};
     static currentlyPlayingSounds = [];
 
+    static soundPacks = [];
+
     static LOGTYPE = {
         LOG: 0,
         WARN: 1,
@@ -82,7 +84,7 @@ class SoundBoard {
 
     static async playSoundOrStopLoop(identifyingPath) {
         let sound = SoundBoard.getSoundFromIdentifyingPath(identifyingPath);
-        if(sound.isLoop){
+        if (sound.isLoop) {
             SoundBoard.stopLoop(identifyingPath);
         } else {
             SoundBoard.playSound(identifyingPath);
@@ -97,7 +99,7 @@ class SoundBoard {
             src,
             volume
         }
-        if(SoundBoard.targettedPlayerID){
+        if (SoundBoard.targettedPlayerID) {
             payload.target = SoundBoard.targettedPlayerID;
         }
         SoundBoard.audioHelper.play(payload, sound);
@@ -117,7 +119,7 @@ class SoundBoard {
         // console.log(html);
         $(html).addClass('active');
         $(html).siblings().removeClass('active');
-        if(!id){
+        if (!id) {
             $(html).parent().siblings("#granular-send").removeClass('active');
             SoundBoard.targettedPlayerID = undefined;
         } else {
@@ -130,7 +132,7 @@ class SoundBoard {
     static getSoundFromIdentifyingPath(identifyingPath) {
         var sound;
         Object.keys(SoundBoard.sounds).forEach((key) => {
-            if(sound){
+            if (sound) {
                 return;
             }
             sound = SoundBoard.sounds[key].find((element) => {
@@ -138,7 +140,7 @@ class SoundBoard {
             })
         });
         Object.keys(SoundBoard.bundledSounds).forEach((key) => {
-            if(sound){
+            if (sound) {
                 return;
             }
             sound = SoundBoard.bundledSounds[key].find((element) => {
@@ -163,11 +165,10 @@ class SoundBoard {
 
     static favoriteSound(identifyingPath) {
         let favoriteArray = game.settings.get("SoundBoard", "favoritedSounds");
-        if(favoriteArray.includes(identifyingPath)){
+        if (favoriteArray.includes(identifyingPath)) {
             return;
         }
         favoriteArray.push(identifyingPath)
-        console.log(favoriteArray);
         game.settings.set("SoundBoard", "favoritedSounds", favoriteArray);
 
         SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isFavorite = true;
@@ -176,22 +177,29 @@ class SoundBoard {
 
     static unfavoriteSound(identifyingPath) {
         let favoriteArray = game.settings.get("SoundBoard", "favoritedSounds");
-        
-        if(!favoriteArray.includes(identifyingPath)){
+
+        if (!favoriteArray.includes(identifyingPath)) {
             return;
         }
-        favoriteArray.splice(favoriteArray.findIndex((element)=>{return element==identifyingPath}),1);
+        favoriteArray.splice(favoriteArray.findIndex((element) => {
+            return element == identifyingPath
+        }), 1);
         console.log(favoriteArray);
         game.settings.set("SoundBoard", "favoritedSounds", favoriteArray);
 
         SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isFavorite = false;
-        
+
         $('#soundboard-app .btn').filter(`[uuid=${$.escapeSelector(identifyingPath)}]`).removeClass('favorited');
     }
 
-    static startLoop(identifyingPath){
+    static clearAllFavorites(){
+        game.settings.set("SoundBoard", "favoritedSounds", []);
+        SoundBoard.updateAllSounds('isFavorite', false);
+    }
+
+    static startLoop(identifyingPath) {
         let sound = SoundBoard.getSoundFromIdentifyingPath(identifyingPath)
-        if (sound.isLoop){
+        if (sound.isLoop) {
             return;
         }
         sound.isLoop = true;
@@ -199,20 +207,20 @@ class SoundBoard {
 
         $('#soundboard-app .btn').filter(`[uuid=${$.escapeSelector(identifyingPath)}]`).addClass('loop-active');
     }
-    
-    static stopLoop(identifyingPath){
+
+    static stopLoop(identifyingPath) {
         SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isLoop = false;
         $('#soundboard-app .btn').filter(`[uuid=${$.escapeSelector(identifyingPath)}]`).removeClass('loop-active');
     }
 
     static setLoopDelay(identifyingPath, delayInSeconds, button) {
-        if(delayInSeconds < 0){
+        if (delayInSeconds < 0) {
             delayInSeconds = 0;
-        } else if (delayInSeconds > 600){
+        } else if (delayInSeconds > 600) {
             delayInSeconds = 600;
         }
         SoundBoard.getSoundFromIdentifyingPath(identifyingPath).loopDelay = delayInSeconds;
-        if(!SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isLoop){
+        if (!SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isLoop) {
             SoundBoard.startLoop(identifyingPath);
         }
         $(button).siblings('.dropdown-item').removeClass('active');
@@ -242,224 +250,236 @@ class SoundBoard {
         const favoritesArray = game.settings.get("SoundBoard", "favoritedSounds");
         SoundBoard.bundledSounds = {};
 
-        var soundboardDirArray = await FilePicker.browse("data", "modules/SoundBoard/bundledAudio/");
-            for (const dir of soundboardDirArray.dirs) {
-                const dirShortName = dir.split(/[\/]+/).pop();
-                SoundBoard.bundledSounds[dirShortName] = [];
-                let innerDirArray = await FilePicker.browse("data", dir);
-                for (const wildcardDir of innerDirArray.dirs) {
-                    let wildcardFileArray = await FilePicker.browse("data", wildcardDir);
-                    wildcardFileArray = wildcardFileArray.files;
-                    wildcardFileArray = wildcardFileArray.filter(function (file) {
+        for (const pack of SoundBoard.soundPacks){
+            if(pack.disabled){
+                break;
+            }
+            
+                var soundboardDirArray = await FilePicker.browse("data", pack.dir);
+                for (const dir of soundboardDirArray.dirs) {
+                    const dirShortName = `${pack.name}/${dir.split(/[\/]+/).pop()}`;
+                    SoundBoard.bundledSounds[dirShortName] = [];
+                    let innerDirArray = await FilePicker.browse("data", dir);
+                    for (const wildcardDir of innerDirArray.dirs) {
+                        let wildcardFileArray = await FilePicker.browse("data", wildcardDir);
+                        wildcardFileArray = wildcardFileArray.files;
+                        wildcardFileArray = wildcardFileArray.filter(function (file) {
+                            switch (file.substring(file.length - 4)) {
+                                case ".ogg":
+                                case ".mp3":
+                                case ".wav":
+                                case "flac":
+                                    return true;
+                                default:
+                                    SoundBoard.log(`${file} ${game.i18n.localize("SOUNDBOARD.log.invalidSound")}`, SoundBoard.LOGTYPE.WARN);
+                                    return false;
+                            }
+                        });
+                        SoundBoard.bundledSounds[dirShortName].push({
+                            name: wildcardDir.split(/[\/]+/).pop(),
+                            src: wildcardFileArray,
+                            id: SoundBoard.soundIdCounter,
+                            identifyingPath: wildcardDir,
+                            isWild: true,
+                            isFavorite: favoritesArray.includes(wildcardDir)
+                        });
+
+                    };
+                    for (const file of innerDirArray.files) {
                         switch (file.substring(file.length - 4)) {
                             case ".ogg":
                             case ".mp3":
                             case ".wav":
                             case "flac":
-                                return true;
+                                SoundBoard.bundledSounds[dirShortName].push({
+                                    name: file.split(/[\/]+/).pop(),
+                                    src: [file],
+                                    id: SoundBoard.soundIdCounter,
+                                    identifyingPath: file,
+                                    isWild: false,
+                                    isFavorite: favoritesArray.includes(file)
+                                });
+                                break;
+
                             default:
                                 SoundBoard.log(`${file} ${game.i18n.localize("SOUNDBOARD.log.invalidSound")}`, SoundBoard.LOGTYPE.WARN);
-                                return false;
+                                break;
                         }
-                    });
-                    SoundBoard.bundledSounds[dirShortName].push({
-                        name: wildcardDir.split(/[\/]+/).pop(),
-                        src: wildcardFileArray,
-                        id: SoundBoard.soundIdCounter,
-                        identifyingPath: wildcardDir,
-                        isWild: true,
-                        isFavorite: favoritesArray.includes(wildcardDir)
-                    });
-
-                };
-                for (const file of innerDirArray.files) {
-                    switch (file.substring(file.length - 4)) {
-                        case ".ogg":
-                        case ".mp3":
-                        case ".wav":
-                        case "flac":
-                            SoundBoard.bundledSounds[dirShortName].push({
-                                name: file.split(/[\/]+/).pop(),
-                                src: [file],
-                                id: SoundBoard.soundIdCounter,
-                                identifyingPath: file,
-                                isWild: false,
-                                isFavorite: favoritesArray.includes(file)
-                            });
-                            break;
-
-                        default:
-                            SoundBoard.log(`${file} ${game.i18n.localize("SOUNDBOARD.log.invalidSound")}`, SoundBoard.LOGTYPE.WARN);
-                            break;
-                    }
-                };
-            }
-        
-        SoundBoard.soundsLoaded = true;
-    }
-
-    static async getSounds() {
-        const favoritesArray = game.settings.get("SoundBoard", "favoritedSounds");
-
-        SoundBoard.soundsError = false;
-        SoundBoard.soundsLoaded = false;
-        try {
-            SoundBoard.sounds = {};
-            var soundboardDirArray = await FilePicker.browse("data", game.settings.get("SoundBoard", "soundboardDirectory"));
-            if (soundboardDirArray.target != game.settings.get("SoundBoard", "soundboardDirectory")) {
-                throw "Filepicker target did not match input. Parent directory may be correct. Soft failure.";
-            }
-            SoundBoard.soundIdCounter = 0;
-
-            for (const dir of soundboardDirArray.dirs) {
-                const dirShortName = dir.split(/[\/]+/).pop();
-                SoundBoard.sounds[dirShortName] = [];
-                let innerDirArray = await FilePicker.browse("data", dir);
-                for (const wildcardDir of innerDirArray.dirs) {
-                    let wildcardFileArray = await FilePicker.browse("data", wildcardDir);
-                    wildcardFileArray = wildcardFileArray.files;
-                    wildcardFileArray = wildcardFileArray.filter(function (file) {
-                        switch (file.substring(file.length - 4)) {
-                            case ".ogg":
-                            case ".mp3":
-                            case ".wav":
-                            case "flac":
-                                return true;
-                            default:
-                                SoundBoard.log(`${file} ${game.i18n.localize("SOUNDBOARD.log.invalidSound")}`, SoundBoard.LOGTYPE.WARN);
-                                return false;
-                        }
-                    });
-                    SoundBoard.sounds[dirShortName].push({
-                        name: wildcardDir.split(/[\/]+/).pop(),
-                        src: wildcardFileArray,
-                        id: SoundBoard.soundIdCounter,
-                        identifyingPath: wildcardDir,
-                        isWild: true,
-                        isFavorite: favoritesArray.includes(wildcardDir)
-                    });
-
-                };
-                for (const file of innerDirArray.files) {
-                    switch (file.substring(file.length - 4)) {
-                        case ".ogg":
-                        case ".mp3":
-                        case ".wav":
-                        case "flac":
-                            SoundBoard.sounds[dirShortName].push({
-                                name: file.split(/[\/]+/).pop(),
-                                src: [file],
-                                id: SoundBoard.soundIdCounter,
-                                identifyingPath: file,
-                                isWild: false,
-                                isFavorite: favoritesArray.includes(file)
-                            });
-                            break;
-
-                        default:
-                            SoundBoard.log(`${file} ${game.i18n.localize("SOUNDBOARD.log.invalidSound")}`, SoundBoard.LOGTYPE.WARN);
-                            break;
-                    }
-                };
-            }
-
-        } catch (error) {
-            SoundBoard.log(error, SoundBoard.LOGTYPE.ERR);
-            SoundBoard.soundsError = true;
-        } finally {
-            SoundBoard._getBundledSounds();
-        }
-    }
-
-    static async onInit() {
-        game.settings.register("SoundBoard", "soundboardDirectory", {
-            name: "SOUNDBOARD.settings.directory.name",
-            hint: "SOUNDBOARD.settings.directory.hint",
-            scope: "world",
-            config: true,
-            default: "modules/SoundBoard/exampleAudio/",
-            onChange: value => {
-                if (value.length <= 0) {
-                    game.settings.set("SoundBoard", "soundboardDirectory", "modules/SoundBoard/exampleAudio/")
+                    };
                 }
-                SoundBoard.getSounds();
-            }
-        });
+            };
 
-        game.settings.register("SoundBoard", "soundboardServerVolume", {
-            name: "Server Volume",
-            scope: "world",
-            config: false,
-            type: Number,
-            default: 100
-        })
+            SoundBoard.soundsLoaded = true;
+        }
 
-        game.settings.register("SoundBoard", "favoritedSounds", {
-            name: "Favorited Sounds",
-            scope: "world",
-            config: false,
-            default: []
-        })
+        static async getSounds() {
+            const favoritesArray = game.settings.get("SoundBoard", "favoritedSounds");
 
-        if (game.user.isGM) {
             SoundBoard.soundsError = false;
-            await SoundBoard.getSounds();
-            Handlebars.registerHelper(SoundBoard.handlebarsHelpers);
+            SoundBoard.soundsLoaded = false;
+            try {
+                SoundBoard.sounds = {};
+                var soundboardDirArray = await FilePicker.browse("data", game.settings.get("SoundBoard", "soundboardDirectory"));
+                if (soundboardDirArray.target != game.settings.get("SoundBoard", "soundboardDirectory")) {
+                    throw "Filepicker target did not match input. Parent directory may be correct. Soft failure.";
+                }
+                SoundBoard.soundIdCounter = 0;
+
+                for (const dir of soundboardDirArray.dirs) {
+                    const dirShortName = dir.split(/[\/]+/).pop();
+                    SoundBoard.sounds[dirShortName] = [];
+                    let innerDirArray = await FilePicker.browse("data", dir);
+                    for (const wildcardDir of innerDirArray.dirs) {
+                        let wildcardFileArray = await FilePicker.browse("data", wildcardDir);
+                        wildcardFileArray = wildcardFileArray.files;
+                        wildcardFileArray = wildcardFileArray.filter(function (file) {
+                            switch (file.substring(file.length - 4)) {
+                                case ".ogg":
+                                case ".mp3":
+                                case ".wav":
+                                case "flac":
+                                    return true;
+                                default:
+                                    SoundBoard.log(`${file} ${game.i18n.localize("SOUNDBOARD.log.invalidSound")}`, SoundBoard.LOGTYPE.WARN);
+                                    return false;
+                            }
+                        });
+                        SoundBoard.sounds[dirShortName].push({
+                            name: wildcardDir.split(/[\/]+/).pop(),
+                            src: wildcardFileArray,
+                            id: SoundBoard.soundIdCounter,
+                            identifyingPath: wildcardDir,
+                            isWild: true,
+                            isFavorite: favoritesArray.includes(wildcardDir)
+                        });
+
+                    };
+                    for (const file of innerDirArray.files) {
+                        switch (file.substring(file.length - 4)) {
+                            case ".ogg":
+                            case ".mp3":
+                            case ".wav":
+                            case "flac":
+                                SoundBoard.sounds[dirShortName].push({
+                                    name: file.split(/[\/]+/).pop(),
+                                    src: [file],
+                                    id: SoundBoard.soundIdCounter,
+                                    identifyingPath: file,
+                                    isWild: false,
+                                    isFavorite: favoritesArray.includes(file)
+                                });
+                                break;
+
+                            default:
+                                SoundBoard.log(`${file} ${game.i18n.localize("SOUNDBOARD.log.invalidSound")}`, SoundBoard.LOGTYPE.WARN);
+                                break;
+                        }
+                    };
+                }
+
+            } catch (error) {
+                SoundBoard.log(error, SoundBoard.LOGTYPE.ERR);
+                SoundBoard.soundsError = true;
+            } finally {
+                Hooks.callAll('WhetstoneReady');
+                SoundBoard._getBundledSounds();
+            }
         }
 
-        SoundBoard.socketHelper = new SBSocketHelper(game.user.isGM);
-        SoundBoard.audioHelper = new SBAudioHelper();
+        static async onInit() {
+            game.settings.register("SoundBoard", "soundboardDirectory", {
+                name: "SOUNDBOARD.settings.directory.name",
+                hint: "SOUNDBOARD.settings.directory.hint",
+                scope: "world",
+                config: true,
+                default: "modules/SoundBoard/exampleAudio/",
+                onChange: value => {
+                    if (value.length <= 0) {
+                        game.settings.set("SoundBoard", "soundboardDirectory", "modules/SoundBoard/exampleAudio/")
+                    }
+                    SoundBoard.getSounds();
+                }
+            });
 
-    }
+            game.settings.register("SoundBoard", "soundboardServerVolume", {
+                name: "Server Volume",
+                scope: "world",
+                config: false,
+                type: Number,
+                default: 100
+            })
 
-    static addSoundBoard(controls) {
-        let soundControls = controls.find(control => control.name === "sounds")
-        soundControls.tools.push({
-            name: "soundboard",
-            title: "SOUNDBOARD.button.openSoundboard",
-            icon: "fas fa-border-all",
-            visible: game.user.isGM,
-            onClick: SoundBoard.openSoundBoard,
-            button: true
-        });
-        soundControls.tools.push({
-            name: "soundboardfav",
-            title: "SOUNDBOARD.button.openSoundboardFav",
-            icon: "fas fa-star",
-            visible: game.user.isGM,
-            onClick: SoundBoard.openSoundBoardFav,
-            button: true
-        });
-        soundControls.tools.push({
-            name: "soundboardbundled",
-            title: "SOUNDBOARD.button.openSoundboardBundled",
-            icon: "fas fa-box-open",
-            visible: game.user.isGM,
-            onClick: SoundBoard.openSoundBoardBundled,
-            button: true
-        });
-        soundControls.tools.push({
-            name: "soundboardstop",
-            title: "SOUNDBOARD.button.stopAllTool",
-            icon: "far fa-stop-circle",
-            visible: game.user.isGM,
-            onClick: SoundBoard.stopAllSounds,
-            button: true
-        });
-    }
-    static addCustomPlaylistElements(app, html) {
-        if (!game.user.isGM) {
-            return;
+            game.settings.register("SoundBoard", "favoritedSounds", {
+                name: "Favorited Sounds",
+                scope: "world",
+                config: false,
+                default: []
+            })
+            
+            Hooks.callAll('SoundBoardReady');
+
+            if (game.user.isGM) {
+                SoundBoard.soundsError = false;
+                await SoundBoard.getSounds();
+                Handlebars.registerHelper(SoundBoard.handlebarsHelpers);
+            }
+
+            SoundBoard.socketHelper = new SBSocketHelper(game.user.isGM);
+            SoundBoard.audioHelper = new SBAudioHelper();
         }
-        if (app.options.id == "playlists") {
-            let button = $("<button class='open-soundboard'><i class='fas fa-border-all'></i> " + game.i18n.localize('SOUNDBOARD.button.openSoundboard') + "</button>");
-            button.click(SoundBoard.openSoundBoard);
-            html.find(".directory-footer").prepend(button);
-            html.find(".sound-name").toArray().filter((el)=>el.innerText == game.i18n.localize('PLAYLIST.VolInterface'))[0].innerText = game.i18n.localize('SOUNDBOARD.slider.interface');
+
+        static addPack(packName, packDir) {
+            SoundBoard.soundPacks.push({name:packName, dir:packDir});
+        }
+
+        static addSoundBoard(controls) {
+            let soundControls = controls.find(control => control.name === "sounds")
+            soundControls.tools.push({
+                name: "soundboard",
+                title: "SOUNDBOARD.button.openSoundboard",
+                icon: "fas fa-border-all",
+                visible: game.user.isGM,
+                onClick: SoundBoard.openSoundBoard,
+                button: true
+            });
+            soundControls.tools.push({
+                name: "soundboardfav",
+                title: "SOUNDBOARD.button.openSoundboardFav",
+                icon: "fas fa-star",
+                visible: game.user.isGM,
+                onClick: SoundBoard.openSoundBoardFav,
+                button: true
+            });
+            soundControls.tools.push({
+                name: "soundboardbundled",
+                title: "SOUNDBOARD.button.openSoundboardBundled",
+                icon: "fas fa-box-open",
+                visible: game.user.isGM,
+                onClick: SoundBoard.openSoundBoardBundled,
+                button: true
+            });
+            soundControls.tools.push({
+                name: "soundboardstop",
+                title: "SOUNDBOARD.button.stopAllTool",
+                icon: "far fa-stop-circle",
+                visible: game.user.isGM,
+                onClick: SoundBoard.stopAllSounds,
+                button: true
+            });
+        }
+        static addCustomPlaylistElements(app, html) {
+            if (!game.user.isGM) {
+                return;
+            }
+            if (app.options.id == "playlists") {
+                let button = $("<button class='open-soundboard'><i class='fas fa-border-all'></i> " + game.i18n.localize('SOUNDBOARD.button.openSoundboard') + "</button>");
+                button.click(SoundBoard.openSoundBoard);
+                html.find(".directory-footer").prepend(button);
+                html.find(".sound-name").toArray().filter((el) => el.innerText == game.i18n.localize('PLAYLIST.VolInterface'))[0].innerText = game.i18n.localize('SOUNDBOARD.slider.interface');
+            }
         }
     }
-}
 
-Hooks.once("ready", SoundBoard.onInit);
-Hooks.on("getSceneControlButtons", SoundBoard.addSoundBoard);
-Hooks.on("renderSidebarTab", SoundBoard.addCustomPlaylistElements);
+    Hooks.once("ready", SoundBoard.onInit);
+    Hooks.on("getSceneControlButtons", SoundBoard.addSoundBoard);
+    Hooks.on("renderSidebarTab", SoundBoard.addCustomPlaylistElements);
