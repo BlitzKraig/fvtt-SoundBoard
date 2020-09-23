@@ -1,3 +1,8 @@
+# 1.1.2 - 2020/09/23
+
+* Added new bundled sounds
+    * Added chants for a vampire-based campaign for "The world's greatest roleplaying game"
+
 # 1.1.1 - 2020/09/22
 
 * Added basic Forge support

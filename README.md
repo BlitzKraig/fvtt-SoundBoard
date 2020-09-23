@@ -79,3 +79,5 @@ All sounds have been modified from their originals.
 
 'Bundled' SoundBoard sounds all royalty free, from the GDC Audio Bundles on sonniss.com
 
+Cult Chant sounds recorded by me
+
