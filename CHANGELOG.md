@@ -1,3 +1,10 @@
+# 1.1.3 - 2020/09/29
+
+* Added new bundled sounds
+    * Added muffled "ancient land" chants
+* Added pre-cache toolbar button. Activate pre-cache mode and click a sound to force all players to cache it without playing.
+* Fixed box-shadow for favorited buttons
+
 # 1.1.2 - 2020/09/23
 
 * Added new bundled sounds

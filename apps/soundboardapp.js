@@ -84,6 +84,7 @@ class SoundBoardApplication extends Application {
         // TODO: Subclass mySounds, set up getData with supers
         var players = game.users.entities.filter((el)=>el.active && !el.isGM).map((el)=>{return {name: el.name, id: el.id, isTarget:el.id==SoundBoard.targettedPlayerID?true:false};});
         var targettedPlayer = SoundBoard.targettedPlayerID;
+        var cacheMode = SoundBoard.cacheMode;
         return {
             tab: {
                 main:true
@@ -93,7 +94,8 @@ class SoundBoardApplication extends Application {
             totalCount,
             collapse,
             players,
-            targettedPlayer
+            targettedPlayer,
+            cacheMode
         }
     }
 }

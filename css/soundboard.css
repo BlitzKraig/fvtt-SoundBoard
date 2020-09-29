@@ -127,7 +127,7 @@ button.open-soundboard {
 
 #soundboard-app .btn.favorited {
   border-color: var(--SoundBoard-favorite-color);
-  box-shadow: 0 0 2px #000;
+  box-shadow: 0 0 3px #000;
 }
 
 #soundboard-app .dropdown-smalltext {

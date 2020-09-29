@@ -15,6 +15,7 @@ class SoundBoard {
     static soundsError = false;
 
     static targettedPlayerID;
+    static cacheMode = false;
 
     static socketHelper;
     static audioHelper;
@@ -82,7 +83,7 @@ class SoundBoard {
 
     static async playSoundOrStopLoop(identifyingPath) {
         let sound = SoundBoard.getSoundFromIdentifyingPath(identifyingPath);
-        if(sound.isLoop){
+        if (sound.isLoop) {
             SoundBoard.stopLoop(identifyingPath);
         } else {
             SoundBoard.playSound(identifyingPath);
@@ -90,6 +91,7 @@ class SoundBoard {
     }
 
     static async playSound(identifyingPath, push = true) {
+
         let sound = SoundBoard.getSoundFromIdentifyingPath(identifyingPath)
         let volume = SoundBoard.getVolume();
         let src = sound.src[Math.floor(Math.random() * sound.src.length)]
@@ -97,15 +99,25 @@ class SoundBoard {
             src,
             volume
         }
-        if(SoundBoard.targettedPlayerID){
-            payload.target = SoundBoard.targettedPlayerID;
-        }
-        SoundBoard.audioHelper.play(payload, sound);
-        if (push) {
-            SoundBoard.socketHelper.sendData({
-                type: SBSocketHelper.SOCKETMESSAGETYPE.PLAY,
-                payload
-            });
+        if (SoundBoard.cacheMode) {
+            SoundBoard.audioHelper.cache(payload);
+            if (push) {
+                SoundBoard.socketHelper.sendData({
+                    type: SBSocketHelper.SOCKETMESSAGETYPE.CACHE,
+                    payload
+                });
+            }
+        } else {
+            if (SoundBoard.targettedPlayerID) {
+                payload.target = SoundBoard.targettedPlayerID;
+            }
+            SoundBoard.audioHelper.play(payload, sound);
+            if (push) {
+                SoundBoard.socketHelper.sendData({
+                    type: SBSocketHelper.SOCKETMESSAGETYPE.PLAY,
+                    payload
+                });
+            }
         }
     }
 
@@ -117,7 +129,7 @@ class SoundBoard {
         // console.log(html);
         $(html).addClass('active');
         $(html).siblings().removeClass('active');
-        if(!id){
+        if (!id) {
             $(html).parent().siblings("#granular-send").removeClass('active');
             SoundBoard.targettedPlayerID = undefined;
         } else {
@@ -127,10 +139,19 @@ class SoundBoard {
         }
     }
 
+    static toggleCacheMode(html) {
+        SoundBoard.cacheMode = !SoundBoard.cacheMode;
+        if (SoundBoard.cacheMode) {
+            $(html).addClass('active');
+        } else {
+            $(html).removeClass('active');
+        }
+    }
+
     static getSoundFromIdentifyingPath(identifyingPath) {
         var sound;
         Object.keys(SoundBoard.sounds).forEach((key) => {
-            if(sound){
+            if (sound) {
                 return;
             }
             sound = SoundBoard.sounds[key].find((element) => {
@@ -138,7 +159,7 @@ class SoundBoard {
             })
         });
         Object.keys(SoundBoard.bundledSounds).forEach((key) => {
-            if(sound){
+            if (sound) {
                 return;
             }
             sound = SoundBoard.bundledSounds[key].find((element) => {
@@ -163,7 +184,7 @@ class SoundBoard {
 
     static favoriteSound(identifyingPath) {
         let favoriteArray = game.settings.get("SoundBoard", "favoritedSounds");
-        if(favoriteArray.includes(identifyingPath)){
+        if (favoriteArray.includes(identifyingPath)) {
             return;
         }
         favoriteArray.push(identifyingPath)
@@ -176,22 +197,24 @@ class SoundBoard {
 
     static unfavoriteSound(identifyingPath) {
         let favoriteArray = game.settings.get("SoundBoard", "favoritedSounds");
-        
-        if(!favoriteArray.includes(identifyingPath)){
+
+        if (!favoriteArray.includes(identifyingPath)) {
             return;
         }
-        favoriteArray.splice(favoriteArray.findIndex((element)=>{return element==identifyingPath}),1);
+        favoriteArray.splice(favoriteArray.findIndex((element) => {
+            return element == identifyingPath
+        }), 1);
         console.log(favoriteArray);
         game.settings.set("SoundBoard", "favoritedSounds", favoriteArray);
 
         SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isFavorite = false;
-        
+
         $('#soundboard-app .btn').filter(`[uuid=${$.escapeSelector(identifyingPath)}]`).removeClass('favorited');
     }
 
-    static startLoop(identifyingPath){
+    static startLoop(identifyingPath) {
         let sound = SoundBoard.getSoundFromIdentifyingPath(identifyingPath)
-        if (sound.isLoop){
+        if (sound.isLoop) {
             return;
         }
         sound.isLoop = true;
@@ -199,20 +222,20 @@ class SoundBoard {
 
         $('#soundboard-app .btn').filter(`[uuid=${$.escapeSelector(identifyingPath)}]`).addClass('loop-active');
     }
-    
-    static stopLoop(identifyingPath){
+
+    static stopLoop(identifyingPath) {
         SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isLoop = false;
         $('#soundboard-app .btn').filter(`[uuid=${$.escapeSelector(identifyingPath)}]`).removeClass('loop-active');
     }
 
     static setLoopDelay(identifyingPath, delayInSeconds, button) {
-        if(delayInSeconds < 0){
+        if (delayInSeconds < 0) {
             delayInSeconds = 0;
-        } else if (delayInSeconds > 600){
+        } else if (delayInSeconds > 600) {
             delayInSeconds = 600;
         }
         SoundBoard.getSoundFromIdentifyingPath(identifyingPath).loopDelay = delayInSeconds;
-        if(!SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isLoop){
+        if (!SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isLoop) {
             SoundBoard.startLoop(identifyingPath);
         }
         $(button).siblings('.dropdown-item').removeClass('active');
@@ -243,58 +266,58 @@ class SoundBoard {
         SoundBoard.bundledSounds = {};
 
         var soundboardDirArray = await FilePicker.browse("data", "modules/SoundBoard/bundledAudio/");
-            for (const dir of soundboardDirArray.dirs) {
-                const dirShortName = dir.split(/[\/]+/).pop();
-                SoundBoard.bundledSounds[dirShortName] = [];
-                let innerDirArray = await FilePicker.browse("data", dir);
-                for (const wildcardDir of innerDirArray.dirs) {
-                    let wildcardFileArray = await FilePicker.browse("data", wildcardDir);
-                    wildcardFileArray = wildcardFileArray.files;
-                    wildcardFileArray = wildcardFileArray.filter(function (file) {
-                        switch (file.substring(file.length - 4)) {
-                            case ".ogg":
-                            case ".mp3":
-                            case ".wav":
-                            case "flac":
-                                return true;
-                            default:
-                                SoundBoard.log(`${file} ${game.i18n.localize("SOUNDBOARD.log.invalidSound")}`, SoundBoard.LOGTYPE.WARN);
-                                return false;
-                        }
-                    });
-                    SoundBoard.bundledSounds[dirShortName].push({
-                        name: wildcardDir.split(/[\/]+/).pop(),
-                        src: wildcardFileArray,
-                        id: SoundBoard.soundIdCounter,
-                        identifyingPath: wildcardDir,
-                        isWild: true,
-                        isFavorite: favoritesArray.includes(wildcardDir)
-                    });
-
-                };
-                for (const file of innerDirArray.files) {
+        for (const dir of soundboardDirArray.dirs) {
+            const dirShortName = dir.split(/[\/]+/).pop();
+            SoundBoard.bundledSounds[dirShortName] = [];
+            let innerDirArray = await FilePicker.browse("data", dir);
+            for (const wildcardDir of innerDirArray.dirs) {
+                let wildcardFileArray = await FilePicker.browse("data", wildcardDir);
+                wildcardFileArray = wildcardFileArray.files;
+                wildcardFileArray = wildcardFileArray.filter(function (file) {
                     switch (file.substring(file.length - 4)) {
                         case ".ogg":
                         case ".mp3":
                         case ".wav":
                         case "flac":
-                            SoundBoard.bundledSounds[dirShortName].push({
-                                name: file.split(/[\/]+/).pop(),
-                                src: [file],
-                                id: SoundBoard.soundIdCounter,
-                                identifyingPath: file,
-                                isWild: false,
-                                isFavorite: favoritesArray.includes(file)
-                            });
-                            break;
-
+                            return true;
                         default:
                             SoundBoard.log(`${file} ${game.i18n.localize("SOUNDBOARD.log.invalidSound")}`, SoundBoard.LOGTYPE.WARN);
-                            break;
+                            return false;
                     }
-                };
-            }
-        
+                });
+                SoundBoard.bundledSounds[dirShortName].push({
+                    name: wildcardDir.split(/[\/]+/).pop(),
+                    src: wildcardFileArray,
+                    id: SoundBoard.soundIdCounter,
+                    identifyingPath: wildcardDir,
+                    isWild: true,
+                    isFavorite: favoritesArray.includes(wildcardDir)
+                });
+
+            };
+            for (const file of innerDirArray.files) {
+                switch (file.substring(file.length - 4)) {
+                    case ".ogg":
+                    case ".mp3":
+                    case ".wav":
+                    case "flac":
+                        SoundBoard.bundledSounds[dirShortName].push({
+                            name: file.split(/[\/]+/).pop(),
+                            src: [file],
+                            id: SoundBoard.soundIdCounter,
+                            identifyingPath: file,
+                            isWild: false,
+                            isFavorite: favoritesArray.includes(file)
+                        });
+                        break;
+
+                    default:
+                        SoundBoard.log(`${file} ${game.i18n.localize("SOUNDBOARD.log.invalidSound")}`, SoundBoard.LOGTYPE.WARN);
+                        break;
+                }
+            };
+        }
+
         SoundBoard.soundsLoaded = true;
     }
 
@@ -307,7 +330,7 @@ class SoundBoard {
         SoundBoard.soundsLoaded = false;
         try {
             SoundBoard.sounds = {};
-            var soundboardDirArray = await FilePicker.browse(forge?"forgevtt":"data", game.settings.get("SoundBoard", "soundboardDirectory"));
+            var soundboardDirArray = await FilePicker.browse(forge ? "forgevtt" : "data", game.settings.get("SoundBoard", "soundboardDirectory"));
             if (soundboardDirArray.target != game.settings.get("SoundBoard", "soundboardDirectory")) {
                 throw "Filepicker target did not match input. Parent directory may be correct. Soft failure.";
             }
@@ -316,9 +339,9 @@ class SoundBoard {
             for (const dir of soundboardDirArray.dirs) {
                 const dirShortName = dir.split(/[\/]+/).pop();
                 SoundBoard.sounds[dirShortName] = [];
-                let innerDirArray = await FilePicker.browse(forge?"forgevtt":"data", dir);
+                let innerDirArray = await FilePicker.browse(forge ? "forgevtt" : "data", dir);
                 for (const wildcardDir of innerDirArray.dirs) {
-                    let wildcardFileArray = await FilePicker.browse(forge?"forgevtt":"data", wildcardDir);
+                    let wildcardFileArray = await FilePicker.browse(forge ? "forgevtt" : "data", wildcardDir);
                     wildcardFileArray = wildcardFileArray.files;
                     wildcardFileArray = wildcardFileArray.filter(function (file) {
                         switch (file.substring(file.length - 4)) {
@@ -420,7 +443,7 @@ class SoundBoard {
             Handlebars.registerHelper(SoundBoard.handlebarsHelpers);
         }
 
-        SoundBoard.socketHelper = new SBSocketHelper(game.user.isGM);
+        SoundBoard.socketHelper = new SBSocketHelper();
         SoundBoard.audioHelper = new SBAudioHelper();
 
     }
@@ -468,7 +491,7 @@ class SoundBoard {
             let button = $("<button class='open-soundboard'><i class='fas fa-border-all'></i> " + game.i18n.localize('SOUNDBOARD.button.openSoundboard') + "</button>");
             button.click(SoundBoard.openSoundBoard);
             html.find(".directory-footer").prepend(button);
-            html.find(".sound-name").toArray().filter((el)=>el.innerText == game.i18n.localize('PLAYLIST.VolInterface'))[0].innerText = game.i18n.localize('SOUNDBOARD.slider.interface');
+            html.find(".sound-name").toArray().filter((el) => el.innerText == game.i18n.localize('PLAYLIST.VolInterface'))[0].innerText = game.i18n.localize('SOUNDBOARD.slider.interface');
         }
     }
 }

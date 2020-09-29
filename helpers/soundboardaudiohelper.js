@@ -53,6 +53,19 @@ class SBAudioHelper {
         this.activeSounds.push(sbhowl);
     }
 
+    cache({src, volume}) {
+        new Howl({src, volume, onload: ()=>{
+            let player = game.user.name;
+            SoundBoard.socketHelper.sendData({
+                type: SBSocketHelper.SOCKETMESSAGETYPE.CACHECOMPLETE,
+                payload: {src, volume, player}
+            });
+        }});
+    }
+    cacheComplete({src, volume, player}) {
+        ui.notifications.notify(`${player} cache complete for ${src}`);
+    }
+
     stop() {
         SoundBoard.log("Not yet implemented");
     }

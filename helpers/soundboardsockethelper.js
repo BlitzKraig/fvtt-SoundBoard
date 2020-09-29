@@ -3,29 +3,37 @@ class SBSocketHelper {
     static SOCKETMESSAGETYPE = {
         PLAY: 1,
         STOP: 2,
-        STOPALL: 3
+        STOPALL: 3,
+        CACHE: 4,
+        CACHECOMPLETE: 5
     }
-    constructor(isGM) {
-        if (!isGM) {
-            game.socket.on(SBSocketHelper.socketName, this._onData);
-        }
+    constructor() {
+        game.socket.on(SBSocketHelper.socketName, this._onData);
     }
     _onData(data) {
-        console.log(data);
-        switch (data.type) {
-            case SBSocketHelper.SOCKETMESSAGETYPE.PLAY:
-                if(!data.payload.target || data.payload.target == game.userId){
-                    SoundBoard.audioHelper.play(data.payload);
-                }
-                break;
-            case SBSocketHelper.SOCKETMESSAGETYPE.STOP:
-                SoundBoard.audioHelper.stop(data.payload);
-                break;
-            case SBSocketHelper.SOCKETMESSAGETYPE.STOPALL:
-                SoundBoard.audioHelper.stopAll();
-                break;
-            default:
-                break;
+        if (game.user.isGM) {
+            if(data.type === SBSocketHelper.SOCKETMESSAGETYPE.CACHECOMPLETE){
+                SoundBoard.audioHelper.cacheComplete(data.payload);
+            }
+        } else {
+            switch (data.type) {
+                case SBSocketHelper.SOCKETMESSAGETYPE.PLAY:
+                    if (!data.payload.target || data.payload.target == game.userId) {
+                        SoundBoard.audioHelper.play(data.payload);
+                    }
+                    break;
+                case SBSocketHelper.SOCKETMESSAGETYPE.STOP:
+                    SoundBoard.audioHelper.stop(data.payload);
+                    break;
+                case SBSocketHelper.SOCKETMESSAGETYPE.STOPALL:
+                    SoundBoard.audioHelper.stopAll();
+                    break;
+                case SBSocketHelper.SOCKETMESSAGETYPE.CACHE:
+                    SoundBoard.audioHelper.cache(data.payload);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
