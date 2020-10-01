@@ -324,13 +324,13 @@ class SoundBoard {
     static async getSounds() {
         const favoritesArray = game.settings.get("SoundBoard", "favoritedSounds");
 
-        var forge = game.settings.get("SoundBoard", "usingForgeAssets");
+        var source = game.settings.get("SoundBoard", "source");
 
         SoundBoard.soundsError = false;
         SoundBoard.soundsLoaded = false;
         try {
             SoundBoard.sounds = {};
-            var soundboardDirArray = await FilePicker.browse(forge ? "forgevtt" : "data", game.settings.get("SoundBoard", "soundboardDirectory"));
+            var soundboardDirArray = await FilePicker.browse(source, game.settings.get("SoundBoard", "soundboardDirectory"));
             if (soundboardDirArray.target != game.settings.get("SoundBoard", "soundboardDirectory")) {
                 throw "Filepicker target did not match input. Parent directory may be correct. Soft failure.";
             }
@@ -339,9 +339,9 @@ class SoundBoard {
             for (const dir of soundboardDirArray.dirs) {
                 const dirShortName = dir.split(/[\/]+/).pop();
                 SoundBoard.sounds[dirShortName] = [];
-                let innerDirArray = await FilePicker.browse(forge ? "forgevtt" : "data", dir);
+                let innerDirArray = await FilePicker.browse(source, dir);
                 for (const wildcardDir of innerDirArray.dirs) {
-                    let wildcardFileArray = await FilePicker.browse(forge ? "forgevtt" : "data", wildcardDir);
+                    let wildcardFileArray = await FilePicker.browse(source, wildcardDir);
                     wildcardFileArray = wildcardFileArray.files;
                     wildcardFileArray = wildcardFileArray.filter(function (file) {
                         switch (file.substring(file.length - 4)) {
@@ -410,17 +410,23 @@ class SoundBoard {
                 SoundBoard.getSounds();
             }
         });
-        game.settings.register("SoundBoard", "usingForgeAssets", {
-            name: "SOUNDBOARD.settings.forge.name",
-            hint: "SOUNDBOARD.settings.forge.hint",
+
+        game.settings.register("SoundBoard", "source", {
+            name: "SOUNDBOARD.settings.source.name",
+            hint: "SOUNDBOARD.settings.source.hint",
             scope: "world",
             config: true,
-            type: Boolean,
-            default: false,
-            onChange: value => {
+            type: String,
+            choices: {
+                "data": "SOUNDBOARD.settings.source.data",
+                "forgevtt": "SOUNDBOARD.settings.source.forgevtt",
+                "s3": "SOUNDBOARD.settings.source.s3"
+              },
+              default: "data",
+              onChange: value => { 
                 SoundBoard.getSounds();
-            }
-        });
+              }
+        })
 
         game.settings.register("SoundBoard", "soundboardServerVolume", {
             name: "Server Volume",

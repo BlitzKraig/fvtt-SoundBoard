@@ -1,3 +1,7 @@
+# 1.1.4 - 2020/10/01
+
+* Added S3 support
+
 # 1.1.3 - 2020/09/29
 
 * Added new bundled sounds

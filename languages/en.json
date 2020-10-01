@@ -18,9 +18,12 @@
                 "name": "Custom SoundBoard Directory",
                 "hint": "This should point to a folder containing subfolders, each containing audio files. See modules/SoundBoard/exampleAudio/ for an example"
             },
-            "forge": {
-                "name" : "Use ForgeVTT Assets",
-                "hint" : "This should be enabled if you are using a Forge Asset Library"
+            "source":{
+                "name": "Source Type",
+                "hint": "If your sounds are stored in your Forge Assets, select Forge. If they are stored in an S3 bucket, select S3. Otherwise, select Data",
+                "data": "Data",
+                "forgevtt": "Forge",
+                "s3": "S3"
             }
         },
 
