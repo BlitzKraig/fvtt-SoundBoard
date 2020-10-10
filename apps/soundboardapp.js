@@ -56,10 +56,15 @@ class SoundBoardApplication extends Application {
 
     formatName(name) {
         name = name.split('.')[0];
-        name = name.match(/[A-Z]+(?![a-z])|[A-Z]?[a-z]+|\d+/g).join(' ');
-        name = name.replace(/_|-|[%20]/g, ' ');
-        name = name.split(' ').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ');
-        name = name.replace(/\s\s+/g, ' ');
+        try {
+            name = name.match(/[A-Z]+(?![a-z])|[A-Z]?[a-z]+|\d+/g).join(' ');
+            name = name.replace(/_|-|[%20]/g, ' ');
+            name = name.split(' ').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ');
+            name = name.replace(/\s\s+/g, ' ');
+        } catch (e) {
+            console.log(e);
+            console.log('Returning simple split name');
+        }
         return name;
     }
     getData() {

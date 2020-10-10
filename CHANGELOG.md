@@ -1,3 +1,8 @@
+# 1.1.5 - 2020/10/10
+
+* Added try/catch block around name formatter, to prevent fatal error if name cannot be fully parsed and formatted
+* Added new applause SFX for the League of Extraordinary Foundry Developers awards stream
+
 # 1.1.4 - 2020/10/01
 
 * Added S3 support
