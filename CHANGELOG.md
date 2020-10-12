@@ -1,3 +1,7 @@
+# 1.1.6 - 2020/10/12
+
+* Fixed support for S3 buckets
+
 # 1.1.5 - 2020/10/10
 
 * Added try/catch block around name formatter, to prevent fatal error if name cannot be fully parsed and formatted
