@@ -330,7 +330,11 @@ class SoundBoard {
         SoundBoard.soundsLoaded = false;
         try {
             SoundBoard.sounds = {};
-            var soundboardDirArray = await FilePicker.browse(source, game.settings.get("SoundBoard", "soundboardDirectory"));
+            if (source === 's3') {
+                const bucketContainer = await FilePicker.browse(source, game.settings.get('SoundBoard', 'soundboardDirectory'));
+                var bucket = bucketContainer.dirs[0]
+            }
+            var soundboardDirArray = await FilePicker.browse(source, game.settings.get("SoundBoard", "soundboardDirectory"), {...(bucket && {bucket})});
             if (soundboardDirArray.target != game.settings.get("SoundBoard", "soundboardDirectory")) {
                 throw "Filepicker target did not match input. Parent directory may be correct. Soft failure.";
             }
@@ -339,9 +343,9 @@ class SoundBoard {
             for (const dir of soundboardDirArray.dirs) {
                 const dirShortName = dir.split(/[\/]+/).pop();
                 SoundBoard.sounds[dirShortName] = [];
-                let innerDirArray = await FilePicker.browse(source, dir);
+                let innerDirArray = await FilePicker.browse(source, dir, {...(bucket && {bucket})});
                 for (const wildcardDir of innerDirArray.dirs) {
-                    let wildcardFileArray = await FilePicker.browse(source, wildcardDir);
+                    let wildcardFileArray = await FilePicker.browse(source, wildcardDir, {...(bucket && {bucket})});
                     wildcardFileArray = wildcardFileArray.files;
                     wildcardFileArray = wildcardFileArray.filter(function (file) {
                         switch (file.substring(file.length - 4)) {
