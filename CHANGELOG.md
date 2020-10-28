@@ -1,3 +1,7 @@
+# 1.1.7 - 2020/10/28
+
+* Rerouted soundboard via custom GainNode
+
 # 1.1.6 - 2020/10/12
 
 * Fixed support for S3 buckets
