@@ -47,7 +47,7 @@
                 "target": "Send sounds to a specific player only"
             },
             "tooltip": {
-                "target": "Player targetting",
+                "target": "Player targeting",
                 "cache": "Toggle caching-mode"
             }
         },
