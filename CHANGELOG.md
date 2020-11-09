@@ -1,3 +1,7 @@
+# 1.1.8 - 2020/11/09
+
+* 0.7 compat update
+
 # 1.1.7 - 2020/10/28
 
 * Rerouted soundboard via custom GainNode
