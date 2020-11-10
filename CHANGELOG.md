@@ -1,3 +1,7 @@
+# 1.1.9 - 2020/11/10
+
+* Added Naval Warfare sounds, donated by powerkor
+
 # 1.1.8 - 2020/11/09
 
 * 0.7 compat update
