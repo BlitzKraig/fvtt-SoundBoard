@@ -1,3 +1,7 @@
+# 1.1.10 - 2020/11/15
+
+* Added many new sounds, recorded and donated by Rive247
+
 # 1.1.9 - 2020/11/10
 
 * Added Naval Warfare sounds, donated by powerkor
