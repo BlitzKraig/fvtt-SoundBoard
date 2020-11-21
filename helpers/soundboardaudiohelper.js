@@ -29,6 +29,9 @@ class SBAudioHelper {
     }
 
     play({src, volume}, sound) {
+        if (Howler.ctx===null) {
+            Howler.mute(false);
+        }
         if(!Howler.soundboardGain){
             Howler.soundboardGain = Howler.ctx.createGain()
             Howler.soundboardGain.connect(Howler.ctx.destination);
