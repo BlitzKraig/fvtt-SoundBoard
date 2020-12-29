@@ -29,10 +29,7 @@ class SBAudioHelper {
     }
 
     play({src, volume}, sound) {
-        if(!Howler.soundboardGain){
-            Howler.soundboardGain = Howler.ctx.createGain()
-            Howler.soundboardGain.connect(Howler.ctx.destination);
-        }
+
         volume *= game.settings.get("core", "globalInterfaceVolume");
         let sbhowl = new Howl({src, volume, onend: (id)=>{
             this.removeActiveSound(id)
@@ -53,6 +50,12 @@ class SBAudioHelper {
             }
             this.removeActiveSound(id)
         }});
+               
+        if(!Howler.soundboardGain){
+            Howler.soundboardGain = Howler.ctx.createGain()
+            Howler.soundboardGain.connect(Howler.ctx.destination);
+        }
+
         sbhowl._sounds[0]._node.disconnect()
         sbhowl._sounds[0]._node.connect(Howler.soundboardGain);
         sbhowl.play();
