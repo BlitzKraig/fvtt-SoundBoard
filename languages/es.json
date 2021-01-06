@@ -1,5 +1,9 @@
 {
     "SOUNDBOARD": {
+        "I18N": {
+            "LANGUAGE": "Español",
+            "MAINTAINERS": "@Viriato139ac#0342"
+        },
         "button": {
             "openSoundboard": "Abrir SoundBoard",
             "openSoundboardFav": "Abrir Favoritos SoundBoard",
