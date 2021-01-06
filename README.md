@@ -81,3 +81,8 @@ All sounds have been modified from their originals.
 
 Cult Chant sounds recorded by me
 
+Multiple sounds generously recorded and donated by Rive247
+
+Multiple sounds generously donated by powerkor
+
+
