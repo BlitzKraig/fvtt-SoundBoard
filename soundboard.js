@@ -276,6 +276,7 @@ class SoundBoard {
                 wildcardFileArray = wildcardFileArray.filter(function (file) {
                     switch (file.substring(file.length - 4)) {
                         case ".ogg":
+                        case ".oga":
                         case ".mp3":
                         case ".wav":
                         case "flac":
@@ -298,6 +299,7 @@ class SoundBoard {
             for (const file of innerDirArray.files) {
                 switch (file.substring(file.length - 4)) {
                     case ".ogg":
+                    case ".oga":
                     case ".mp3":
                     case ".wav":
                     case "flac":
@@ -350,6 +352,7 @@ class SoundBoard {
                     wildcardFileArray = wildcardFileArray.filter(function (file) {
                         switch (file.substring(file.length - 4)) {
                             case ".ogg":
+                            case ".oga":
                             case ".mp3":
                             case ".wav":
                             case "flac":
@@ -372,6 +375,7 @@ class SoundBoard {
                 for (const file of innerDirArray.files) {
                     switch (file.substring(file.length - 4)) {
                         case ".ogg":
+                        case ".oga":
                         case ".mp3":
                         case ".wav":
                         case "flac":
