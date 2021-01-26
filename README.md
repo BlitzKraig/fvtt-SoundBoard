@@ -16,7 +16,7 @@ See the `exampleAudio/` directory in the module, and the default setup for an ex
 
 Create a directory for your sounds, with a single subdirectory for each sound category.
 
-Place your sounds in these folders. WAV, MP3 & OGG are supported.
+Place your sounds in these folders. WAV, MP3 & OGG/OGA are supported.
 
 Place another directory inside one of these category directories to create a 'Wildcard Sound'. Clicking these sounds will play a random selection from any sound files placed inside this directory
 
