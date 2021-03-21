@@ -29,7 +29,9 @@ class SBAudioHelper {
     }
 
     play({src, volume}, sound) {
-
+        if(game.settings.get("core", "globalInterfaceVolume") == 0){
+            ui.notifications.warn(game.i18n.localize("SOUNDBOARD.notif.interfaceMuted"));
+        }
         volume *= game.settings.get("core", "globalInterfaceVolume");
         let sbhowl = new Howl({src, volume, onend: (id)=>{
             this.removeActiveSound(id)
@@ -97,6 +99,13 @@ class SBAudioHelper {
         if (soundIndex > -1) {
             this.activeSounds.splice(soundIndex, 1);
         }
+    }
+
+    onVolumeChange(volume) {
+        volume *= game.settings.get("core", "globalInterfaceVolume");
+        this.activeSounds.forEach(sound => {
+            sound.volume(volume);
+        });
     }
     
 }

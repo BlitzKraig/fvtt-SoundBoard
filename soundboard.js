@@ -73,6 +73,12 @@ class SoundBoard {
     }
 
     static updateVolume(volumePercentage) {
+        let volume = volumePercentage/100;
+        SoundBoard.audioHelper.onVolumeChange(volume);
+        SoundBoard.socketHelper.sendData({
+            type: SBSocketHelper.SOCKETMESSAGETYPE.VOLUMECHANGE,
+            payload: {volume}
+        });
         game.settings.set("SoundBoard", "soundboardServerVolume", volumePercentage)
     }
 
@@ -450,6 +456,21 @@ class SoundBoard {
             config: false,
             default: []
         })
+
+        // Check if an onChange fn already exists
+        if (!game.settings.settings.get("core.globalInterfaceVolume").onChange) {
+            // No onChange fn, just use ours
+            game.settings.settings.get("core.globalInterfaceVolume").onChange = (volume) => {
+                SoundBoard.audioHelper.onVolumeChange(game.settings.get("SoundBoard", "soundboardServerVolume") / 100);
+            }
+        } else {
+            // onChange fn exists, call the original inside our own
+            var originalGIOnChange = game.settings.settings.get("core.globalInterfaceVolume").onChange;
+            game.settings.settings.get("core.globalInterfaceVolume").onChange = (volume) => {
+                originalGIOnChange(volume);
+                SoundBoard.audioHelper.onVolumeChange(game.settings.get("SoundBoard", "soundboardServerVolume") / 100);
+            }
+        }
 
         if (game.user.isGM) {
             SoundBoard.soundsError = false;

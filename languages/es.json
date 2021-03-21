@@ -54,7 +54,8 @@
         },
         "notif": {
             "soundsNotLoaded": "Se están cargando sonidos, inténtelo más tarde",
-            "soundsError": "Error al cargar los sonidos. Compruebe el directorio de sonidos en los ajustes del módulo"
+            "soundsError": "Error al cargar los sonidos. Compruebe el directorio de sonidos en los ajustes del módulo",
+            "interfaceMuted": "Suba el volumen de su interfaz para escuchar el audio de SoundBoard"
         },
 
         "whetstone": {

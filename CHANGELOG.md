@@ -4,6 +4,7 @@
 * Added Spanish translation
 * Fixed nullpointer on 'fresh' worlds with no playlist audio
 * Added .oga file support
+* Added volume changing for sounds already playing
 
 # 1.1.10 - 2020/11/15
 
