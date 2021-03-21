@@ -7,9 +7,6 @@
             "stopAllTool": "Stop All SoundBoard Sounds",
             "stopAll": "Stop All"
         },
-        "slider": {
-            "interface": "SoundBoard"
-        },
         "log": {
             "invalidSound": "is not a valid audio file, skipping"
         },

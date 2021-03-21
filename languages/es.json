@@ -11,9 +11,6 @@
             "stopAllTool": "Parar Todos los Sonidos SoundBoard",
             "stopAll": "Parar Todos"
         },
-        "slider": {
-            "interface": "SoundBoard"
-        },
         "log": {
             "invalidSound": "no es un fichero de audio válido, saltando"
         },

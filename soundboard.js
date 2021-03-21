@@ -505,7 +505,6 @@ class SoundBoard {
             let button = $("<button class='open-soundboard'><i class='fas fa-border-all'></i> " + game.i18n.localize('SOUNDBOARD.button.openSoundboard') + "</button>");
             button.click(SoundBoard.openSoundBoard);
             html.find(".directory-footer").prepend(button);
-            html.find(".sound-name").toArray().filter((el) => el.innerText == game.i18n.localize('PLAYLIST.VolInterface'))[0].innerText = game.i18n.localize('SOUNDBOARD.slider.interface');
         }
     }
 }
