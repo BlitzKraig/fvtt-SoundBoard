@@ -81,10 +81,9 @@ class SoundBoardApplication extends Application {
 
             // Uppercase letters after a space
             name = name.split(' ').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ');
-            // name = name.replace(/\s\s+/g, ' ');
         } catch (e) {
-            console.log(e);
-            console.log('Returning simple split name');
+            SoundBoard.log(e, SoundBoard.LOGTYPE.ERR)
+            SoundBoard.log('Returning simple split name', SoundBoard.LOGTYPE.WARN);
         }
         return [name, true];
     }

@@ -77,8 +77,12 @@ class SBAudioHelper {
         ui.notifications.notify(`${player} cache complete for ${src}`);
     }
 
-    stop() {
-        SoundBoard.log("Not yet implemented");
+    stop(soundObj) {
+        this.activeSounds.filter(sound => {
+            return soundObj.src.includes(sound._src);
+        }).forEach(sound => {
+            sound.stop();
+        });
     }
 
     stopAll() {

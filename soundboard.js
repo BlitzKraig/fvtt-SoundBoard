@@ -73,11 +73,13 @@ class SoundBoard {
     }
 
     static updateVolume(volumePercentage) {
-        let volume = volumePercentage/100;
+        let volume = volumePercentage / 100;
         SoundBoard.audioHelper.onVolumeChange(volume);
         SoundBoard.socketHelper.sendData({
             type: SBSocketHelper.SOCKETMESSAGETYPE.VOLUMECHANGE,
-            payload: {volume}
+            payload: {
+                volume
+            }
         });
         game.settings.set("SoundBoard", "soundboardServerVolume", volumePercentage)
     }
@@ -89,11 +91,23 @@ class SoundBoard {
 
     static async playSoundOrStopLoop(identifyingPath) {
         let sound = SoundBoard.getSoundFromIdentifyingPath(identifyingPath);
-        if (sound.isLoop) {
+
+        if (keyboard._downKeys.has("Alt")) {
+            if (sound.isFavorite) {
+                this.unfavoriteSound(identifyingPath);
+            } else {
+                this.favoriteSound(identifyingPath)
+            }
+        } else if (sound.isLoop) {
             SoundBoard.stopLoop(identifyingPath);
+        } else if (keyboard._downKeys.has("Control")) {
+            this.stopSound(identifyingPath)
+        }  else if (keyboard._downKeys.has("Shift")) {
+            this.startLoop(identifyingPath);
         } else {
             SoundBoard.playSound(identifyingPath);
         }
+
     }
 
     static async playSound(identifyingPath, push = true) {
@@ -194,7 +208,6 @@ class SoundBoard {
             return;
         }
         favoriteArray.push(identifyingPath)
-        console.log(favoriteArray);
         game.settings.set("SoundBoard", "favoritedSounds", favoriteArray);
 
         SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isFavorite = true;
@@ -210,7 +223,6 @@ class SoundBoard {
         favoriteArray.splice(favoriteArray.findIndex((element) => {
             return element == identifyingPath
         }), 1);
-        console.log(favoriteArray);
         game.settings.set("SoundBoard", "favoritedSounds", favoriteArray);
 
         SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isFavorite = false;
@@ -248,6 +260,15 @@ class SoundBoard {
         $(button).siblings().children('.dropdown-item').removeClass('active');
         $(button).parent().siblings('.dropdown-item').removeClass('active');
         $(button).addClass('active');
+    }
+
+    static stopSound(identifyingPath) {
+        let sound = SoundBoard.getSoundFromIdentifyingPath(identifyingPath);
+        SoundBoard.audioHelper.stop(sound);
+        SoundBoard.socketHelper.sendData({
+            type: SBSocketHelper.SOCKETMESSAGETYPE.STOP,
+            payload: sound
+        });
     }
 
     static stopAllSounds() {
@@ -342,7 +363,11 @@ class SoundBoard {
                 const bucketContainer = await FilePicker.browse(source, game.settings.get('SoundBoard', 'soundboardDirectory'));
                 var bucket = bucketContainer.dirs[0]
             }
-            var soundboardDirArray = await FilePicker.browse(source, game.settings.get("SoundBoard", "soundboardDirectory"), {...(bucket && {bucket})});
+            var soundboardDirArray = await FilePicker.browse(source, game.settings.get("SoundBoard", "soundboardDirectory"), {
+                ...(bucket && {
+                    bucket
+                })
+            });
             if (soundboardDirArray.target != game.settings.get("SoundBoard", "soundboardDirectory")) {
                 throw "Filepicker target did not match input. Parent directory may be correct. Soft failure.";
             }
@@ -351,9 +376,17 @@ class SoundBoard {
             for (const dir of soundboardDirArray.dirs) {
                 const dirShortName = dir.split(/[\/]+/).pop();
                 SoundBoard.sounds[dirShortName] = [];
-                let innerDirArray = await FilePicker.browse(source, dir, {...(bucket && {bucket})});
+                let innerDirArray = await FilePicker.browse(source, dir, {
+                    ...(bucket && {
+                        bucket
+                    })
+                });
                 for (const wildcardDir of innerDirArray.dirs) {
-                    let wildcardFileArray = await FilePicker.browse(source, wildcardDir, {...(bucket && {bucket})});
+                    let wildcardFileArray = await FilePicker.browse(source, wildcardDir, {
+                        ...(bucket && {
+                            bucket
+                        })
+                    });
                     wildcardFileArray = wildcardFileArray.files;
                     wildcardFileArray = wildcardFileArray.filter(function (file) {
                         switch (file.substring(file.length - 4)) {
@@ -435,11 +468,11 @@ class SoundBoard {
                 "data": "SOUNDBOARD.settings.source.data",
                 "forgevtt": "SOUNDBOARD.settings.source.forgevtt",
                 "s3": "SOUNDBOARD.settings.source.s3"
-              },
-              default: "data",
-              onChange: value => { 
+            },
+            default: "data",
+            onChange: value => {
                 SoundBoard.getSounds();
-              }
+            }
         })
 
         game.settings.register("SoundBoard", "soundboardServerVolume", {

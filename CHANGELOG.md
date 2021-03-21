@@ -7,6 +7,9 @@
 * Added volume changing for sounds already playing
 * Updated CSS to play nicer with some systems
 * Improved filename parsing and formatting
+* Added ability to stop single sounds (CTRL + click)
+* Added instant looping (Shift + click)
+* Added instant fav/unfav (Alt + click)
 
 # 1.1.10 - 2020/11/15
 
