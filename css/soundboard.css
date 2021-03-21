@@ -97,6 +97,8 @@ button.open-soundboard {
   width: 700px;
   height: 700px;
   min-height: 300px;
+  padding: 0 !important;
+  border-radius: 10px !important;
 }
 
 #soundboard-app .window-header {
@@ -139,7 +141,7 @@ button.open-soundboard {
   left: 0;
   top: 0;
   height: 100%;
-  background: unset;
+  background: unset !important;
   border: unset;
 }
 
@@ -162,7 +164,7 @@ button.open-soundboard {
   top: 0;
   height: 30px;
   line-height: 0px;
-  background: none;
+  background: none !important;
   border: none;
   font-size: 14px;
   color: var(--SoundBoard-more-button-inactive-color)
