@@ -6,6 +6,7 @@
 * Added .oga file support
 * Added volume changing for sounds already playing
 * Updated CSS to play nicer with some systems
+* Improved filename parsing and formatting
 
 # 1.1.10 - 2020/11/15
 
