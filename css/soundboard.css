@@ -123,13 +123,13 @@ button.open-soundboard {
 #soundboard-app .btn.loop-active {
   -webkit-animation: looping-border var(--SoundBoard-loop-animation-time) linear infinite;
   animation: looping-border var(--SoundBoard-loop-animation-time) linear infinite;
-  color: var(--SoundBoard-loop-text-color);
-  text-shadow: var(--SoundBoard-text-shadow)
+  color: var(--SoundBoard-loop-text-color) !important;
+  text-shadow: var(--SoundBoard-text-shadow) !important;
 }
 
 #soundboard-app .btn.favorited {
-  border-color: var(--SoundBoard-favorite-color);
-  box-shadow: 0 0 3px #000;
+  border-color: var(--SoundBoard-favorite-color) !important;
+  box-shadow: 0 0 3px #000 !important;
 }
 
 #soundboard-app .dropdown-smalltext {
