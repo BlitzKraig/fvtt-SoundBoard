@@ -54,39 +54,6 @@ class SoundBoardApplication extends Application {
         }
     }
 
-    formatFilename(name, formatted){
-        if(formatted){
-            return [name, formatted];
-        }
-        if(name.indexOf('.') > -1 && name.indexOf('.') < name.length){
-            name = name.substr(0, name.lastIndexOf('.'))
-        }
-        return this.formatName(name, this.formatted);
-        
-    }
-    formatName(name, formatted) {
-        if(formatted){
-            return [name, formatted];
-        }
-        try {
-            name = decodeURIComponent(name);
-            
-            // Turn _ and - into spaces. Allow multiple characters to display
-            name = name.replace(/_(?! )|-(?! )/g, ' ');
-
-            // Handle camelCase
-            name = name.replace(/([a-z0-9])([A-Z])/g, '$1 $2');
-            // Add a space before numbers after letters
-            name = name.replace(/([a-zA-Z])([0-9])/g, '$1 $2');
-
-            // Uppercase letters after a space
-            name = name.split(' ').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ');
-        } catch (e) {
-            SoundBoard.log(e, SoundBoard.LOGTYPE.ERR)
-            SoundBoard.log('Returning simple split name', SoundBoard.LOGTYPE.WARN);
-        }
-        return [name, true];
-    }
     getData() {
         var sounds = []
         var totalCount = 0;
@@ -94,14 +61,10 @@ class SoundBoardApplication extends Application {
         Object.keys(SoundBoard.sounds).forEach(key => {
             totalCount += SoundBoard.sounds[key].length;
             if (SoundBoard.sounds[key].length > 0) {
-                let [categoryName, categoryFormatted] = this.formatName(key, false);
                 sounds.push({
-                    categoryName: categoryName,
+                    categoryName: key,
                     length: SoundBoard.sounds[key].length,
-                    files: SoundBoard.sounds[key].map(element => {
-                        [element.name, element.formatted] = this.formatFilename(element.name, element.formatted);
-                        return element;
-                    })
+                    files: SoundBoard.sounds[key]
                 });
             }
         });

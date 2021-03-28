@@ -14,14 +14,10 @@ class SoundBoardFavApplication extends SoundBoardApplication {
             let favoritedArray = SoundBoard.sounds[key].filter((el)=>el.isFavorite);
             totalCount += favoritedArray.length;
             if (favoritedArray.length > 0) {
-                let [categoryName, categoryFormatted] = this.formatName(key, false);
                 sounds.push({
-                    categoryName: categoryName,
+                    categoryName: key,
                     length: favoritedArray.length,
-                    files: favoritedArray.map(element => {
-                        [element.name, element.formatted] = this.formatFilename(element.name, element.formatted);
-                        return element;
-                    })
+                    files: favoritedArray
                 });
             }
         });
@@ -30,14 +26,10 @@ class SoundBoardFavApplication extends SoundBoardApplication {
             let favoritedArray = SoundBoard.bundledSounds[key].filter((el)=>el.isFavorite);
             totalCount += favoritedArray.length;
             if (favoritedArray.length > 0) {
-                let [categoryName, categoryFormatted] = this.formatName(key, false);
                 sounds.push({
-                    categoryName: categoryName,
+                    categoryName: key,
                     length: favoritedArray.length,
-                    files: favoritedArray.map(element => {
-                        [element.name, element.formatted] = this.formatFilename(element.name, element.formatted);
-                        return element;
-                    })
+                    files: favoritedArray
                 });
             }
         });

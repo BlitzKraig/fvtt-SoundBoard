@@ -107,7 +107,7 @@ class SoundBoard {
             SoundBoard.stopLoop(identifyingPath);
         } else if (keyboard._downKeys.has("Control")) {
             this.stopSound(identifyingPath)
-        }  else if (keyboard._downKeys.has("Shift")) {
+        } else if (keyboard._downKeys.has("Shift")) {
             this.startLoop(identifyingPath);
         } else {
             SoundBoard.playSound(identifyingPath);
@@ -144,6 +144,28 @@ class SoundBoard {
                 });
             }
         }
+    }
+
+
+    static _formatName(name, shouldStripFileName = true) {
+        if (shouldStripFileName) {
+            if (name.indexOf('.') > -1 && name.indexOf('.') < name.length) {
+                name = name.substr(0, name.lastIndexOf('.'))
+            }
+        }
+        name = decodeURIComponent(name);
+
+        // Turn _ and - into spaces. Allow multiple characters to display
+        name = name.replace(/_(?! )|-(?! )/g, ' ');
+
+        // Handle camelCase
+        name = name.replace(/([a-z0-9])([A-Z])/g, '$1 $2');
+        // Add a space before numbers after letters
+        name = name.replace(/([a-zA-Z])([0-9])/g, '$1 $2');
+
+        // Uppercase letters after a space
+        name = name.split(' ').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ');
+        return name;
     }
 
     static async previewSound(identifyingPath) {
@@ -299,7 +321,7 @@ class SoundBoard {
 
         var soundboardDirArray = await FilePicker.browse("data", "modules/SoundBoard/bundledAudio/");
         for (const dir of soundboardDirArray.dirs) {
-            const dirShortName = dir.split(/[\/]+/).pop();
+            const dirShortName = this._formatName(dir.split(/[\/]+/).pop(), false);
             SoundBoard.bundledSounds[dirShortName] = [];
             let innerDirArray = await FilePicker.browse("data", dir);
             for (const wildcardDir of innerDirArray.dirs) {
@@ -319,7 +341,7 @@ class SoundBoard {
                     }
                 });
                 SoundBoard.bundledSounds[dirShortName].push({
-                    name: wildcardDir.split(/[\/]+/).pop(),
+                    name: this._formatName(wildcardDir.split(/[\/]+/).pop(), false),
                     src: wildcardFileArray,
                     id: SoundBoard.soundIdCounter,
                     identifyingPath: wildcardDir,
@@ -336,7 +358,7 @@ class SoundBoard {
                     case ".wav":
                     case "flac":
                         SoundBoard.bundledSounds[dirShortName].push({
-                            name: file.split(/[\/]+/).pop(),
+                            name: this._formatName(file.split(/[\/]+/).pop()),
                             src: [file],
                             id: SoundBoard.soundIdCounter,
                             identifyingPath: file,
@@ -379,7 +401,7 @@ class SoundBoard {
             SoundBoard.soundIdCounter = 0;
 
             for (const dir of soundboardDirArray.dirs) {
-                const dirShortName = dir.split(/[\/]+/).pop();
+                const dirShortName = this._formatName(dir.split(/[\/]+/).pop(), false);
                 SoundBoard.sounds[dirShortName] = [];
                 let innerDirArray = await FilePicker.browse(source, dir, {
                     ...(bucket && {
@@ -407,7 +429,7 @@ class SoundBoard {
                         }
                     });
                     SoundBoard.sounds[dirShortName].push({
-                        name: wildcardDir.split(/[\/]+/).pop(),
+                        name: this._formatName(wildcardDir.split(/[\/]+/).pop(), false),
                         src: wildcardFileArray,
                         id: SoundBoard.soundIdCounter,
                         identifyingPath: wildcardDir,
@@ -424,7 +446,7 @@ class SoundBoard {
                         case ".wav":
                         case "flac":
                             SoundBoard.sounds[dirShortName].push({
-                                name: file.split(/[\/]+/).pop(),
+                                name: this._formatName(file.split(/[\/]+/).pop()),
                                 src: [file],
                                 id: SoundBoard.soundIdCounter,
                                 identifyingPath: file,
