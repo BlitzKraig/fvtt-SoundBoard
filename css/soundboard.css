@@ -163,7 +163,7 @@ button.open-soundboard {
   right: 0;
   top: 0;
   height: 30px;
-  line-height: 0px;
+  line-height: 0;
   background: none !important;
   border: none;
   font-size: 14px;
@@ -259,7 +259,7 @@ button.open-soundboard {
 }
 
 #soundboard-app #stop-all {
-  line-height: 0px;
+  line-height: 0;
 }
 
 #soundboard-app #volume-container {
@@ -285,7 +285,7 @@ button.open-soundboard {
 }
 
 #soundboard-app .toolbar-btn {
-  line-height: 0px;
+  line-height: 0;
   width: initial;
 }
 
@@ -299,7 +299,7 @@ button.open-soundboard {
 }
 
 #soundboard-app .toolbar-btn * {
-  line-height: 0px;
+  line-height: 0;
 }
 
 #soundboard-app #expand-collapse-container {
@@ -312,7 +312,7 @@ button.open-soundboard {
 }
 
 #soundboard-app #volume-text {
-  margin: 0px 10px;
+  margin: 0 10px;
   color: var(--SoundBoard-volume-text-color);
   align-self: center;
   text-shadow: var(--SoundBoard-text-shadow)
@@ -336,6 +336,6 @@ button.open-soundboard {
 }
 
 .soundboard-container {
-  margin: 0px 20px 20px 20px;
+  margin: 0 20px 20px 20px;
   text-align: center;
 }
