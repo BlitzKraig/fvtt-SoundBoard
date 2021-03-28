@@ -295,7 +295,7 @@ button.open-soundboard {
 }
 
 #soundboard-app .toolbar-btn.active {
-  background: var(--SoundBoard-toolbar-btn-active-color);
+  background: var(--SoundBoard-toolbar-btn-active-color) !important;
 }
 
 #soundboard-app .toolbar-btn * {
