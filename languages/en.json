@@ -45,13 +45,16 @@
             },
             "tooltip": {
                 "target": "Player targeting",
-                "cache": "Toggle caching-mode"
+                "cache": "Toggle caching-mode",
+                "refresh": "Refresh all sounds"
             }
         },
         "notif": {
             "soundsNotLoaded": "Sounds are still loading, please try again shortly",
             "soundsError": "Error loading sounds. Check your path in module settings",
-            "interfaceMuted": "Please un-mute your interface volume to hear SoundBoard audio"
+            "interfaceMuted": "Please un-mute your interface volume to hear SoundBoard audio",
+            "refreshing": "Refreshing SoundBoard audio...",
+            "refreshComplete": "SoundBoard refresh complete"
         },
 
         "whetstone": {

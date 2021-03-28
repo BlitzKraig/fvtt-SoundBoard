@@ -37,6 +37,9 @@
     <button id="cache-sounds" type="button" class="btn btn-secondary toolbar-btn {{#if cacheMode}}active{{/if}}" title="{{localize 'SOUNDBOARD.app.tooltip.cache'}}" onclick="SoundBoard.toggleCacheMode(this)">
       <i class="fas fa-cloud-download-alt"></i>
     </button>
+    <button id="refresh-sounds" type="button" class="btn btn-secondary toolbar-btn" title="{{localize 'SOUNDBOARD.app.tooltip.refresh'}}" onclick="SoundBoard.refreshSounds()">
+      <i class="fas fa-sync-alt"></i>
+    </button>
     <div class="dropdown-menu" aria-labelledby="granular-send">
       <small class="dropdown-smalltext">{{localize 'SOUNDBOARD.app.toolbar.target'}}</small>
       <button class="dropdown-item {{#unless targettedPlayer}}active{{/unless}}"

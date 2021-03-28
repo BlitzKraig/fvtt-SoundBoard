@@ -17,6 +17,8 @@ class SoundBoard {
     static targettedPlayerID;
     static cacheMode = false;
 
+    static openedBoard;
+
     static socketHelper;
     static audioHelper;
 
@@ -55,21 +57,24 @@ class SoundBoard {
             ui.notifications.warn(game.i18n.localize("SOUNDBOARD.notif.soundsNotLoaded"))
             return;
         }
-        new SoundBoardApplication().render(true);
+        SoundBoard.openedBoard = new SoundBoardApplication();
+        SoundBoard.openedBoard.render(true);
     }
     static openSoundBoardFav() {
         if (!SoundBoard.soundsLoaded) {
             ui.notifications.warn(game.i18n.localize("SOUNDBOARD.notif.soundsNotLoaded"))
             return;
         }
-        new SoundBoardFavApplication().render(true);
+        SoundBoard.openedBoard = new SoundBoardFavApplication().render(true);
+        SoundBoard.openedBoard.render(true);
     }
     static openSoundBoardBundled() {
         if (!SoundBoard.soundsLoaded) {
             ui.notifications.warn(game.i18n.localize("SOUNDBOARD.notif.soundsNotLoaded"))
             return;
         }
-        new SoundBoardBundledApplication().render(true);
+        SoundBoard.openedBoard = new SoundBoardBundledApplication().render(true);
+        SoundBoard.openedBoard.render(true);
     }
 
     static updateVolume(volumePercentage) {
@@ -439,7 +444,20 @@ class SoundBoard {
             SoundBoard.log(error, SoundBoard.LOGTYPE.ERR);
             SoundBoard.soundsError = true;
         } finally {
-            SoundBoard._getBundledSounds();
+            await SoundBoard._getBundledSounds();
+        }
+    }
+
+    static async refreshSounds() {
+        if (game.user.isGM) {
+            ui.notifications.notify(game.i18n.localize("SOUNDBOARD.notif.refreshing"));
+            SoundBoard.stopAllSounds();
+            SoundBoard.soundsError = false;
+            await SoundBoard.getSounds();
+            if(SoundBoard.openedBoard?.rendered){
+                SoundBoard.openedBoard.render();
+            }
+            ui.notifications.notify(game.i18n.localize("SOUNDBOARD.notif.refreshComplete"));
         }
     }
 
