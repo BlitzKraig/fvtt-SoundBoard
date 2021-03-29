@@ -21,7 +21,7 @@
   ],
   "socket": true,
   "minimumCoreVersion": "0.6.2",
-  "compatibleCoreVersion": "0.7.7",
+  "compatibleCoreVersion": "0.8.1",
   "url": "https://github.com/BlitzKraig/fvtt-SoundBoard",
   "manifest": "https://raw.githubusercontent.com/BlitzKraig/fvtt-SoundBoard/master/module.json",
   "download": "https://github.com/BlitzKraig/fvtt-SoundBoard/releases/download/latest/soundboard-release.zip",
