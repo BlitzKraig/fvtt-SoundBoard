@@ -48,7 +48,8 @@
                 "target": "Player targeting",
                 "cache": "Toggle caching-mode",
                 "refresh": "Refresh all sounds",
-                "macro": "Toggle macro-mode"
+                "macro": "Toggle macro-mode",
+                "deleteMacros": "Delete all SoundBoard macros"
             }
         },
         "notif": {

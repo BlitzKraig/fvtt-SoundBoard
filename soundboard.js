@@ -253,6 +253,24 @@ class SoundBoard {
         }
     }
 
+    static promptDeleteMacros() {
+        new Dialog({
+            title: "Delete SoundBoard Macros",
+            content: `<h1>Delete SoundBoard Macros?</h1><p>Note, this will break any SoundBoard macro journal links.`,
+            buttons: {
+              Ok: {
+                label: `Ok`,
+                callback: (html) => {
+                  SBMacroHelper.deleteAllMacros();
+                }
+              },
+              Cancel: {
+                  label: `Cancel`
+              }
+            }
+          }).render(true);
+    }
+
     static getSoundFromIdentifyingPath(identifyingPath) {
         var sound;
         Object.keys(SoundBoard.sounds).forEach((key) => {
