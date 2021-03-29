@@ -42,7 +42,11 @@ class SoundBoard {
 
     static handlebarsHelpers = {
         "soundboard-safeid": (str) => {
-            return str.replace(/\s/g, '-');
+            return 'sbsafe-' + str.toLowerCase().replace(/[^a-z0-9]/g, function(s) {
+                var c = s.charCodeAt(0);
+                if (c == 32) return '-';
+                return '__' + ('000' + c.toString(16)).slice(-4);
+            });
         },
         "soundboard-getarraycount": (array) => {
             return array.length;
