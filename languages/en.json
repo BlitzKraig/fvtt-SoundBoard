@@ -50,6 +50,9 @@
                 "refresh": "Refresh all sounds",
                 "macro": "Toggle macro-mode",
                 "deleteMacros": "Delete all SoundBoard macros"
+            },
+            "help": {
+                "title": "SoundBoard Help"
             }
         },
         "notif": {
@@ -57,7 +60,11 @@
             "soundsError": "Error loading sounds. Check your path in module settings",
             "interfaceMuted": "Please un-mute your interface volume to hear SoundBoard audio",
             "refreshing": "Refreshing SoundBoard audio...",
-            "refreshComplete": "SoundBoard refresh complete"
+            "refreshComplete": "SoundBoard refresh complete",
+            "macroCreated": "Created Macro: {macro}",
+            "macroExists": "{macro} already exists",
+            "deleteMacros": "Deleted all SoundBoard macros",
+            "noMacros": "No SoundBoard macros to delete"
         },
 
         "whetstone": {

@@ -82,6 +82,10 @@ class SoundBoard {
         SoundBoard.openedBoard.render(true);
     }
 
+    static openSoundBoardHelp() {
+        new SoundBoardHelp().render(true);
+    }
+
     static updateVolume(volumePercentage) {
         let volume = volumePercentage / 100;
         SoundBoard.audioHelper.onVolumeChange(volume);

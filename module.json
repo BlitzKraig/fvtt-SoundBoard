@@ -4,7 +4,7 @@
   "description": "Simple soundboard for the Gamemaster, broadcasted to all connected clients",
   "version": "1.2.0",
   "author": "Blitzkraig",
-  "scripts": ["./soundboard.js", "./apps/soundboardapp.js", "./apps/soundboardfavapp.js", "./apps/soundboardbundledapp.js", "./helpers/soundboardsockethelper.js", "./helpers/soundboardaudiohelper.js", "./helpers/soundboardmacrohelper.js", "./helpers/soundboardwhetstoneconfig.js", "./dependencies/bootstrap.bundle.min.js"],
+  "scripts": ["./soundboard.js", "./apps/soundboardapp.js", "./apps/soundboardfavapp.js", "./apps/soundboardbundledapp.js", "./apps/soundboardhelpapp.js", "./helpers/soundboardsockethelper.js", "./helpers/soundboardaudiohelper.js", "./helpers/soundboardmacrohelper.js", "./helpers/soundboardwhetstoneconfig.js", "./dependencies/bootstrap.bundle.min.js"],
   "styles": ["./css/soundboard.css", "./css/soundboard-bootstrap.min.css"],
   "packs": [],
   "languages": [
