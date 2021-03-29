@@ -618,6 +618,20 @@ class SoundBoard {
             }
         })
 
+        game.settings.register("SoundBoard", "detuneAmount", {
+            name: "SOUNDBOARD.settings.detune.name",
+            hint: "SOUNDBOARD.settings.detune.hint",
+            scope: "world",
+            config: true,
+            type: Number,
+            range: {
+                min: 0,
+                max: 100,
+                step: 1
+              },
+            default: 0
+        })
+
         game.settings.register("SoundBoard", "soundboardServerVolume", {
             name: "Server Volume",
             scope: "world",
