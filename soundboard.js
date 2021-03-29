@@ -594,6 +594,22 @@ class SoundBoard {
                 SoundBoard.getSounds();
             }
         })
+        game.settings.register("SoundBoard", "opacity", {
+            name: "SOUNDBOARD.settings.opacity.name",
+            hint: "SOUNDBOARD.settings.opacity.hint",
+            scope: "world",
+            config: true,
+            type: Number,
+            range: {
+                min: 0.1,
+                max: 1.0,
+                step: 0.05
+              },
+            default: 0.75,
+            onChange: value => {
+                $('#soundboard-app').css("opacity", value);
+            }
+        })
 
         game.settings.register("SoundBoard", "soundboardServerVolume", {
             name: "Server Volume",

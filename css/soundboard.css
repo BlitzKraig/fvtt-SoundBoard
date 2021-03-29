@@ -1,23 +1,11 @@
-/* #soundboard-app {
-  opacity: 0.8;
-  animation-name: fade-out;
-  animation-duration: 0.5s;
-  animation-fill-mode: forwards;
+#soundboard-app {
+  opacity: 1;
+  transition: opacity 0.5s;
+  min-width: 375px;
 }
 #soundboard-app:hover {
-  animation-name: fade-in;
-  animation-duration: 0.5s;
-  animation-fill-mode: forwards;
-} */
-
-/* @keyframes fade-out {
-  from {opacity: 1;}
-  to {opacity: 0.8;}
+  opacity: 1 !important;
 }
-@keyframes fade-in {
-  from {opacity: 0.8;}
-  to {opacity: 1;}
-} */
 
 :root {
   --SoundBoard-loop-bg-from: #01701c;

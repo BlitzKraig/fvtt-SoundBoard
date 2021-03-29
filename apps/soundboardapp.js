@@ -53,6 +53,20 @@ class SoundBoardApplication extends Application {
             });
         }
     }
+    
+    async render(force = false, options = {}) {
+        await super.render(force, options);
+
+        let renderedInterval = setInterval(() => {
+            if (this.rendered) {
+                setTimeout(() => {
+                    $('#soundboard-app').css("opacity", game.settings.get("SoundBoard", "opacity"));
+                    clearInterval(renderedInterval);
+                    renderedInterval = undefined;
+                }, 100);
+            }
+        }, 50);
+    }
 
     getData() {
         var sounds = []

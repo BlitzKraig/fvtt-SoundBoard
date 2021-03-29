@@ -42,8 +42,4 @@ SoundBoard.playSoundByName("${soundName}");
             ui.notifications.notify(game.i18n.localize("SOUNDBOARD.notif.noMacros"));
         }
     }
-
-    // static macroToClipboard(macro) {
-    //     // Copy inline macro identifier to clipboard
-    // }
 }
