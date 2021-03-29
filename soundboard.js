@@ -128,7 +128,14 @@ class SoundBoard {
 
         let sound = SoundBoard.getSoundFromIdentifyingPath(identifyingPath)
         let volume = SoundBoard.getVolume();
-        let src = sound.src[Math.floor(Math.random() * sound.src.length)]
+        let soundIndex = Math.floor(Math.random() * sound.src.length);
+        if(sound.lastPlayedIndex && sound.src.length > 1 && sound.lastPlayedIndex == soundIndex){
+            if(++soundIndex > sound.src.length -1){
+                soundIndex = 0;
+            }
+        }
+        sound.lastPlayedIndex = soundIndex;
+        let src = sound.src[soundIndex];
         let payload = {
             src,
             volume
