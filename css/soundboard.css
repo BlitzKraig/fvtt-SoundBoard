@@ -231,6 +231,7 @@ button.open-soundboard {
 
 #soundboard-app #custom-time-input {
   margin-left: 20px;
+  width: 30%;
 }
 
 #soundboard-app .custom-time-button {
