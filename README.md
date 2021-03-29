@@ -10,6 +10,12 @@ Anyone who is able to create or provide sound effects with the proper licensing,
 
 An easy to use soundboard for the GM.
 
+## Using SoundBoard
+
+Open your Ambient Sound Controls to find the button to open SoundBoard.
+
+At the top right of the SoundBoard there's a blue button with a question mark. Click it for help and tips.
+
 ## Configuration
 
 See the `exampleAudio/` directory in the module, and the default setup for an example.
