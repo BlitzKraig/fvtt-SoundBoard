@@ -75,6 +75,10 @@
     <input type="range" min="1" max="100" value="{{volume}}" class="slider col" id="volumeRange"
       onchange="SoundBoard.updateVolume(this.value)">
   </div>
+  
+  {{#if isExampleAudio}}
+  <p class="text-muted notes sb-warning">{{localize 'SOUNDBOARD.app.exampleWarning'}}</p>
+  {{/if}}
   <p class="text-muted notes">{{localize 'SOUNDBOARD.app.instructions'}}</p>
   <h3><small class="text-muted">Sounds: {{totalCount}}</small></h3>
 

@@ -336,6 +336,11 @@ button.open-soundboard {
   border-radius: 4px 0 5px 0;
 }
 
+#soundboard-app .sb-warning {
+  color: #ff0000 !important;
+  text-decoration: underline !important;
+}
+
 .soundboard-container {
   margin: 0 20px 20px 20px;
   text-align: center;

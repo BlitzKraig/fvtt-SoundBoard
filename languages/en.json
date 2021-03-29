@@ -35,6 +35,7 @@
             "expandAll": "Expand All",
             "collapseAll": "Collapse All",
             "stopAll": "Stop",
+            "exampleWarning": "You have not changed the SoundBoard directory from exampleAudio. If you have added files there, they will be deleted when the module updates. Click the Help button at the top right for more information on Custom Audio.",
             "nav": {
                 "mySounds": "My Sounds",
                 "favorites": "Favorite Sounds",

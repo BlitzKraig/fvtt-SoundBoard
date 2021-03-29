@@ -75,6 +75,8 @@ class SoundBoardApplication extends Application {
         var targettedPlayer = SoundBoard.targettedPlayerID;
         var cacheMode = SoundBoard.cacheMode;
         var macroMode = SoundBoard.macroMode;
+        var isExampleAudio = game.settings.get("SoundBoard", "soundboardDirectory") == game.settings.settings.get("SoundBoard.soundboardDirectory").default;
+
         return {
             tab: {
                 main:true
@@ -86,7 +88,8 @@ class SoundBoardApplication extends Application {
             players,
             targettedPlayer,
             cacheMode,
-            macroMode
+            macroMode,
+            isExampleAudio
         }
     }
 }
