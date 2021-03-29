@@ -650,9 +650,11 @@ class SoundBoard {
             return;
         }
         if (app.options.id == "playlists") {
-            let button = $("<button class='open-soundboard'><i class='fas fa-border-all'></i> " + game.i18n.localize('SOUNDBOARD.button.openSoundboard') + "</button>");
+            let button = $(`<button><i class='fas fa-border-all'></i> ${game.i18n.localize('SOUNDBOARD.button.openSoundboard')}</button>`);
             button.click(SoundBoard.openSoundBoard);
-            html.find(".directory-footer").prepend(button);
+            let container = $('<div class="header-actions action-buttons flexrow"></div>');
+            container.append(button);
+            html.find(".directory-header").append(container);
         }
     }
 }
