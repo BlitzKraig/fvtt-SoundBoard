@@ -66,7 +66,7 @@ class SoundBoard {
             ui.notifications.warn(game.i18n.localize("SOUNDBOARD.notif.soundsNotLoaded"))
             return;
         }
-        SoundBoard.openedBoard = new SoundBoardFavApplication().render(true);
+        SoundBoard.openedBoard = new SoundBoardFavApplication();
         SoundBoard.openedBoard.render(true);
     }
     static openSoundBoardBundled() {
@@ -74,7 +74,7 @@ class SoundBoard {
             ui.notifications.warn(game.i18n.localize("SOUNDBOARD.notif.soundsNotLoaded"))
             return;
         }
-        SoundBoard.openedBoard = new SoundBoardBundledApplication().render(true);
+        SoundBoard.openedBoard = new SoundBoardBundledApplication();
         SoundBoard.openedBoard.render(true);
     }
 
