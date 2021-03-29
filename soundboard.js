@@ -16,6 +16,7 @@ class SoundBoard {
 
     static targettedPlayerID;
     static cacheMode = false;
+    static macroMode = false;
 
     static openedBoard;
 
@@ -132,6 +133,8 @@ class SoundBoard {
                     payload
                 });
             }
+        } else if (SoundBoard.macroMode) {
+            SBMacroHelper.generateMacro(sound.name);
         } else {
             if (SoundBoard.targettedPlayerID) {
                 payload.target = SoundBoard.targettedPlayerID;
@@ -146,6 +149,41 @@ class SoundBoard {
         }
     }
 
+    static async playSoundByName(name, push = true) {
+        let wasMacroMode = SoundBoard.macroMode;
+        if (wasMacroMode) {
+            SoundBoard.macroMode = false;
+        }
+        if (event?.shiftKey) {
+            SoundBoard.cacheMode = true;
+        }
+        let sound;
+        for (let key of Object.keys(SoundBoard.sounds)) {
+            sound = SoundBoard.sounds[key].find((el) => {
+                return el.name.toLowerCase() == name.toLowerCase()
+            });
+            if (sound) {
+                break;
+            }
+        }
+        if (!sound) {
+            for (let key of Object.keys(SoundBoard.bundledSounds)) {
+                sound = SoundBoard.bundledSounds[key].find((el) => {
+                    return el.name.toLowerCase() == name.toLowerCase()
+                });
+                if (sound) {
+                    break;
+                }
+            }
+        }
+        if (sound) {
+            SoundBoard.playSound(sound.identifyingPath, push);
+        }
+        if (event?.shiftKey) {
+            SoundBoard.cacheMode = false;
+        }
+        SoundBoard.macroMode = wasMacroMode;
+    }
 
     static _formatName(name, shouldStripFileName = true) {
         if (shouldStripFileName) {
@@ -189,9 +227,25 @@ class SoundBoard {
     static toggleCacheMode(html) {
         SoundBoard.cacheMode = !SoundBoard.cacheMode;
         if (SoundBoard.cacheMode) {
-            $(html).addClass('active');
+            $(html).find("#cache-sounds").addClass('active');
+
+            // TODO find a better way to do this extensibly
+            $(html).find("#macro-mode").removeClass('active');
+            SoundBoard.macroMode = false;
         } else {
-            $(html).removeClass('active');
+            $(html).find("#cache-sounds").removeClass('active');
+        }
+    }
+
+    static toggleMacroMode(html) {
+        SoundBoard.macroMode = !SoundBoard.macroMode;
+        if (SoundBoard.macroMode) {
+            $(html).find("#macro-mode").addClass('active');
+
+            $(html).find("#cache-sounds").removeClass('active');
+            SoundBoard.cacheMode = false;
+        } else {
+            $(html).find("#macro-mode").removeClass('active');
         }
     }
 

@@ -24,6 +24,7 @@ class SoundBoardBundledApplication extends SoundBoardApplication {
         var players = game.users.entities.filter((el)=>el.active && !el.isGM).map((el)=>{return {name: el.name, id: el.id, isTarget:el.id==SoundBoard.targettedPlayerID?true:false};});
         var targettedPlayer = SoundBoard.targettedPlayerID;
         var cacheMode = SoundBoard.cacheMode;
+        var macroMode = SoundBoard.macroMode;
        return {
             tab: {bundled:true},
             sounds,
@@ -31,7 +32,8 @@ class SoundBoardBundledApplication extends SoundBoardApplication {
             totalCount,
             players,
             targettedPlayer,
-            cacheMode
+            cacheMode,
+            macroMode
         }
     }
 }

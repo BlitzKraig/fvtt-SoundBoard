@@ -46,7 +46,8 @@
             "tooltip": {
                 "target": "Player targeting",
                 "cache": "Toggle caching-mode",
-                "refresh": "Refresh all sounds"
+                "refresh": "Refresh all sounds",
+                "macro": "Toggle macro-mode"
             }
         },
         "notif": {

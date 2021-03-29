@@ -74,6 +74,7 @@ class SoundBoardApplication extends Application {
         var players = game.users.entities.filter((el)=>el.active && !el.isGM).map((el)=>{return {name: el.name, id: el.id, isTarget:el.id==SoundBoard.targettedPlayerID?true:false};});
         var targettedPlayer = SoundBoard.targettedPlayerID;
         var cacheMode = SoundBoard.cacheMode;
+        var macroMode = SoundBoard.macroMode;
         return {
             tab: {
                 main:true
@@ -84,7 +85,8 @@ class SoundBoardApplication extends Application {
             collapse,
             players,
             targettedPlayer,
-            cacheMode
+            cacheMode,
+            macroMode
         }
     }
 }
