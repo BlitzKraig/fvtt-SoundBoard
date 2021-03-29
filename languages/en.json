@@ -21,6 +21,11 @@
                 "data": "Data",
                 "forgevtt": "Forge",
                 "s3": "S3"
+            },
+            "opacity": {
+                "name": "Defocus Opacity",
+                "hint": "Set the opacity of the SoundBoard when you are not hovering over it. 1 to disable."
+            },
             }
         },
 
