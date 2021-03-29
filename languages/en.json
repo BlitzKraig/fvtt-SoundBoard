@@ -26,6 +26,9 @@
                 "name": "Defocus Opacity",
                 "hint": "Set the opacity of the SoundBoard when you are not hovering over it. 1 to disable."
             },
+            "detune": {
+                "name": "Random Detune Amount",
+                "hint": "Randomly detune a sound each time it plays. 0 to disable. Currently only supported in Foundry 0.8.1+"
             }
         },
 
