@@ -1,5 +1,62 @@
 # SoundBoard Changelog
 
+## 1.3.0 - 2021/03/30
+
+### New Features & Enhancements
+
+* Updated version compatibility
+  * SoundBoard now works with 0.8.1
+  * 0.6.x and 0.7.x are still supported
+* Added macro-mode
+  * New toolbar button
+  * Instantly generate a macro to play a sound
+    * If a macro for that sound already exists, it will not be re-generated
+  * Shift-clicking the macro will preload the sound for players
+  * `SoundBoard.playSoundByName('Sound Name');` can be used for custom macros.
+    * Case should not matter
+    * Multiple sounds with the same name will cause issues
+* Added journal embeds via macro-mode
+  * Using macro-mode when a Journal Entry is being edited will instantly link the sound in the Journal Entry
+    * If a macro for that sound already exists, it will be automatically grabbed from your macros directory and inserted into the journal entry
+  * Shift-clicking the embed will preload the sound for players
+  * Left clicking the embed will play the sound
+* Added random detune options
+  * Randomly modulate the pitch each time a sound is played, providing some variation for repeated sounds
+  * Works best on 0.8.1+, but has been backported to work for 0.6.x and 0.7.x
+  * Change the detune amount in module settings
+  * Can be disabled by setting to 0
+* Wildcard sounds never play the same sound twice in a row
+* Updated sound search layout (Thanks Calego)
+* Added inactive opacity options
+  * SoundBoard will turn semi-transparent when not moused-over, allowing you to see your scene below the board
+  * Change amount in module settings
+  * Can be disabled by setting to 1
+* Added help app
+  * New tooblar button
+  * Loads of information about using SoundBoard
+* Added Refresh Sounds toolbar button
+  * Detect any changes in your SoundBoard audio directory and refresh the SoundBoard without requiring a Foundry refresh
+* Added warning for users still using the exampleAudio directory
+  * Don't do that, you'll lose all your stuff.
+* Added delete all SoundBoard macros toolbar button
+
+### Fixes
+
+* Cleaned up CSS
+* Fixed some CSS rules to ensure important properties are kept
+* Added missing div closing tag
+* Improved parsing & name formatting performance
+* Moved playlists Open Soundboard button to the top of the Playlists directory
+* Fixed custom time input rendering (Delayed loop)
+
+### Localisation & Other
+
+* Updated Spanish localisation
+* Added Japanese localisation (Slightly outdated)
+* Added Manifest+
+* Added BugReporter
+* General code tidy
+
 ## 1.2.0 - 2021/03/21
 
 * Removed interface slider text override
