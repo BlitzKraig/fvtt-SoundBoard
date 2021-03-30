@@ -129,7 +129,7 @@ class SoundBoard {
         let sound = SoundBoard.getSoundFromIdentifyingPath(identifyingPath);
         let volume = SoundBoard.getVolume();
         let soundIndex = Math.floor(Math.random() * sound.src.length);
-        if(sound.lastPlayedIndex && sound.src.length > 1 && sound.lastPlayedIndex == soundIndex){
+        if(sound.lastPlayedIndex >= 0 && sound.src.length > 1 && sound.lastPlayedIndex == soundIndex){
             if(++soundIndex > sound.src.length -1){
                 soundIndex = 0;
             }
