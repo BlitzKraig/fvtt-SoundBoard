@@ -170,6 +170,20 @@ class SoundBoardHelp extends Application {
             </button></p>
             <p>Additionally, you can reach me on Discord at Blitz#6797, or create a ticket on the GitHub repo.</p>
             `},
+        {title: 'Module Settings', body:`
+            <h3>Custom Soundboard Directory</h3>
+            <p>This should point to a directory containing your SoundBoard audio setup. See 'Setting Up Custom Audio' for more information</p>
+            <h3>Source Type</h3>
+            <p>Tells the Foundry Filepicker where your custom audio is.</p>
+            <p>'Forge' should be selected if your server is Forge hosted, and your sounds are in your Forge Assets.</p>
+            <p>'S3' should be selected if your audio is hosted in an AWS S3 bucket.</p>
+            <p>For anything else, 'Data' should work.</p>
+            <h3>Defocus Opacity</h3>
+            <p>This controls the opacity of the SoundBoard when you don't have your mouse hovered over it. Useful if you'd like to see your scene underneat SoundBoard.</p>
+            <h3>Random Detune Amount</h3>
+            <p>Increase this value to randomly alter the pitch of sounds each time they are played.</p>
+            <p>This can be useful to provide some variety in sounds that are played repeatedly.</p>
+            `}
         ];
         // Filepicker to get files from help-partials
         // readFromFile to read content to array
