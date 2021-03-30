@@ -1,3 +1,16 @@
+# 1.2.0 - 2021/03/21
+
+* Removed interface slider text override
+* Added Spanish translation
+* Fixed nullpointer on 'fresh' worlds with no playlist audio
+* Added .oga file support
+* Added volume changing for sounds already playing
+* Updated CSS to play nicer with some systems
+* Improved filename parsing and formatting
+* Added ability to stop single sounds (CTRL + click)
+* Added instant looping (Shift + click)
+* Added instant fav/unfav (Alt + click)
+
 # 1.1.10 - 2020/11/15
 
 * Added many new sounds, recorded and donated by Rive247

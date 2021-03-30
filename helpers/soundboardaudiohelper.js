@@ -29,9 +29,8 @@ class SBAudioHelper {
     }
 
     play({src, volume}, sound) {
-        if(!Howler.soundboardGain){
-            Howler.soundboardGain = Howler.ctx.createGain()
-            Howler.soundboardGain.connect(Howler.ctx.destination);
+        if(game.settings.get("core", "globalInterfaceVolume") == 0){
+            ui.notifications.warn(game.i18n.localize("SOUNDBOARD.notif.interfaceMuted"));
         }
         volume *= game.settings.get("core", "globalInterfaceVolume");
         let sbhowl = new Howl({src, volume, onend: (id)=>{
@@ -53,6 +52,12 @@ class SBAudioHelper {
             }
             this.removeActiveSound(id)
         }});
+               
+        if(!Howler.soundboardGain){
+            Howler.soundboardGain = Howler.ctx.createGain()
+            Howler.soundboardGain.connect(Howler.ctx.destination);
+        }
+
         sbhowl._sounds[0]._node.disconnect()
         sbhowl._sounds[0]._node.connect(Howler.soundboardGain);
         sbhowl.play();
@@ -72,8 +77,12 @@ class SBAudioHelper {
         ui.notifications.notify(`${player} cache complete for ${src}`);
     }
 
-    stop() {
-        SoundBoard.log("Not yet implemented");
+    stop(soundObj) {
+        this.activeSounds.filter(sound => {
+            return soundObj.src.includes(sound._src);
+        }).forEach(sound => {
+            sound.stop();
+        });
     }
 
     stopAll() {
@@ -94,6 +103,13 @@ class SBAudioHelper {
         if (soundIndex > -1) {
             this.activeSounds.splice(soundIndex, 1);
         }
+    }
+
+    onVolumeChange(volume) {
+        volume *= game.settings.get("core", "globalInterfaceVolume");
+        this.activeSounds.forEach(sound => {
+            sound.volume(volume);
+        });
     }
     
 }

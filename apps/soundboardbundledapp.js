@@ -13,11 +13,12 @@ class SoundBoardBundledApplication extends SoundBoardApplication {
         Object.keys(SoundBoard.bundledSounds).forEach(key => {
             totalCount += SoundBoard.bundledSounds[key].length;
             if (SoundBoard.bundledSounds[key].length > 0) {
+                let [categoryName, categoryFormatted] = this.formatName(key, false);
                 sounds.push({
-                    categoryName: this.formatName(key),
+                    categoryName: categoryName,
                     length: SoundBoard.bundledSounds[key].length,
                     files: SoundBoard.bundledSounds[key].map(element => {
-                        element.name = this.formatName(element.name);
+                        [element.name, element.formatted] = this.formatFilename(element.name, element.formatted);
                         return element;
                     })
                 });

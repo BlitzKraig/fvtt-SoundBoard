@@ -5,7 +5,8 @@ class SBSocketHelper {
         STOP: 2,
         STOPALL: 3,
         CACHE: 4,
-        CACHECOMPLETE: 5
+        CACHECOMPLETE: 5,
+        VOLUMECHANGE: 6
     }
     constructor() {
         game.socket.on(SBSocketHelper.socketName, this._onData);
@@ -30,6 +31,9 @@ class SBSocketHelper {
                     break;
                 case SBSocketHelper.SOCKETMESSAGETYPE.CACHE:
                     SoundBoard.audioHelper.cache(data.payload);
+                    break;
+                case SBSocketHelper.SOCKETMESSAGETYPE.VOLUMECHANGE:
+                    SoundBoard.audioHelper.onVolumeChange(data.payload?.volume);
                     break;
                 default:
                     break;
