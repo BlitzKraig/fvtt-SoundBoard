@@ -32,18 +32,17 @@ Open module settings and set the path pointing to your new soundboard directory
 
 eg.
 
-
 - soundboard/
-    - battle/
-        - swordhit.ogg
-        - arrowwhizz.mp3
-        - gunshot/
-            - gunshot1.mp3
-            - magnumfire.ogg
-            - distantpistol.wav
-    - tavern/
-        - pour.ogg
-        - laughter.ogg
+  - battle/
+    - swordhit.ogg
+    - arrowwhizz.mp3
+    - gunshot/
+      - gunshot1.mp3
+      - magnumfire.ogg
+      - distantpistol.wav
+  - tavern/
+    - pour.ogg
+    - laughter.ogg
 
 Select the Ambient Sound Controls in Foundry, then the new Open Soundboard control
 
@@ -77,7 +76,7 @@ For bugs/feedback, create an issue on GitHub, or contact me on Discord at Blitz#
 
 ## Audio Attribution
 
-Bundled Thunder sound effects from Mike Koenig, licensed under https://creativecommons.org/licenses/by/3.0/
+Bundled Thunder sound effects from Mike Koenig, licensed under <https://creativecommons.org/licenses/by/3.0/>
 
 All sounds have been modified from their originals.
 
@@ -90,5 +89,3 @@ Cult Chant sounds recorded by me
 Multiple sounds generously recorded and donated by Rive247
 
 Multiple sounds generously donated by powerkor
-
-

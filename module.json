@@ -4,20 +4,33 @@
   "description": "Simple soundboard for the Gamemaster, broadcasted to all connected clients",
   "version": "1.2.0",
   "author": "Blitzkraig",
-  "scripts": ["./soundboard.js", "./apps/soundboardapp.js", "./apps/soundboardfavapp.js", "./apps/soundboardbundledapp.js", "./apps/soundboardhelpapp.js", "./helpers/soundboardsockethelper.js", "./helpers/soundboardaudiohelper.js", "./helpers/soundboardmacrohelper.js", "./helpers/soundboardwhetstoneconfig.js", "./dependencies/bootstrap.bundle.min.js"],
-  "styles": ["./css/soundboard.css", "./css/soundboard-bootstrap.min.css"],
+  "scripts": [
+    "./soundboard.js",
+    "./apps/soundboardapp.js",
+    "./apps/soundboardfavapp.js",
+    "./apps/soundboardbundledapp.js",
+    "./apps/soundboardhelpapp.js",
+    "./helpers/soundboardsockethelper.js",
+    "./helpers/soundboardaudiohelper.js",
+    "./helpers/soundboardmacrohelper.js",
+    "./helpers/soundboardwhetstoneconfig.js",
+    "./dependencies/bootstrap.bundle.min.js"
+  ],
+  "styles": [
+    "./css/soundboard.css",
+    "./css/soundboard-bootstrap.min.css"
+  ],
   "packs": [],
-  "languages": [
-		{
-			"lang": "en",
-			"name": "English",
-			"path": "languages/en.json"
-		},
-		{
-			"lang": "es",
-			"name": "Español",
-			"path": "languages/es.json"
-		}
+  "languages": [{
+      "lang": "en",
+      "name": "English",
+      "path": "languages/en.json"
+    },
+    {
+      "lang": "es",
+      "name": "Español",
+      "path": "languages/es.json"
+    }
   ],
   "socket": true,
   "minimumCoreVersion": "0.6.2",
@@ -26,12 +39,10 @@
   "manifest": "https://raw.githubusercontent.com/BlitzKraig/fvtt-SoundBoard/master/module.json",
   "download": "https://github.com/BlitzKraig/fvtt-SoundBoard/releases/download/latest/soundboard-release.zip",
   "manifestPlusVersion": "1.0.0",
-  "media": [
-    {
-      "type": "cover",
-      "url": "https://raw.githubusercontent.com/BlitzKraig/fvtt-SoundBoard/docs/cover.png"
-    }
-  ],
+  "media": [{
+    "type": "cover",
+    "url": "https://raw.githubusercontent.com/BlitzKraig/fvtt-SoundBoard/docs/cover.png"
+  }],
   "allowBugReporter": true,
-  "bugs":"https://github.com/BlitzKraig/fvtt-SoundBoard/issues"
+  "bugs": "https://github.com/BlitzKraig/fvtt-SoundBoard/issues"
 }
