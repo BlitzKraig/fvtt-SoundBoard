@@ -1,24 +1,25 @@
+// eslint-disable-next-line no-unused-vars
 class SoundBoardHelp extends Application {
     
     static get defaultOptions() {
         const options = super.defaultOptions;
-        options.title = `❔${game.i18n.localize("SOUNDBOARD.app.help.title")}`;
-        options.id = "soundboard-help-app";
-        options.template = "modules/SoundBoard/templates/soundboardhelp.html";
+        options.title = `❔${game.i18n.localize('SOUNDBOARD.app.help.title')}`;
+        options.id = 'soundboard-help-app';
+        options.template = 'modules/SoundBoard/templates/soundboardhelp.html';
         options.resizable = true;
         options.width = 400;
         options.height = 600;
         return options;
     }
 
-    _onResize(el) {
+    _onResize() {
         $('.yt-help-video').width($('.soundboard-help').width());
         $('.yt-help-video').height(($('.soundboard-help').width() / 16) * 9);
         
     }
     // TODO Localization
     getData() {
-        let helpItems = [{title:"General Usage", body:`<p><b>SoundBoard by Blitz</b> is designed to enhance and simplify on-the-fly sound effects for a GM</p>
+        let helpItems = [{title:'General Usage', body:`<p><b>SoundBoard by Blitz</b> is designed to enhance and simplify on-the-fly sound effects for a GM</p>
             <b>Features</b>
             <ul>
             <li>Bundled selection of sounds to use out of the box</li>
@@ -49,7 +50,7 @@ class SoundBoardHelp extends Application {
             </ul>
             <h3>Demo Video</h3>
             <h4>Coming Soon</h4>`},
-            {title:"Setting Up Custom Audio", body:`<b style="color:red !important; text-decoration: underline !important;">DO NOT PLACE YOUR CUSTOM AUDIO ANYWHERE INSIDE THE MODULE DIRECTORY OR IT <i>WILL</i> BE LOST WHEN THE MODULE UPDATES!</b>
+        {title:'Setting Up Custom Audio', body:`<b style="color:red !important; text-decoration: underline !important;">DO NOT PLACE YOUR CUSTOM AUDIO ANYWHERE INSIDE THE MODULE DIRECTORY OR IT <i>WILL</i> BE LOST WHEN THE MODULE UPDATES!</b>
             <p></p>
             <p>Custom Audio must exist in a very specific directory structure. This structure can be viewed in the exampleAudio folder inside the module.</p>
             <h3>Directory Structure</h3>
@@ -64,18 +65,18 @@ class SoundBoardHelp extends Application {
             <p>Once you have set up your directory structure, go to the modules settings and change them to reference your new directory.</p>
             <p>Be sure to check the Source Type if you are hosting via an S3 bucket or The Forge.</p>
             <p>When you save your settings, Foundry should refresh. You should now see your custom audio inside the SoundBoard.</p>`},
-            {title:"Favoriting Sounds", body:`<p>To favorite a sound, click the 3 dots on the right side of a sound button, then click the Favorite Star <i class="far fa-star"></i></p>
+        {title:'Favoriting Sounds', body:`<p>To favorite a sound, click the 3 dots on the right side of a sound button, then click the Favorite Star <i class="far fa-star"></i></p>
             <p>The button border should turn yellow, indicating that the sound is now favorited.</p>
             <p>To unfavorite a sound, click the 3 dots on the right side of a favorited sound button, then click the Unfavorite Star <i class="fas fa-star"></i></p>
             <p>Once a sound is favorited, it will appear in the Favorite Sounds board</p>`},
-            {title:"Looping Sounds", body:`<p>To loop a sound, click the 3 dots on the right side of a sound button, then click the Loop Sound icon <i class="fas fa-sync-alt "></i></p>
+        {title:'Looping Sounds', body:`<p>To loop a sound, click the 3 dots on the right side of a sound button, then click the Loop Sound icon <i class="fas fa-sync-alt "></i></p>
             <p>The button should start flashing green, indicating that the sound is now looping.</p>
             <p>Click the sound button again to stop looping. The final loop will play, then the sound will stop.</p>`},
-            {title:"Delayed Loop", body:`<p>You can start looping a sound with a delay between loops by clickin the 3 dots on the right side of a sound button, then clicking the Delayed Loop Sound icon <i class="fas fa-history"></i></p>
+        {title:'Delayed Loop', body:`<p>You can start looping a sound with a delay between loops by clickin the 3 dots on the right side of a sound button, then clicking the Delayed Loop Sound icon <i class="fas fa-history"></i></p>
             <p>A context-style menu will appear with preset times. Click one of these times to start the loop with a delay</p>
             <p>Alternatively, you can set your own time by typing a number into the input field at the bottom of the context menu, then clicking the 's' next to it.</p>
             <p>To stop a delayed loop, simply click the flashing sound button</p>`},
-            {title:"Modifier Keys", body:`
+        {title:'Modifier Keys', body:`
             <p>Modifier Keys can be used to quickly perform some functions in the SoundBoard.</p>
             <p>Hold down a modifier key and click a sound button to perform the following functions:</p>
             <ul>
@@ -83,12 +84,12 @@ class SoundBoardHelp extends Application {
             <li>ALT - Favorite/Unfavorite Sound</li>
             <li>Control/Command - Stop single sound immediately</li>
             </ul>`},
-            {title:"Controlling Volume", body:`<p>The volume slider at the bottom right of the SoundBoard controls the volume of the sounds, including the broadcast volume. Changing this will affect how loud the sound is for your players.</p>
+        {title:'Controlling Volume', body:`<p>The volume slider at the bottom right of the SoundBoard controls the volume of the sounds, including the broadcast volume. Changing this will affect how loud the sound is for your players.</p>
             <p>All players can also individually change their Interface volume in the Playlists sidebar to change the overall volume of the SoundBoard.</p>`},
-            {title:"Stopping Sounds", body:`<p>A big red 'Stop' button at the bottom left of the SoundBoard will immediately stop all playing sounds, and send a signal to connected players machines to also stop their audio.</p>
+        {title:'Stopping Sounds', body:`<p>A big red 'Stop' button at the bottom left of the SoundBoard will immediately stop all playing sounds, and send a signal to connected players machines to also stop their audio.</p>
             <p>To stop a looping sound, simply click the flashing green sound button.</p>
             <p>To immediately stop any single sound, hold Control/Command and click the sound button</p>`},
-            {title:"Targeting a player", body:`<p>Player Targeting Mode can be activated by pressing the Target Player button in the toolbar.</p>
+        {title:'Targeting a player', body:`<p>Player Targeting Mode can be activated by pressing the Target Player button in the toolbar.</p>
             <p>
             <button style="width: 40px;
             height: 26px;
@@ -100,7 +101,7 @@ class SoundBoardHelp extends Application {
             <p>A context menu will appear, displaying all currently connected players except the GM. Click a player name to begin targeting only that player.</p>
             <p>When you broadcast a sound with targeting active, only the chosen player and the GM will hear it.</p>
             <p>To disable targeting mode, click the Target Player button again and select 'Everyone'</p>`},
-            {title:"Caching Mode", body:`
+        {title:'Caching Mode', body:`
             <p>Caching Mode can be activated by clicking the Toggle Cache Mode button in the toolbar.</p>
             <p><button style="width: 40px;
             height: 26px;
@@ -113,7 +114,7 @@ class SoundBoardHelp extends Application {
             <p>Click a sound while Caching Mode is active to force all connected players to load and cache the audio instead of playing it.</p>
             <p>This allows the GM to ensure all players will hear the sound at the same time when it is triggered, regardless of connection speed.</p>
             <p>The GM will receive a notification once caching is completed for each player.</p>`},
-            {title:"Macro Mode & Journal Links", body:`
+        {title:'Macro Mode & Journal Links', body:`
             <p>Macro Mode can be activated by clicking the Toggle Macro Mode button in the toolbar.</p>
             <p><button style="width: 40px;
             height: 26px;
@@ -135,7 +136,7 @@ class SoundBoardHelp extends Application {
             <p>Holding Shift while activating the macro, either directly or through a journal, will force your players to load and cache the sound instead of playing it.</p>
             <p>This works in the same way as Caching Mode, allowing the GM to preload sounds so all of their players will hear them at the same time when they are played.</p>
             `},
-            {title:"Refreshing Sounds", body:`
+        {title:'Refreshing Sounds', body:`
             <p>The Refresh toolbar button can be activated to scan for changes in your SoundBoard directory.</p>
             <p><button style="width: 40px;
             height: 26px;
@@ -146,7 +147,7 @@ class SoundBoardHelp extends Application {
             </button></p>
             <p>SoundBoard will immediately scan for changes, then re-render the open application, allowing you to add new sounds without needing to refresh your browser.</p>
             `},
-            {title:"Delete Macros", body:`
+        {title:'Delete Macros', body:`
             <p>The Delete Macros toolbar button can be clicked to remove all SoundBoard generated macros from your Macro Directory.</p>
             <p><button style="width: 40px;
             height: 26px;
@@ -158,7 +159,7 @@ class SoundBoardHelp extends Application {
             <p>A dialog will appear, requiring confirmation to delete the macros. If accepted, all of the SoundBoard macros will be removed. They can be re-added using Macro Mode.</p>
             <p>Note that removing a macro will break any links to it in a Journal Entry.</p>
             `},
-            {title:"Getting Help", body:`
+        {title:'Getting Help', body:`
             <p>The Help toolbar button can be clicked to bring you here...</p>
             <p><button style="width: 40px;
             height: 26px;
@@ -169,12 +170,12 @@ class SoundBoardHelp extends Application {
             </button></p>
             <p>Additionally, you can reach me on Discord at Blitz#6797, or create a ticket on the GitHub repo.</p>
             `},
-            ]
+        ];
         // Filepicker to get files from help-partials
         // readFromFile to read content to array
         // Pass content to help
         return {
             help: helpItems // Read all help files to an array, whack em into the help object.
-        }
+        };
     }
 }

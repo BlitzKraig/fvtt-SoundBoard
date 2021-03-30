@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 class SBMacroHelper {
     //TODO
     // Add more functionality: TargetPlayer, volume, preview
@@ -7,10 +8,10 @@ class SBMacroHelper {
         let macroData;
 
         let existingMacro = game.macros.find((macro) => {
-            return macro.name == macroName
+            return macro.name == macroName;
         });
         if (existingMacro) {
-            ui.notifications.notify(game.i18n.format("SOUNDBOARD.notif.macroExists", {macro: macroName}));
+            ui.notifications.notify(game.i18n.format('SOUNDBOARD.notif.macroExists', {macro: macroName}));
             macroData = existingMacro;
         } else {
             macroData = await Macro.create({
@@ -20,10 +21,10 @@ SoundBoard.playSoundByName("${soundName}");
 // SHIFT CLICK this macro to cache the sound, click to play it`,
                 type: 'script'
             });
-            ui.notifications.notify(game.i18n.format("SOUNDBOARD.notif.macroCreated", {macro: macroName}));
+            ui.notifications.notify(game.i18n.format('SOUNDBOARD.notif.macroCreated', {macro: macroName}));
         }
         let editingJournals = game.journal.filter((journal) => {
-            return journal.sheet.editors?.content?.mce
+            return journal.sheet.editors?.content?.mce;
         });
 
         if (editingJournals) {
@@ -34,12 +35,12 @@ SoundBoard.playSoundByName("${soundName}");
     }
 
     static async deleteAllMacros() {
-        let existingMacros = game.macros.filter(macro =>macro.name.indexOf("SoundBoard - ") == 0).map(macro=>macro.id);
+        let existingMacros = game.macros.filter(macro =>macro.name.indexOf('SoundBoard - ') == 0).map(macro=>macro.id);
         if(existingMacros.length > 0){
             await Macro.delete(existingMacros);
-            ui.notifications.notify(game.i18n.localize("SOUNDBOARD.notif.deleteMacros"));
+            ui.notifications.notify(game.i18n.localize('SOUNDBOARD.notif.deleteMacros'));
         } else {
-            ui.notifications.notify(game.i18n.localize("SOUNDBOARD.notif.noMacros"));
+            ui.notifications.notify(game.i18n.localize('SOUNDBOARD.notif.noMacros'));
         }
     }
 }
