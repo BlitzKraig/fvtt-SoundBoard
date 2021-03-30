@@ -47,7 +47,7 @@
   "manifestPlusVersion": "1.0.0",
   "media": [{
     "type": "cover",
-    "url": "https://raw.githubusercontent.com/BlitzKraig/fvtt-SoundBoard/docs/cover.png"
+    "url": "https://raw.githubusercontent.com/BlitzKraig/fvtt-SoundBoard/master/docs/cover.png"
   }],
   "allowBugReporter": true,
   "bugs": "https://github.com/BlitzKraig/fvtt-SoundBoard/issues"
