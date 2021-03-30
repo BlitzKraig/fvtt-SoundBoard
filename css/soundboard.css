@@ -1,23 +1,11 @@
-/* #soundboard-app {
-  opacity: 0.8;
-  animation-name: fade-out;
-  animation-duration: 0.5s;
-  animation-fill-mode: forwards;
+#soundboard-app {
+  opacity: 1;
+  transition: opacity 0.5s;
+  min-width: 375px;
 }
 #soundboard-app:hover {
-  animation-name: fade-in;
-  animation-duration: 0.5s;
-  animation-fill-mode: forwards;
-} */
-
-/* @keyframes fade-out {
-  from {opacity: 1;}
-  to {opacity: 0.8;}
+  opacity: 1 !important;
 }
-@keyframes fade-in {
-  from {opacity: 0.8;}
-  to {opacity: 1;}
-} */
 
 :root {
   --SoundBoard-loop-bg-from: #01701c;
@@ -97,6 +85,8 @@ button.open-soundboard {
   width: 700px;
   height: 700px;
   min-height: 300px;
+  padding: 0 !important;
+  border-radius: 10px !important;
 }
 
 #soundboard-app .window-header {
@@ -106,6 +96,11 @@ button.open-soundboard {
 }
 
 #soundboard-app h2 {
+  cursor: pointer;
+  font-size: 1.5rem;
+  padding-top: 10px;
+}
+#soundboard-help-app h2 {
   cursor: pointer;
   font-size: 1.5rem;
   padding-top: 10px;
@@ -121,13 +116,13 @@ button.open-soundboard {
 #soundboard-app .btn.loop-active {
   -webkit-animation: looping-border var(--SoundBoard-loop-animation-time) linear infinite;
   animation: looping-border var(--SoundBoard-loop-animation-time) linear infinite;
-  color: var(--SoundBoard-loop-text-color);
-  text-shadow: var(--SoundBoard-text-shadow)
+  color: var(--SoundBoard-loop-text-color) !important;
+  text-shadow: var(--SoundBoard-text-shadow) !important;
 }
 
 #soundboard-app .btn.favorited {
-  border-color: var(--SoundBoard-favorite-color);
-  box-shadow: 0 0 3px #000;
+  border-color: var(--SoundBoard-favorite-color) !important;
+  box-shadow: 0 0 3px #000 !important;
 }
 
 #soundboard-app .dropdown-smalltext {
@@ -139,7 +134,7 @@ button.open-soundboard {
   left: 0;
   top: 0;
   height: 100%;
-  background: unset;
+  background: unset !important;
   border: unset;
 }
 
@@ -161,8 +156,8 @@ button.open-soundboard {
   right: 0;
   top: 0;
   height: 30px;
-  line-height: 0px;
-  background: none;
+  line-height: 0;
+  background: none !important;
   border: none;
   font-size: 14px;
   color: var(--SoundBoard-more-button-inactive-color)
@@ -229,6 +224,7 @@ button.open-soundboard {
 
 #soundboard-app #custom-time-input {
   margin-left: 20px;
+  width: 30%;
 }
 
 #soundboard-app .custom-time-button {
@@ -257,7 +253,7 @@ button.open-soundboard {
 }
 
 #soundboard-app #stop-all {
-  line-height: 0px;
+  line-height: 0;
 }
 
 #soundboard-app #volume-container {
@@ -283,7 +279,7 @@ button.open-soundboard {
 }
 
 #soundboard-app .toolbar-btn {
-  line-height: 0px;
+  line-height: 0;
   width: initial;
 }
 
@@ -293,11 +289,11 @@ button.open-soundboard {
 }
 
 #soundboard-app .toolbar-btn.active {
-  background: var(--SoundBoard-toolbar-btn-active-color);
+  background: var(--SoundBoard-toolbar-btn-active-color) !important;
 }
 
 #soundboard-app .toolbar-btn * {
-  line-height: 0px;
+  line-height: 0;
 }
 
 #soundboard-app #expand-collapse-container {
@@ -310,7 +306,7 @@ button.open-soundboard {
 }
 
 #soundboard-app #volume-text {
-  margin: 0px 10px;
+  margin: 0 10px;
   color: var(--SoundBoard-volume-text-color);
   align-self: center;
   text-shadow: var(--SoundBoard-text-shadow)
@@ -318,6 +314,10 @@ button.open-soundboard {
 
 #soundboard-app i.fas.fa-star {
   color: var(--SoundBoard-favorite-color)
+}
+#soundboard-help-app i.fas.fa-star {
+  color: var(--SoundBoard-favorite-color);
+  text-shadow: var(--SoundBoard-text-shadow);
 }
 
 #soundboard-app .hidden {
@@ -333,7 +333,15 @@ button.open-soundboard {
   border-radius: 4px 0 5px 0;
 }
 
+#soundboard-app .sb-warning {
+  color: #ff0000 !important;
+  text-decoration: underline !important;
+}
+
 .soundboard-container {
-  margin: 0px 20px 20px 20px;
+  margin: 0 20px 20px 20px;
   text-align: center;
+}
+.soundboard-help {
+  text-align: left;
 }

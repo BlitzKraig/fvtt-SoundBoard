@@ -1,6 +1,5 @@
 <script>
   $(document).ready(function () {
-
     $("#collapse-all").on("click", function () {
       $("#soundboard-filterable div").removeClass("show")
     });
@@ -24,18 +23,38 @@
           $(this).toggle($(this).next().find(":visible").length > 0)
         });
       }, 500);
-
     });
   });
 </script>
 <div class="soundboard-container">
 
   <div id="toolbar" class="row no-gutters">
-    <button id="granular-send" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-secondary toolbar-btn {{#if targettedPlayer}}active{{/if}}" title="{{localize 'SOUNDBOARD.app.tooltip.target'}}" onclick="">
+    <!-- Left side -->
+    <button id="granular-send" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+      class="btn btn-secondary toolbar-btn {{#if targettedPlayer}}active{{/if}}"
+      title="{{localize 'SOUNDBOARD.app.tooltip.target'}}" onclick="">
       <i class="fas fa-users"></i>
     </button>
-    <button id="cache-sounds" type="button" class="btn btn-secondary toolbar-btn {{#if cacheMode}}active{{/if}}" title="{{localize 'SOUNDBOARD.app.tooltip.cache'}}" onclick="SoundBoard.toggleCacheMode(this)">
+    <button id="cache-sounds" type="button" class="btn btn-secondary toolbar-btn {{#if cacheMode}}active{{/if}}"
+      title="{{localize 'SOUNDBOARD.app.tooltip.cache'}}" onclick="SoundBoard.toggleCacheMode(this.parentElement)">
       <i class="fas fa-cloud-download-alt"></i>
+    </button>
+    <button id="macro-mode" type="button" class="btn btn-secondary toolbar-btn {{#if macroMode}}active{{/if}}"
+      title="{{localize 'SOUNDBOARD.app.tooltip.macro'}}" onclick="SoundBoard.toggleMacroMode(this.parentElement)">
+      <i class="fas fa-file-code"></i>
+    </button>
+    <button id="refresh-sounds" type="button" class="btn btn-secondary toolbar-btn"
+      title="{{localize 'SOUNDBOARD.app.tooltip.refresh'}}" onclick="SoundBoard.refreshSounds()">
+      <i class="fas fa-sync-alt"></i>
+    </button>
+    <!-- Right Side -->
+    <button id="delete-macros" type="button" class="btn btn-danger toolbar-btn ml-auto"
+      title="{{localize 'SOUNDBOARD.app.tooltip.deleteMacros'}}" onclick="SoundBoard.promptDeleteMacros()">
+      <i class="fas fa-bomb"></i>
+    </button>
+    <button id="help" type="button" class="btn btn-info toolbar-btn" title="{{localize 'SOUNDBOARD.app.tooltip.help'}}"
+      onclick="SoundBoard.openSoundBoardHelp()">
+      <i class="far fa-question-circle"></i>
     </button>
     <div class="dropdown-menu" aria-labelledby="granular-send">
       <small class="dropdown-smalltext">{{localize 'SOUNDBOARD.app.toolbar.target'}}</small>
@@ -44,16 +63,14 @@
         Everyone
       </button>
       {{#each players}}
-      <button class="dropdown-item {{#if isTarget}}active{{/if}}"
-        onclick="SoundBoard.targetPlayer(this, '{{id}}')">
+      <button class="dropdown-item {{#if isTarget}}active{{/if}}" onclick="SoundBoard.targetPlayer(this, '{{id}}')">
         {{name}}
         <small>{{id}}</small>
       </button>
       {{/each}}
-      <!-- FOREACH players, create a button -->
     </div>
   </div>
- 
+
 
   <div id="faketabs-container" class="row">
     <button id="btn-my-sb" class="btn btn-{{#unless tab.main}}outline-{{/unless}}secondary col short text-truncate"
@@ -72,18 +89,32 @@
     <input type="range" min="1" max="100" value="{{volume}}" class="slider col" id="volumeRange"
       onchange="SoundBoard.updateVolume(this.value)">
   </div>
-  <p class="text-muted notes">{{localize 'SOUNDBOARD.app.instructions'}}</p>
-  <h3><small class="text-muted">Sounds: {{totalCount}}</small></h3>
 
-  <input id="sound-search" type="text" placeholder="{{localize 'SOUNDBOARD.app.filterText'}}">
-  <div id="expand-collapse-container" class="row">
-    <button id="collapse-all"
-      class="btn btn-outline-secondary col short text-truncate">{{localize 'SOUNDBOARD.app.collapseAll'}}</button>
-    <button id="expand-all"
-      class="btn btn-outline-secondary col short text-truncate">{{localize 'SOUNDBOARD.app.expandAll'}}</button>
-  </div>
-  <!-- <button onclick="SoundBoard.stopAllSounds()">{{localize 'SOUNDBOARD.button.stopAll'}}</button>
-    <hr/> -->
+  {{#if isExampleAudio}}
+  <p class="text-muted notes sb-warning">{{localize 'SOUNDBOARD.app.exampleWarning'}}</p>
+  {{/if}}
+  <p class="text-muted notes">{{localize 'SOUNDBOARD.app.instructions'}}</p>
+  <h3><small class="text-muted" style="
+  flex: 1;
+">Sounds: {{totalCount}}</small></h3>
+  <div style="
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+">
+    <input id="sound-search" type="text" placeholder="{{localize 'SOUNDBOARD.app.filterText'}}" style="
+    flex: 3;
+    margin: 0 10px;
+">
+    <button id="expand-all" class="btn btn-outline-secondary short text-truncate" style="
+    flex: 1;
+    overflow: visible;
+">{{localize 'SOUNDBOARD.app.expandAll'}}</button>
+    <button id="collapse-all" class="btn btn-outline-secondary short text-truncate" style="
+    flex: 1;
+    overflow: visible;
+">{{localize 'SOUNDBOARD.app.collapseAll'}}</button></div>
+
   <div id="soundboard-filterable" class="soundboard-sounds">
     {{#each sounds}}
     <h2 data-toggle="collapse" data-target="#{{soundboard-safeid categoryName}}" aria-expanded="true"
@@ -124,3 +155,4 @@
       {{/each}}
     </div>
   </div>
+</div>

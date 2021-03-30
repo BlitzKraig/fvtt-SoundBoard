@@ -5,10 +5,21 @@
 
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Q5Q01YIEJ)
 
+# DO NOT PLACE YOUR CUSTOM SOUNDS IN THE MODULE DIRECTORY!
+Any sounds placed here will be deleted when the module updates.
+
+----
+
 Looking for collaborators - Hoping to build a decent library of sounds to bundle with the module to provide a nice starting point for users.
 Anyone who is able to create or provide sound effects with the proper licensing, please contact me on Discord.
 
 An easy to use soundboard for the GM.
+
+## Using SoundBoard
+
+Open your Ambient Sound Controls to find the button to open SoundBoard.
+
+At the top right of the SoundBoard there's a blue button with a question mark. Click it for help and tips.
 
 ## Configuration
 
@@ -16,7 +27,7 @@ See the `exampleAudio/` directory in the module, and the default setup for an ex
 
 Create a directory for your sounds, with a single subdirectory for each sound category.
 
-Place your sounds in these folders. WAV, MP3 & OGG are supported.
+Place your sounds in these folders. WAV, MP3 & OGG/OGA are supported.
 
 Place another directory inside one of these category directories to create a 'Wildcard Sound'. Clicking these sounds will play a random selection from any sound files placed inside this directory
 
@@ -26,18 +37,17 @@ Open module settings and set the path pointing to your new soundboard directory
 
 eg.
 
-
 - soundboard/
-    - battle/
-        - swordhit.ogg
-        - arrowwhizz.mp3
-        - gunshot/
-            - gunshot1.mp3
-            - magnumfire.ogg
-            - distantpistol.wav
-    - tavern/
-        - pour.ogg
-        - laughter.ogg
+  - battle/
+    - swordhit.ogg
+    - arrowwhizz.mp3
+    - gunshot/
+      - gunshot1.mp3
+      - magnumfire.ogg
+      - distantpistol.wav
+  - tavern/
+    - pour.ogg
+    - laughter.ogg
 
 Select the Ambient Sound Controls in Foundry, then the new Open Soundboard control
 
@@ -71,7 +81,7 @@ For bugs/feedback, create an issue on GitHub, or contact me on Discord at Blitz#
 
 ## Audio Attribution
 
-Bundled Thunder sound effects from Mike Koenig, licensed under https://creativecommons.org/licenses/by/3.0/
+Bundled Thunder sound effects from Mike Koenig, licensed under <https://creativecommons.org/licenses/by/3.0/>
 
 All sounds have been modified from their originals.
 
@@ -84,5 +94,3 @@ Cult Chant sounds recorded by me
 Multiple sounds generously recorded and donated by Rive247
 
 Multiple sounds generously donated by powerkor
-
-
