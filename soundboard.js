@@ -136,9 +136,25 @@ class SoundBoard {
         }
         sound.lastPlayedIndex = soundIndex;
         let src = sound.src[soundIndex];
+
+        let detune = game.settings.get("SoundBoard", "detuneAmount");
+        
+        if(detune > 0){
+            if(SBAudioHelper.hasHowler()){
+                detune /= 100;
+                let normalizedAmount = Math.random() * detune;
+                detune = 1 - detune/2 + normalizedAmount;
+            } else {
+                detune *= 10;
+                let normalizedAmount = Math.random() * detune;
+                detune = 0 - detune/2 + normalizedAmount;
+            }
+        }
+
         let payload = {
             src,
-            volume
+            volume,
+            detune
         }
         if (SoundBoard.cacheMode) {
             SoundBoard.audioHelper.cache(payload);

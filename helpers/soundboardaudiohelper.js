@@ -31,14 +31,16 @@ class SBAudioHelper {
     static hasHowler(){
         return typeof Howl != "undefined";
     }
-    detuneNode(soundNode){
-        let detuneAmount = game.settings.get("SoundBoard", "detuneAmount");
-        if(detuneAmount == 0){
+    detuneNode(soundNode, detuneBy){
+        if(detuneBy == 0){
             return;
         }
-        detuneAmount *= 10;
-        let normalizedAmount = Math.random() * detuneAmount;
-        soundNode.node.detune.value = 0 - detuneAmount/2 + normalizedAmount;
+        
+        if(SBAudioHelper.hasHowler()){
+            soundNode.rate(detuneBy);
+        } else {
+            soundNode.node.detune.value = detuneBy;
+        }
     }
     lowpassFilter(soundNode){
         let lowPassCoefs = [
@@ -72,7 +74,8 @@ class SBAudioHelper {
 
     async play({
         src,
-        volume
+        volume,
+        detune
     }, sound) {
         if (game.settings.get("core", "globalInterfaceVolume") == 0) {
             ui.notifications.warn(game.i18n.localize("SOUNDBOARD.notif.interfaceMuted"));
@@ -100,7 +103,7 @@ class SBAudioHelper {
                 }
             })
             soundNode.on('start', (id)=>{
-                this.detuneNode(soundNode);
+                this.detuneNode(soundNode, detune);
             
                 soundNode.node.disconnect();
                 // soundNode.node.connect(iirfilter).connect(AudioHelper.soundboardGain);
@@ -150,6 +153,7 @@ class SBAudioHelper {
 
             sbhowl._sounds[0]._node.disconnect()
             sbhowl._sounds[0]._node.connect(Howler.soundboardGain);
+            this.detuneNode(sbhowl, detune);
             sbhowl.play();
             this.activeSounds.push(sbhowl);
         }

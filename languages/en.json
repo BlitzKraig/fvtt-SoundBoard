@@ -28,7 +28,7 @@
             },
             "detune": {
                 "name": "Random Detune Amount",
-                "hint": "Randomly detune a sound each time it plays. 0 to disable. Currently only supported in Foundry 0.8.1+"
+                "hint": "Randomly detune a sound each time it plays. 0 to disable. Backported to 0.7, works best in 0.8.1+"
             }
         },
 
