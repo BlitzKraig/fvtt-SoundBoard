@@ -5,7 +5,8 @@
 
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Q5Q01YIEJ)
 
-# DO NOT PLACE YOUR CUSTOM SOUNDS IN THE MODULE DIRECTORY!
+## DO NOT PLACE YOUR CUSTOM SOUNDS IN THE MODULE DIRECTORY
+
 Any sounds placed here will be deleted when the module updates.
 
 ----
