@@ -446,7 +446,6 @@ class SoundBoard {
                 SoundBoard.bundledSounds[dirShortName].push({
                     name: this._formatName(wildcardDir.split(/[/]+/).pop(), false),
                     src: wildcardFileArray,
-                    id: SoundBoard.soundIdCounter,
                     identifyingPath: wildcardDir,
                     isWild: true,
                     isFavorite: favoritesArray.includes(wildcardDir)
@@ -463,7 +462,6 @@ class SoundBoard {
                     SoundBoard.bundledSounds[dirShortName].push({
                         name: this._formatName(file.split(/[/]+/).pop()),
                         src: [file],
-                        id: SoundBoard.soundIdCounter,
                         identifyingPath: file,
                         isWild: false,
                         isFavorite: favoritesArray.includes(file)
@@ -501,7 +499,6 @@ class SoundBoard {
             if (soundboardDirArray.target != game.settings.get('SoundBoard', 'soundboardDirectory')) {
                 throw 'Filepicker target did not match input. Parent directory may be correct. Soft failure.';
             }
-            SoundBoard.soundIdCounter = 0;
 
             for (const dir of soundboardDirArray.dirs) {
                 const dirShortName = this._formatName(dir.split(/[/]+/).pop(), false);
@@ -534,7 +531,6 @@ class SoundBoard {
                     SoundBoard.sounds[dirShortName].push({
                         name: this._formatName(wildcardDir.split(/[/]+/).pop(), false),
                         src: wildcardFileArray,
-                        id: SoundBoard.soundIdCounter,
                         identifyingPath: wildcardDir,
                         isWild: true,
                         isFavorite: favoritesArray.includes(wildcardDir)
@@ -551,7 +547,6 @@ class SoundBoard {
                         SoundBoard.sounds[dirShortName].push({
                             name: this._formatName(file.split(/[/]+/).pop()),
                             src: [file],
-                            id: SoundBoard.soundIdCounter,
                             identifyingPath: file,
                             isWild: false,
                             isFavorite: favoritesArray.includes(file)
