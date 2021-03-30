@@ -21,6 +21,14 @@
                 "data": "Data",
                 "forgevtt": "Forge",
                 "s3": "S3"
+            },
+            "opacity": {
+                "name": "Defocus Opacity",
+                "hint": "Set the opacity of the SoundBoard when you are not hovering over it. 1 to disable."
+            },
+            "detune": {
+                "name": "Random Detune Amount",
+                "hint": "Randomly detune a sound each time it plays. 0 to disable. Backported to 0.7, works best in 0.8.1+"
             }
         },
 
@@ -35,6 +43,7 @@
             "expandAll": "Expand All",
             "collapseAll": "Collapse All",
             "stopAll": "Stop",
+            "exampleWarning": "You have not changed the SoundBoard directory from exampleAudio. If you have added files there, they will be deleted when the module updates. Click the Help button at the top right for more information on Custom Audio.",
             "nav": {
                 "mySounds": "My Sounds",
                 "favorites": "Favorite Sounds",
@@ -45,13 +54,25 @@
             },
             "tooltip": {
                 "target": "Player targeting",
-                "cache": "Toggle caching-mode"
+                "cache": "Toggle caching-mode",
+                "refresh": "Refresh all sounds",
+                "macro": "Toggle macro-mode",
+                "deleteMacros": "Delete all SoundBoard macros"
+            },
+            "help": {
+                "title": "SoundBoard Help"
             }
         },
         "notif": {
             "soundsNotLoaded": "Sounds are still loading, please try again shortly",
             "soundsError": "Error loading sounds. Check your path in module settings",
-            "interfaceMuted": "Please un-mute your interface volume to hear SoundBoard audio"
+            "interfaceMuted": "Please un-mute your interface volume to hear SoundBoard audio",
+            "refreshing": "Refreshing SoundBoard audio...",
+            "refreshComplete": "SoundBoard refresh complete",
+            "macroCreated": "Created Macro: {macro}",
+            "macroExists": "{macro} already exists",
+            "deleteMacros": "Deleted all SoundBoard macros",
+            "noMacros": "No SoundBoard macros to delete"
         },
 
         "whetstone": {

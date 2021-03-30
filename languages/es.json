@@ -25,6 +25,14 @@
                 "data": "Datos",
                 "forgevtt": "Forge",
                 "s3": "S3"
+            },
+            "opacity": {
+                "name": "Opacidad sin el foco",
+                "hint": "Ajusta la opacidad de SoundBoard cuando no se tiene el ratón sobre él. Ponga 1 para desactivar"
+            },
+            "detune": {
+                "name": "Cantidad aleatoria de desafinado",
+                "hint": "Desafinado aleatoriamente un sonido cada vez que se reproduce. Ponga 0 para desactivar. Adaptado a 0.7, funciona mejor en 0.8.1+"
             }
         },
 
@@ -39,6 +47,7 @@
             "expandAll": "Expandir Todo",
             "collapseAll": "Colapsar Todo",
             "stopAll": "Parar",
+            "exampleWarning": "No ha cambiado el directorio de SoundBoard por defecto exampleAudio. Si añade ficheros a ese directorio, serán borrados cuando se actualice el módulo. Haga clic en el botón de ayuda que hay en la parte superior derecha para saber como personalizar el audio",
             "nav": {
                 "mySounds": "Mis Sonidos",
                 "favorites": "Sonidos Favoritos",
@@ -49,13 +58,25 @@
             },
             "tooltip": {
                 "target": "Selección de Jugador",
-                "cache": "Activar modo-caché"
+                "cache": "Activar modo-caché",
+                "refresh": "Actualizar todos los sonidos",
+                "macro": "Alternar modo-macro",
+                "deleteMacros": "Borrar todas las macros de SoundBoard"
+            },
+            "help": {
+                "title": "Ayuda de SoundBoard"
             }
         },
         "notif": {
             "soundsNotLoaded": "Se están cargando sonidos, inténtelo más tarde",
             "soundsError": "Error al cargar los sonidos. Compruebe el directorio de sonidos en los ajustes del módulo",
-            "interfaceMuted": "Suba el volumen de su interfaz para escuchar el audio de SoundBoard"
+            "interfaceMuted": "Suba el volumen de su interfaz para escuchar el audio de SoundBoard",
+            "refreshing": "Actualizando audio SoundBoard...",
+            "refreshComplete": "Actualización de SoundBoard completada con éxito",
+            "macroCreated": "Macro creada: {macro}",
+            "macroExists": "{macro} ya existe",
+            "deleteMacros": "Borradas todas las macros de SoundBoard",
+            "noMacros": "No hay macros de SoundBoard que borrar"
         },
 
         "whetstone": {
