@@ -13,6 +13,7 @@ class SoundBoardHelp extends Application {
     }
 
     _onResize() {
+        super._onResize();
         $('.yt-help-video').width($('.soundboard-help').width());
         $('.yt-help-video').height(($('.soundboard-help').width() / 16) * 9);
         
@@ -183,7 +184,20 @@ class SoundBoardHelp extends Application {
             <h3>Random Detune Amount</h3>
             <p>Increase this value to randomly alter the pitch of sounds each time they are played.</p>
             <p>This can be useful to provide some variety in sounds that are played repeatedly.</p>
-            `}
+            `},
+        {title: 'Bundled Sounds & Sound Packs', body:`
+        <h3>Bundled Sounds</h3>
+        <p>As of 1.4.0, SoundBoard's old Bundled Sounds have been moved into the <a href="https://github.com/BlitzKraig/fvtt-SoundBoard-BlitzFreePack">Blitz Free Pack</a> and the <a href="https://github.com/BlitzKraig/fvtt-SoundBoard-BlitzCommunityPack">Community Pack</a></p>
+        <h3>Sound Packs</h3>
+        <p>Sound Packs are small modules containing a collection of SoundBoard sounds. They can be installed and activated, and should instantly appear in your Bundled Sounds soundboard.</p>
+        <p>You can enable and disable individual packs in the Module Settings</p>
+        <p>Any module can provide sounds for SoundBoard to use as a Sound Pack. The sounds should be placed in the same directory structure as Custom Sounds, and some code should be called:</p>
+        <ol>
+        <li>Listen for the <code>SBPackageManagerReady</code> Hook</li>
+        <li>Call <code>SoundBoard.packageManager.addSoundPack(packName, packDir);</code></li>
+        </ol>
+        <p>This approach allows users to create dedicated Sound Packs, or ship SoundBoard sounds with their existing modules, worlds and systems.</p>
+        `}
         ];
         // Filepicker to get files from help-partials
         // readFromFile to read content to array
