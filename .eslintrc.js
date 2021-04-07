@@ -34,9 +34,11 @@ module.exports = {
         'SoundBoardHelp': true,
         'SBAudioHelper': true,
         'SBMacroHelper': true,
+        'SBPackageManager': true,
         'Dialog': true,
         'FilePicker': true,
-        'Handlebars': true
+        'Handlebars': true,
+        'getTemplate': true
     },
     'rules': {
         'indent': [
