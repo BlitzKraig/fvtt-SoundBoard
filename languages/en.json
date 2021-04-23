@@ -33,6 +33,10 @@
             "macroRequest": {
                 "name":"Players trigger SoundBoard macros",
                 "hint":"Enable this to allow players to trigger a sound using a macro with playSoundByName. Requires a connected GM."
+            },
+            "popoutCompat": {
+                "name":"Force PopOut! Compatibility",
+                "hint":"Override some PopOut! code to force compatibility. Note that this may reduce performance while the SoundBoard is popped out. Changing this setting will refresh your browser."
             }
         },
 

@@ -656,6 +656,19 @@ class SoundBoard {
             type: Boolean,
             default: true
         });
+
+        game.settings.register('SoundBoard', 'forcePopoutCompat', {
+            name: 'SOUNDBOARD.settings.popoutCompat.name',
+            hint: 'SOUNDBOARD.settings.popoutCompat.hint',
+            scope: 'world',
+            config: true,
+            type: Boolean,
+            default: false,
+            onChange: value => {
+                window.location.reload();
+            }
+        });
+
         game.settings.register('SoundBoard', 'soundboardServerVolume', {
             name: 'Server Volume',
             scope: 'world',
@@ -696,6 +709,29 @@ class SoundBoard {
         SoundBoard.socketHelper = new SBSocketHelper();
         SoundBoard.audioHelper = new SBAudioHelper();
 
+        if(game.settings.get('SoundBoard', 'forcePopoutCompat')){
+
+            // Very dirty - force our code over popout modules, allowing SB to play
+
+            // Consider attaching the SoundBoard to the application somehow, instead of calling its singleton
+            PopoutModule.prototype.createDocument = () => {
+                const html = document.createElement("html");
+                const head = document.importNode(document.getElementsByTagName("head")[0], true);
+                const body = document.importNode(document.getElementsByTagName("body")[0], false);
+                
+                // for (const child of [...head.children]) {
+                //     if (child.nodeName === "SCRIPT" && child.src) {
+                //         const src = child.src.replace(window.location.origin, "");
+                //         if (!src.match(/tinymce|jquery|webfont|pdfjs|SoundBoard/)) {
+                //             //child.remove();
+                //         }
+                //     }
+                // }
+                html.appendChild(head);
+                html.appendChild(body);
+                return html;
+            };
+        }
     }
 
     static addSoundBoard(controls) {
