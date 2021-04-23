@@ -1,0 +1,71 @@
+#soundboard-packagemanager-app {
+  
+  min-width: 375px;
+}
+
+#soundboard-packagemanager-app .window-content {
+  display: block;
+}
+
+:root {
+  --SoundBoard-loop-bg-from: #01701c;
+}
+
+.soundboard-packman-container {
+  flex: unset;
+}
+
+.soundboard-packman-container .no-packs {
+  text-align: center;
+  color: #444444;
+  text-shadow: 0 0 3px white;
+}
+
+.soundboard-packman-container .author {
+  font-weight: bold;
+}
+
+#soundboard-packagemanager-app small {
+  font-size: 14px;
+  color: #4b4a44;
+}
+
+#soundboard-packagemanager-app p.license {
+  background: #dddddd;
+  width: fit-content;
+  border-style: solid;
+  border-radius: 8px;
+  padding: 0 4px;
+  border-color: #888888;
+  border-width: 2px;
+  font-size: 12px;
+}
+
+.soundboard-packman-container .sbpackman-package {
+    border: groove !important;
+    border-radius: 5px;
+    margin: 2px 0 !important;
+    padding: 10px !important;
+    opacity: 0.5 !important;
+    cursor:pointer !important;
+    transition: all 500ms;
+}
+
+.soundboard-packman-container .sbpackman-package.active {
+  border: inset !important;
+    margin: 2px 0 !important;
+    padding: 10px !important;
+    opacity: 1 !important;
+    background: #00ff0033 !important;
+}
+
+.soundboard-packman-container .sbpackman-package:hover {
+  box-shadow: 0px 0px 5px 1px black !important;
+}
+.soundboard-packman-container .sbpackman-package.active:hover {
+  box-shadow: inset 0px 0px 5px 1px black !important;
+}
+
+.soundboard-packman-container a {
+  cursor: help;
+}

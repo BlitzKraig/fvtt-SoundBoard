@@ -1,0 +1,33 @@
+<div class="sbpackman-package {{#unless disabled}}active{{/unless}}"
+    onclick="SoundBoard.packageManager.toggleSoundPack('{{soundboard-escape name}}', this);">
+    <h2>{{name}}
+        {{#if moduleName}}
+        <small>{{moduleName}}</small>
+        {{/if}}
+    </h2>
+
+    {{#if description}}
+    <p class="description">{{description}}</p>
+    {{/if}}
+
+    {{#if author}}
+    <p class="author">{{author}}</p>
+    {{/if}}
+
+    {{#if link}}
+    <a class="pack-link" title={{link}} href={{link}}>{{localize 'SOUNDBOARD.app.packman.package.link'}}</a>
+    {{/if}}
+
+    <h4 style="margin-top: 10px; margin-bottom: 0;">License Information</h4>
+    {{#each licenses}}
+    <p class="license">
+        {{#if this.licenseUrl}}
+        <a title={{this.licenseUrl}} href={{this.licenseUrl}}>{{this.licenseType}}</a>
+        {{else}}
+        {{this.licenseType}}
+        {{/if}}
+        - {{this.licenseDescription}}</p>
+    {{else}}
+    <p class="license">No License Information Provided</p>
+    {{/each}}
+</div>

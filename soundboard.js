@@ -22,6 +22,7 @@ class SoundBoard {
 
     static socketHelper;
     static audioHelper;
+    static packageManager;
 
     static log(message, logLevel = SoundBoard.LOGTYPE.LOG) {
         switch (logLevel) {
@@ -50,6 +51,9 @@ class SoundBoard {
         },
         'soundboard-getarraycount': (array) => {
             return array.length;
+        },
+        'soundboard-escape': (str) => {
+            return str.replace(/(')/g, '\\$1');
         }
     }
 
@@ -64,6 +68,7 @@ class SoundBoard {
         }
         SoundBoard.openedBoard = new SoundBoardApplication();
         SoundBoard.openedBoard.render(true);
+        SoundBoard.openedBoard.bringToTop();
     }
     static openSoundBoardFav() {
         if (!SoundBoard.soundsLoaded) {
@@ -72,6 +77,7 @@ class SoundBoard {
         }
         SoundBoard.openedBoard = new SoundBoardFavApplication();
         SoundBoard.openedBoard.render(true);
+        SoundBoard.openedBoard.bringToTop();
     }
     static openSoundBoardBundled() {
         if (!SoundBoard.soundsLoaded) {
@@ -80,10 +86,15 @@ class SoundBoard {
         }
         SoundBoard.openedBoard = new SoundBoardBundledApplication();
         SoundBoard.openedBoard.render(true);
+        SoundBoard.openedBoard.bringToTop();
     }
 
     static openSoundBoardHelp() {
-        new SoundBoardHelp().render(true);
+        new SoundBoardHelp().render(true).bringToTop();
+    }
+
+    static openSoundBoardPackageManager() {
+        new SoundBoardPackageManagerApplication(SoundBoard.packageManager).render(true).bringToTop();
     }
 
     static updateVolume(volumePercentage) {
@@ -426,55 +437,61 @@ class SoundBoard {
         const favoritesArray = game.settings.get('SoundBoard', 'favoritedSounds');
         SoundBoard.bundledSounds = {};
 
-        var soundboardDirArray = await FilePicker.browse('data', 'modules/SoundBoard/bundledAudio/');
-        for (const dir of soundboardDirArray.dirs) {
-            const dirShortName = this._formatName(dir.split(/[/]+/).pop(), false);
-            SoundBoard.bundledSounds[dirShortName] = [];
-            let innerDirArray = await FilePicker.browse('data', dir);
-            for (const wildcardDir of innerDirArray.dirs) {
-                let wildcardFileArray = await FilePicker.browse('data', wildcardDir);
-                wildcardFileArray = wildcardFileArray.files;
-                wildcardFileArray = wildcardFileArray.filter(function (file) {
+        for (const pack of this.packageManager.soundPacks){
+            if(pack.disabled){
+                continue;
+            }
+            
+            let soundboardDirArray = await FilePicker.browse('data', pack.dir);
+            for (const dir of soundboardDirArray.dirs) {
+                const dirShortName = this._formatName(`${pack.name} - ${dir.split(/[/]+/).pop()}`, false);
+                SoundBoard.bundledSounds[dirShortName] = [];
+                let innerDirArray = await FilePicker.browse('data', dir);
+                for (const wildcardDir of innerDirArray.dirs) {
+                    let wildcardFileArray = await FilePicker.browse('data', wildcardDir);
+                    wildcardFileArray = wildcardFileArray.files;
+                    wildcardFileArray = wildcardFileArray.filter(function (file) {
+                        switch (file.substring(file.length - 4)) {
+                        case '.ogg':
+                        case '.oga':
+                        case '.mp3':
+                        case '.wav':
+                        case 'flac':
+                            return true;
+                        default:
+                            SoundBoard.log(`${file} ${game.i18n.localize('SOUNDBOARD.log.invalidSound')}`, SoundBoard.LOGTYPE.WARN);
+                            return false;
+                        }
+                    });
+                    SoundBoard.bundledSounds[dirShortName].push({
+                        name: this._formatName(wildcardDir.split(/[/]+/).pop(), false),
+                        src: wildcardFileArray,
+                        identifyingPath: wildcardDir,
+                        isWild: true,
+                        isFavorite: favoritesArray.includes(wildcardDir)
+                    });
+
+                }
+                for (const file of innerDirArray.files) {
                     switch (file.substring(file.length - 4)) {
                     case '.ogg':
                     case '.oga':
                     case '.mp3':
                     case '.wav':
                     case 'flac':
-                        return true;
+                        SoundBoard.bundledSounds[dirShortName].push({
+                            name: this._formatName(file.split(/[/]+/).pop()),
+                            src: [file],
+                            identifyingPath: file,
+                            isWild: false,
+                            isFavorite: favoritesArray.includes(file)
+                        });
+                        break;
+
                     default:
                         SoundBoard.log(`${file} ${game.i18n.localize('SOUNDBOARD.log.invalidSound')}`, SoundBoard.LOGTYPE.WARN);
-                        return false;
+                        break;
                     }
-                });
-                SoundBoard.bundledSounds[dirShortName].push({
-                    name: this._formatName(wildcardDir.split(/[/]+/).pop(), false),
-                    src: wildcardFileArray,
-                    identifyingPath: wildcardDir,
-                    isWild: true,
-                    isFavorite: favoritesArray.includes(wildcardDir)
-                });
-
-            }
-            for (const file of innerDirArray.files) {
-                switch (file.substring(file.length - 4)) {
-                case '.ogg':
-                case '.oga':
-                case '.mp3':
-                case '.wav':
-                case 'flac':
-                    SoundBoard.bundledSounds[dirShortName].push({
-                        name: this._formatName(file.split(/[/]+/).pop()),
-                        src: [file],
-                        identifyingPath: file,
-                        isWild: false,
-                        isFavorite: favoritesArray.includes(file)
-                    });
-                    break;
-
-                default:
-                    SoundBoard.log(`${file} ${game.i18n.localize('SOUNDBOARD.log.invalidSound')}`, SoundBoard.LOGTYPE.WARN);
-                    break;
                 }
             }
         }
@@ -572,20 +589,30 @@ class SoundBoard {
         }
     }
 
-    static async refreshSounds() {
+    static async refreshSounds({notify, bringToTop} = {notify:true, bringToTop:true}) {
         if (game.user.isGM) {
-            ui.notifications.notify(game.i18n.localize('SOUNDBOARD.notif.refreshing'));
+            if(notify){
+                ui.notifications.notify(game.i18n.localize('SOUNDBOARD.notif.refreshing'));
+            }
             SoundBoard.stopAllSounds();
             SoundBoard.soundsError = false;
             await SoundBoard.getSounds();
             if(SoundBoard.openedBoard?.rendered){
                 SoundBoard.openedBoard.render();
+                if(bringToTop){
+                    SoundBoard.openedBoard.bringToTop();
+                }
             }
-            ui.notifications.notify(game.i18n.localize('SOUNDBOARD.notif.refreshComplete'));
+            if(notify){
+                ui.notifications.notify(game.i18n.localize('SOUNDBOARD.notif.refreshComplete'));
+            }
         }
     }
 
     static async onInit() {
+        SoundBoard.packageManager = new SBPackageManager();
+        Hooks.callAll('SBPackageManagerReady');
+
         game.settings.register('SoundBoard', 'soundboardDirectory', {
             name: 'SOUNDBOARD.settings.directory.name',
             hint: 'SOUNDBOARD.settings.directory.hint',
@@ -704,6 +731,7 @@ class SoundBoard {
             SoundBoard.soundsError = false;
             await SoundBoard.getSounds();
             Handlebars.registerHelper(SoundBoard.handlebarsHelpers);
+            Handlebars.registerPartial('SoundBoardPackageCard', await getTemplate('modules/SoundBoard/templates/partials/packagecard.hbs'));
         }
 
         SoundBoard.socketHelper = new SBSocketHelper();
@@ -768,6 +796,14 @@ class SoundBoard {
             onClick: SoundBoard.stopAllSounds,
             button: true
         });
+        soundControls.tools.push({
+            name: 'soundboardpackman',
+            title: 'SOUNDBOARD.button.packageManagerTool',
+            icon: 'fas fa-tasks',
+            visible: game.user.isGM,
+            onClick: ()=>SoundBoard.openSoundBoardPackageManager(SoundBoard.packageManager),
+            button: true
+        });
     }
     static addCustomPlaylistElements(app, html) {
         if (!game.user.isGM) {
@@ -782,7 +818,7 @@ class SoundBoard {
         }
     }
 }
-
+Hooks.on('closeSoundBoardApplication', ()=>{if(SoundBoard.openedBoard?.rendered){SoundBoard.openedBoard.close();}});
 Hooks.once('ready', SoundBoard.onInit);
 Hooks.on('getSceneControlButtons', SoundBoard.addSoundBoard);
 Hooks.on('renderSidebarTab', SoundBoard.addCustomPlaylistElements);

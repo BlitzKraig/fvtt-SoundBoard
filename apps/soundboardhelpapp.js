@@ -190,11 +190,21 @@ class SoundBoardHelp extends Application {
         <p>As of 1.4.0, SoundBoard's old Bundled Sounds have been moved into the <a href="https://github.com/BlitzKraig/fvtt-SoundBoard-BlitzFreePack">Blitz Free Pack</a> and the <a href="https://github.com/BlitzKraig/fvtt-SoundBoard-BlitzCommunityPack">Community Pack</a></p>
         <h3>Sound Packs</h3>
         <p>Sound Packs are small modules containing a collection of SoundBoard sounds. They can be installed and activated, and should instantly appear in your Bundled Sounds soundboard.</p>
-        <p>You can enable and disable individual packs in the Module Settings</p>
+        <p>You can enable and disable individual packs using the Package Manager, which can be accessed via the button at the top right of the SoundBoard</p>
+        <p><button style="width: 40px;
+            height: 26px;
+            line-height: 0;
+            padding: 0;"
+            type="button" class="btn btn-secondary toolbar-btn ">
+            <i class="fas fa-tasks"></i>
+          </button></p>
         <p>Any module can provide sounds for SoundBoard to use as a Sound Pack. The sounds should be placed in the same directory structure as Custom Sounds, and some code should be called:</p>
         <ol>
         <li>Listen for the <code>SBPackageManagerReady</code> Hook</li>
-        <li>Call <code>SoundBoard.packageManager.addSoundPack(packName, packDir);</code></li>
+        <li>Call <code>SoundBoard.packageManager.addSoundPack(packName, packDir, moduleName, {licenses, description, link, author});</code></li>
+        <ul><li>The final object is optional, but recommended.</li>
+        <li><code>licenses</code> should be an array of license objects, containing <code>licenseUrl, licenseType</code> and <code>licenseDescription</code>. See one of the sound packs linked above for an example.</li>
+        </ul>
         </ol>
         <p>This approach allows users to create dedicated Sound Packs, or ship SoundBoard sounds with their existing modules, worlds and systems.</p>
         `}

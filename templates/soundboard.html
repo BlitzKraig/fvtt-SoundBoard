@@ -52,6 +52,10 @@
       title="{{localize 'SOUNDBOARD.app.tooltip.deleteMacros'}}" onclick="SoundBoard.promptDeleteMacros()">
       <i class="fas fa-bomb"></i>
     </button>
+    <button id="open-packman" type="button" class="btn btn-secondary toolbar-btn"
+      title="{{localize 'SOUNDBOARD.app.tooltip.openPackMan'}}" onclick="SoundBoard.openSoundBoardPackageManager(SoundBoard.packageManager)">
+      <i class="fas fa-tasks"></i>
+    </button>
     <button id="help" type="button" class="btn btn-info toolbar-btn" title="{{localize 'SOUNDBOARD.app.tooltip.help'}}"
       onclick="SoundBoard.openSoundBoardHelp()">
       <i class="far fa-question-circle"></i>
@@ -152,6 +156,15 @@
         {{/if}}
         {{/each}}
       </div>
+      {{else}}
+      {{#if tab.bundled}}
+        <h3 style="margin-top: 10px;">{{localize 'SOUNDBOARD.app.noBundledSoundsHeader'}}</h3>
+        <p>{{localize 'SOUNDBOARD.app.noBundledSoundsDesc'}}</p>
+        <button id="open-packman" type="button" class="btn btn-secondary"
+      title="{{localize 'SOUNDBOARD.app.tooltip.openPackMan'}}" onclick="SoundBoard.openSoundBoardPackageManager(SoundBoard.packageManager)">
+      <i class="fas fa-tasks"></i>{{localize 'SOUNDBOARD.app.tooltip.openPackMan'}}
+    </button>
+      {{/if}}
       {{/each}}
     </div>
   </div>
