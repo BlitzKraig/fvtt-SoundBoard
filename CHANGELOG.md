@@ -1,6 +1,6 @@
 # SoundBoard Changelog
 
-## 1.4.0 - 2021/04/07
+## 1.4.0 - 2021/04/23
 
 * Added package manager
 * Added external sound pack support
