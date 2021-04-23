@@ -181,6 +181,10 @@ class SoundBoard {
     }
 
     static async playSoundByName(name, push = true) {
+        if(!game.user.isGM){
+            this.socketHelper.sendData({type:SBSocketHelper.SOCKETMESSAGETYPE.REQUESTMACROPLAY, payload:name});
+            return;
+        }
         let wasMacroMode = SoundBoard.macroMode;
         if (wasMacroMode) {
             SoundBoard.macroMode = false;
@@ -644,6 +648,14 @@ class SoundBoard {
             default: 0
         });
 
+        game.settings.register('SoundBoard', 'allowPlayersMacroRequest', {
+            name: 'SOUNDBOARD.settings.macroRequest.name',
+            hint: 'SOUNDBOARD.settings.macroRequest.hint',
+            scope: 'world',
+            config: true,
+            type: Boolean,
+            default: true
+        });
         game.settings.register('SoundBoard', 'soundboardServerVolume', {
             name: 'Server Volume',
             scope: 'world',

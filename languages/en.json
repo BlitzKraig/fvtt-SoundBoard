@@ -29,6 +29,10 @@
             "detune": {
                 "name": "Random Detune Amount",
                 "hint": "Randomly detune a sound each time it plays. 0 to disable. Backported to 0.7, works best in 0.8.1+"
+            },
+            "macroRequest": {
+                "name":"Players trigger SoundBoard macros",
+                "hint":"Enable this to allow players to trigger a sound using a macro with playSoundByName. Requires a connected GM."
             }
         },
 
