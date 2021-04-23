@@ -7,6 +7,7 @@
   * Removed bundled sounds - the Blitz Free Pack and Blitz Community Pack should be installed to get these sounds
 * Fixed an issue where changing tabs in SoundBoard sometimes did not register the close event properly
 * Added option for players to trigger SoundBoard macros
+* Added experimental PopOut! compatibility
 
 ## 1.3.0 - 2021/03/30
 
