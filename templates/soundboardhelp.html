@@ -1,0 +1,33 @@
+<script>
+    $(document).ready(function () {
+        $('.yt-help-video').width($('.soundboard-help').width());
+        $('.yt-help-video').height(($('.soundboard-help').width() / 16) * 9);
+    });
+</script>
+<div class="soundboard-container soundboard-help">
+    <h2 data-toggle="collapse" data-target="#soundboard-intro" aria-expanded="true" aria-controls="soundboard-intro">
+        SoundBoard by Blitz</h2>
+    <div class="collapse show" id="soundboard-intro">
+        <p>A huge thanks to all of the great Foundry users who use my modules and provide feedback, you're awesome!</p>
+        <p>I've created 10+ modules at this point, and still have lots of ideas for the future. I <b
+                style="color:red">love</b> Foundry, and the community around it.</p>
+        <p>If you'd like to support me, I have a ko-fi page where I accept donations - or you can just pop into the
+            Foundry Discord and tell me if you're enjoying the modules!</p>
+        <p>Stay cool, and report any issues on the <a href="https://github.com/BlitzKraig/fvtt-SoundBoard">GitHub repo</a> ✌</p>
+        <p style="margin:0;"><a href="https://github.com/BlitzKraig/fvtt-SoundBoard"><img style="border: none;
+            width: 150px;
+            height: 24px;" src="https://img.shields.io/badge/GitHub-Support_You-lightgrey"
+                    style="border: none; margin-top: 10px;"></a></p>
+        <p><a href="https://ko-fi.com/Q5Q01YIEJ"><img style="border: none;
+            width: 150px;
+            height: 24px;
+            margin-top: 4px;" src="https://img.shields.io/badge/!Ko--Fi!-Support_Me!-red" style="border: none;"></a>
+        </p>
+    </div>
+    {{#each help}}
+    <h2 data-toggle="collapse" data-target="#{{soundboard-safeid title}}" aria-expanded="true"
+        aria-controls="{{soundboard-safeid title}}">{{title}}
+    </h2>
+    <div class="collapse" id="{{soundboard-safeid title}}">{{{body}}}</div>
+    {{/each}}
+</div>
