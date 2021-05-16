@@ -83,7 +83,8 @@ class SBAudioHelper {
         volume *= game.settings.get('core', 'globalInterfaceVolume');
 
         if (!SBAudioHelper.hasHowler()) {
-            var soundNode = new SoundNode(src);
+            // SoundNode required to support 0.8.1, Sound for 0.8.2+
+            var soundNode = typeof SoundNode != "undefined" ? new SoundNode(src) : new Sound(src);
             soundNode.on('end', (id)=>{
                 this.removeActiveSound(id);
                 if (sound?.isLoop) {
@@ -164,7 +165,8 @@ class SBAudioHelper {
         volume
     }) {
         if (!SBAudioHelper.hasHowler()) {
-            var soundNode = new SoundNode(src);
+            // SoundNode required to support 0.8.1, Sound for 0.8.2+
+            var soundNode = typeof SoundNode != "undefined" ? new SoundNode(src) : new Sound(src);
             await soundNode.load();
             let player = game.user.name;
             SoundBoard.socketHelper.sendData({
