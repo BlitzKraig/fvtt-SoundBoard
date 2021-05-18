@@ -141,6 +141,8 @@
             onclick="SoundBoardApplication.toggleExtendedOptions(this, '{{identifyingPath}}', '{{../../tab.fav}}')">
             <i class="fas fa-ellipsis-v"></i>
           </button>
+          <input type="range" min="1" max="100" value="SoundBoard.getVolumeForSound('{{identifyingPath}}')" class="slider col" id="volumeRange-{{identifyingPath}}"
+            onchange="SoundBoard.updateVolumeForSound(this.value, '{{identifyingPath}}')">
         </div>
         {{else}}
         <div class="btn btn-outline-dark col{{#if isLoop}} loop-active{{/if}}{{#if isFavorite}} favorited{{/if}}"
@@ -152,6 +154,8 @@
             onclick="SoundBoardApplication.toggleExtendedOptions(this, '{{identifyingPath}}', '{{../../tab.fav}}')">
             <i class="fas fa-ellipsis-v"></i>
           </button>
+          <input type="range" min="1" max="100" value="SoundBoard.getVolumeForSound('{{identifyingPath}}')" class="slider col" id="volumeRange-{{identifyingPath}}"
+            onchange="SoundBoard.updateVolumeForSound(this.value, '{{identifyingPath}}')">
         </div>
         {{/if}}
         {{/each}}

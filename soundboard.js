@@ -109,9 +109,23 @@ class SoundBoard {
         game.settings.set('SoundBoard', 'soundboardServerVolume', volumePercentage);
     }
 
+    static updateVolumeForSound(volumePercentage, identifyingPath) {
+        const originalSoundVolumes = game.settings.get('SoundBoard', 'soundboardIndividualSoundVolumes');
+        game.settings.set('SoundBoard', 'soundboardIndividualSoundVolumes', { ...originalSoundVolumes, [identifyingPath]: volumePercentage });
+    }
+
     static getVolume() {
         let serverVolume = game.settings.get('SoundBoard', 'soundboardServerVolume') / 100;
         return serverVolume;
+    }
+
+    static getVolumeForSound(identifyingPath) {
+        const individualSoundVolumes = game.settings.get('SoundBoard', 'soundboardIndividualSoundVolumes');
+        if (individualSoundVolumes[identifyingPath]) {
+            return parseInt(individualSoundVolumes[identifyingPath]);
+        } else {
+            return this.getVolume()
+        }
     }
 
     static async playSoundOrStopLoop(identifyingPath) {
@@ -138,7 +152,7 @@ class SoundBoard {
     static async playSound(identifyingPath, push = true) {
 
         let sound = SoundBoard.getSoundFromIdentifyingPath(identifyingPath);
-        let volume = SoundBoard.getVolume();
+        let volume = SoundBoard.getVolumeForSound(identifyingPath) ?? SoundBoard.getVolume();
         let soundIndex = Math.floor(Math.random() * sound.src.length);
         if(sound.lastPlayedIndex >= 0 && sound.src.length > 1 && sound.lastPlayedIndex == soundIndex){
             if(++soundIndex > sound.src.length -1){
@@ -704,6 +718,14 @@ class SoundBoard {
             default: 100
         });
 
+        game.settings.register('SoundBoard', 'soundboardIndividualSoundVolumes', {
+            name: 'Server Volume',
+            scope: 'world',
+            config: false,
+            type: Object,
+            default: {}
+        });
+        
         game.settings.register('SoundBoard', 'favoritedSounds', {
             name: 'Favorited Sounds',
             scope: 'world',
