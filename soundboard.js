@@ -127,7 +127,7 @@ class SoundBoard {
         if (individualSoundVolumes[identifyingPath]) {
             return parseInt(individualSoundVolumes[identifyingPath]);
         } else {
-            return this.getVolume()
+            return 100;
         }
     }
 
