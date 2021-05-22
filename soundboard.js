@@ -155,7 +155,8 @@ class SoundBoard {
     static async playSound(identifyingPath, push = true) {
 
         let sound = SoundBoard.getSoundFromIdentifyingPath(identifyingPath);
-        let volume = SoundBoard.getVolumeForSound(identifyingPath) ?? SoundBoard.getVolume();
+        let volume = SoundBoard.getVolume()
+        sound.individualVolume = SoundBoard.getVolumeForSound(identifyingPath) / 100
         let soundIndex = Math.floor(Math.random() * sound.src.length);
         if(sound.lastPlayedIndex >= 0 && sound.src.length > 1 && sound.lastPlayedIndex == soundIndex){
             if(++soundIndex > sound.src.length -1){
