@@ -15,8 +15,7 @@
     "./helpers/soundboardaudiohelper.js",
     "./helpers/soundboardmacrohelper.js",
     "./helpers/soundboardwhetstoneconfig.js",
-    "./helpers/soundboardpackagemanager.js",
-    "./dependencies/bootstrap.bundle.min.js"
+    "./helpers/soundboardpackagemanager.js"
   ],
   "styles": [
     "./css/soundboard.css",

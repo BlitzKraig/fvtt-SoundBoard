@@ -1,11 +1,20 @@
 <script>
   $(document).ready(function () {
     $("#collapse-all").on("click", function () {
-      $("#soundboard-filterable div").removeClass("show")
+      $(".sb-collapse-div").hide("fast")
     });
+    
     $("#expand-all").on("click", function () {
-      $("#soundboard-filterable div").addClass("show")
+      $(".sb-collapse-div").show("fast")
     });
+    
+    $("#soundboard-filterable .sb-collapse-header").on("click", function () {
+      $(this).next(".sb-collapse-div").toggle("fast")
+    });
+
+    $(".soundboard-container").on('click', '.sb-dropdown-button', function () {
+      $(this).siblings(".dropdown-menu").toggle()
+    })
 
     var filterTimeout;
     $("#sound-search").on("keyup", function () {
@@ -13,14 +22,14 @@
       clearTimeout(filterTimeout);
       filterTimeout = setTimeout(() => {
         var value = $(this).val().toLowerCase();
-        $("#soundboard-filterable div").addClass("show")
+        $("#soundboard-filterable .sb-collapse-div").show()
         $("#soundboard-filterable .btn").filter(function () {
           let searchArray = value.split(' ');
           let buttonText = $(this).text().toLowerCase();
           $(this).toggle(searchArray.every(v => buttonText.indexOf(v) > -1))
         });
-        $("#soundboard-filterable h2").filter(function () {
-          $(this).toggle($(this).next().find(":visible").length > 0)
+        $("#soundboard-filterable .sb-collapse-header").filter(function () {
+          $(this).toggle($(this).next(".sb-collapse-div").find(":visible").length > 0)
         });
       }, 500);
     });
@@ -30,8 +39,7 @@
 
   <div id="toolbar" class="row no-gutters">
     <!-- Left side -->
-    <button id="granular-send" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-      class="btn btn-secondary toolbar-btn {{#if targettedPlayer}}active{{/if}}"
+    <button id="granular-send" type="button" class="sb-dropdown-button btn btn-secondary toolbar-btn {{#if targettedPlayer}}active{{/if}}"
       title="{{localize 'SOUNDBOARD.app.tooltip.target'}}" onclick="">
       <i class="fas fa-users"></i>
     </button>
@@ -60,7 +68,7 @@
       onclick="SoundBoard.openSoundBoardHelp()">
       <i class="far fa-question-circle"></i>
     </button>
-    <div class="dropdown-menu" aria-labelledby="granular-send">
+    <div class="dropdown-menu">
       <small class="dropdown-smalltext">{{localize 'SOUNDBOARD.app.toolbar.target'}}</small>
       <button class="dropdown-item {{#unless targettedPlayer}}active{{/unless}}"
         onclick="SoundBoard.targetPlayer(this)">
@@ -121,13 +129,13 @@
 
   <div id="soundboard-filterable" class="soundboard-sounds">
     {{#each sounds}}
-    <h2 data-toggle="collapse" data-target="#{{soundboard-safeid categoryName}}" aria-expanded="true"
+    <h2 class="sb-collapse-header" data-toggle="collapse" data-target="#{{soundboard-safeid categoryName}}" aria-expanded="true"
       aria-controls="{{soundboard-safeid categoryName}}">{{categoryName}} <small class="text-muted">({{length}})</small>
     </h2>
     {{#if ../collapse}}
-    <div class="collapse row" id="{{soundboard-safeid categoryName}}">
+    <div class="sb-collapse-div collapse show row" id="{{soundboard-safeid categoryName}}" style="display: none;">
       {{else}}
-      <div class="collapse show row" id="{{soundboard-safeid categoryName}}">
+      <div class="sb-collapse-div collapse show row" id="{{soundboard-safeid categoryName}}">
         {{/if}}
         {{#each files}}
         {{#if isWild}}
