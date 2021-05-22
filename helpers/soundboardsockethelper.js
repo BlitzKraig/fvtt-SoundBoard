@@ -39,7 +39,7 @@ class SBSocketHelper {
                 SoundBoard.audioHelper.cache(data.payload);
                 break;
             case SBSocketHelper.SOCKETMESSAGETYPE.VOLUMECHANGE:
-                SoundBoard.audioHelper.onVolumeChange(data.payload?.volume);
+                SoundBoard.audioHelper.onVolumeChange(data.payload?.volume, data.payload?.individualVolumes);
                 break;
             default:
                 break;

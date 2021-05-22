@@ -114,7 +114,19 @@ class SoundBoard {
 
     static updateVolumeForSound(volumePercentage, identifyingPath) {
         const originalSoundVolumes = game.settings.get('SoundBoard', 'soundboardIndividualSoundVolumes');
-        game.settings.set('SoundBoard', 'soundboardIndividualSoundVolumes', { ...originalSoundVolumes, [identifyingPath]: volumePercentage });
+        let individualVolumes = { ...originalSoundVolumes, [identifyingPath]: volumePercentage }
+        game.settings.set('SoundBoard', 'soundboardIndividualSoundVolumes', individualVolumes);
+
+        let sbVolume = SoundBoard.getVolume()
+        SoundBoard.audioHelper.onVolumeChange(sbVolume, individualVolumes);
+        SoundBoard.socketHelper.sendData({
+            type: SBSocketHelper.SOCKETMESSAGETYPE.VOLUMECHANGE,
+            payload: {
+                volume: sbVolume,
+                individualVolumes
+            }
+        });
+        
     }
 
     static getVolume() {
