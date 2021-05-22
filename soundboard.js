@@ -17,6 +17,7 @@ class SoundBoard {
     static targettedPlayerID;
     static cacheMode = false;
     static macroMode = false;
+    static volumeMode = false;
 
     static openedBoard;
 
@@ -323,6 +324,21 @@ class SoundBoard {
             SoundBoard.cacheMode = false;
         } else {
             $(html).find('#macro-mode').removeClass('active');
+        }
+    }
+
+    static toggleVolumeMode(html) {
+        if(SBAudioHelper.hasHowler()){
+            ui.notifications.notify(game.i18n.localize("SOUNDBOARD.notif.individualVolumeVersionIncorrect"));
+            return;
+        }
+        SoundBoard.volumeMode = !SoundBoard.volumeMode;
+        if (SoundBoard.volumeMode) {
+            $(html).find('#volume-mode').addClass('active');
+            $('.sb-individual-volume').show("fast");
+        } else {
+            $(html).find('#volume-mode').removeClass('active');
+            $('.sb-individual-volume').hide("fast");
         }
     }
 

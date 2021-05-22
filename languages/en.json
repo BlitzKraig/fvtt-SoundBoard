@@ -97,7 +97,8 @@
             "macroCreated": "Created Macro: {macro}",
             "macroExists": "{macro} already exists",
             "deleteMacros": "Deleted all SoundBoard macros",
-            "noMacros": "No SoundBoard macros to delete"
+            "noMacros": "No SoundBoard macros to delete",
+            "individualVolumeVersionIncorrect": "Changing individual sound volumes is only supported on Foundry 0.8+"
         },
 
         "whetstone": {
