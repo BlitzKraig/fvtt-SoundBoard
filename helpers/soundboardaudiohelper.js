@@ -259,22 +259,20 @@ class SBAudioHelper {
     onVolumeChange(volume, individualVolumes) {
 
         volume *= game.settings.get('core', 'globalInterfaceVolume');
-        if (SBAudioHelper.hasHowler()) {
-            sound.volume(soundVolume);
-        } else {
-            if(game.audio.soundboardGain){
-                game.audio.soundboardGain.gain.value = volume;
-            }
-            if (individualVolumes) {
-                this.activeSounds.forEach(sound => {
+        if(game.audio.soundboardGain){
+            game.audio.soundboardGain.gain.value = volume;
+        }
+        this.activeSounds.forEach(sound => {
+            if (SBAudioHelper.hasHowler()) {
+                sound.volume(soundVolume);
+            } else {
+                if (individualVolumes) {
                     if (individualVolumes[sound.identifyingPath]) {
                         let individualVolume = parseInt(individualVolumes[sound.identifyingPath]) / 100
                         sound.individualGainNode.gain.value = individualVolume;
                     }
-                });
+                }
             }
-
-        }
+        });
     }
-
 }
