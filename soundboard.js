@@ -54,6 +54,9 @@ class SoundBoard {
         },
         'soundboard-escape': (str) => {
             return str.replace(/(')/g, '\\$1');
+        },
+        'get-individual-volume': (identifyingPath) => {
+            return this.getVolumeForSound(identifyingPath);
         }
     }
 
