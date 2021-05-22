@@ -103,13 +103,16 @@ class SBAudioHelper {
                     sound.isLoop = false;
                 }
             });
-            soundNode.on('start', ()=>{
+            soundNode.on('start', () => {
                 this.detuneNode(soundNode, detune);
-            
+
+                let individualGainNode = game.audio.context.createGain();
+                individualGainNode.gain.value = soundNode.individualVolume;
                 soundNode.node.disconnect();
+                individualGainNode.connect(game.audio.soundboardGain);
+                soundNode.node.connect(individualGainNode);
+                soundNode.individualGainNode = individualGainNode;
                 // soundNode.node.connect(iirfilter).connect(AudioHelper.soundboardGain);
-                soundNode.node.connect(game.audio.soundboardGain);
-    
                 this.activeSounds.push(soundNode);
             });
             if(!soundNode.loaded){
@@ -121,7 +124,11 @@ class SBAudioHelper {
                 game.audio.soundboardGain.connect(game.audio.context.destination);
             }
             game.audio.soundboardGain.gain.value = volume;
-            soundNode.play({volume});
+            soundNode.identifyingPath = sound.identifyingPath;
+            soundNode.individualVolume = sound.individualVolume
+            soundNode.play({
+                volume
+            });
         } else {
             let sbhowl = new Howl({
                 src,
@@ -250,16 +257,24 @@ class SBAudioHelper {
         }
     }
 
-    onVolumeChange(volume) {
+    onVolumeChange(volume, individualVolumes) {
+
         volume *= game.settings.get('core', 'globalInterfaceVolume');
-        this.activeSounds.forEach(sound => {
-            if(SBAudioHelper.hasHowler()){
-                sound.volume(volume);
-            } else {
-                sound._adjust({volume});
-                game.audio.soundboardGain.gain.value = volume;
+        if (SBAudioHelper.hasHowler()) {
+            sound.volume(soundVolume);
+        } else {
+            game.audio.soundboardGain.gain.value = volume;
+            if (individualVolumes) {
+                this.activeSounds.forEach(sound => {
+                    if (individualVolumes[sound.identifyingPath]) {
+                        let individualVolume = parseInt(individualVolumes[sound.identifyingPath]) / 100
+                        sound.individualGainNode.gain.value = individualVolume;
+                    }
+                });
             }
-        });
+
+        }
+
     }
 
 }
