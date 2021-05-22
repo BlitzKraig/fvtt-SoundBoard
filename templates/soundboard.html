@@ -51,6 +51,10 @@
       title="{{localize 'SOUNDBOARD.app.tooltip.macro'}}" onclick="SoundBoard.toggleMacroMode(this.parentElement)">
       <i class="fas fa-file-code"></i>
     </button>
+    <button id="volume-mode" type="button" class="btn btn-secondary toolbar-btn {{#if volumeMode}}active{{/if}}"
+      title="{{localize 'SOUNDBOARD.app.tooltip.volume'}}" onclick="SoundBoard.toggleVolumeMode(this.parentElement)">
+      <i class="fas fa-volume-up"></i>
+    </button>
     <button id="refresh-sounds" type="button" class="btn btn-secondary toolbar-btn"
       title="{{localize 'SOUNDBOARD.app.tooltip.refresh'}}" onclick="SoundBoard.refreshSounds()">
       <i class="fas fa-sync-alt"></i>
@@ -139,33 +143,29 @@
         {{/if}}
         {{#each files}}
         {{#if isWild}}
-        <div class="btn btn-outline-info col{{#if isLoop}} loop-active{{/if}}{{#if isFavorite}} favorited{{/if}}"
+          <div class="btn btn-outline-info col{{#if isLoop}} loop-active{{/if}}{{#if isFavorite}} favorited{{/if}}"
           uuid="{{identifyingPath}}">
           {{name}}
           <span class="badge badge-light">{{soundboard-getarraycount src}}</span>
-          <button class="sb-play-button" onclick="SoundBoard.playSoundOrStopLoop('{{identifyingPath}}')"
-            oncontextmenu="SoundBoard.previewSound('{{identifyingPath}}')"></button>
-          <button class="sb-more-button"
-            onclick="SoundBoardApplication.toggleExtendedOptions(this, '{{identifyingPath}}', '{{../../tab.fav}}')">
-            <i class="fas fa-ellipsis-v"></i>
-          </button>
-          <input type="range" min="1" max="100" value="{{get-individual-volume identifyingPath}}" class="slider col" id="volumeRange-{{identifyingPath}}"
-            onchange="SoundBoard.updateVolumeForSound(this.value, '{{identifyingPath}}')">
-        </div>
         {{else}}
-        <div class="btn btn-outline-dark col{{#if isLoop}} loop-active{{/if}}{{#if isFavorite}} favorited{{/if}}"
+          <div class="btn btn-outline-dark col{{#if isLoop}} loop-active{{/if}}{{#if isFavorite}} favorited{{/if}}"
           uuid="{{identifyingPath}}">
           {{name}}
+        {{/if}}
           <button class="sb-play-button" onclick="SoundBoard.playSoundOrStopLoop('{{identifyingPath}}')"
             oncontextmenu="SoundBoard.previewSound('{{identifyingPath}}')"></button>
           <button class="sb-more-button"
             onclick="SoundBoardApplication.toggleExtendedOptions(this, '{{identifyingPath}}', '{{../../tab.fav}}')">
             <i class="fas fa-ellipsis-v"></i>
           </button>
-          <input type="range" min="1" max="100" value="{{get-individual-volume identifyingPath}}" class="slider col" id="volumeRange-{{identifyingPath}}"
+          {{#if ../../volumeMode}}
+            <input type="range" min="1" max="100" value="{{get-individual-volume identifyingPath}}" class="sb-individual-volume slider col" id="volumeRange-{{identifyingPath}}"
             onchange="SoundBoard.updateVolumeForSound(this.value, '{{identifyingPath}}')">
+          {{else}}
+            <input type="range" min="1" max="100" value="{{get-individual-volume identifyingPath}}" class="sb-individual-volume slider col" id="volumeRange-{{identifyingPath}}"
+            onchange="SoundBoard.updateVolumeForSound(this.value, '{{identifyingPath}}')" style="display:none;">
+          {{/if}}
         </div>
-        {{/if}}
         {{/each}}
       </div>
       {{else}}
