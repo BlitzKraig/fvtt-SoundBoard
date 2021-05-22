@@ -4,6 +4,7 @@
 
 * Updated to work with 0.8.2/3/4/5 - (Still supports previous versions)
 * Added individual sound volume mode
+  * Added help section for mode
 * Removed bootstrap dependency (still using some CSS)
 
 ## 1.4.0 - 2021/04/23
