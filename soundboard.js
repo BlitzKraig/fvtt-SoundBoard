@@ -348,6 +348,8 @@ class SoundBoard {
                 return element.identifyingPath == identifyingPath;
             });
         });
+        
+        sound.identifyingPath = identifyingPath;
         return sound;
     }
 
