@@ -262,7 +262,9 @@ class SBAudioHelper {
         if (SBAudioHelper.hasHowler()) {
             sound.volume(soundVolume);
         } else {
-            game.audio.soundboardGain.gain.value = volume;
+            if(game.audio.soundboardGain){
+                game.audio.soundboardGain.gain.value = volume;
+            }
             if (individualVolumes) {
                 this.activeSounds.forEach(sound => {
                     if (individualVolumes[sound.identifyingPath]) {
