@@ -264,7 +264,7 @@ class SBAudioHelper {
         }
         this.activeSounds.forEach(sound => {
             if (SBAudioHelper.hasHowler()) {
-                sound.volume(soundVolume);
+                sound.volume(volume);
             } else {
                 if (individualVolumes) {
                     if (individualVolumes[sound.identifyingPath]) {
