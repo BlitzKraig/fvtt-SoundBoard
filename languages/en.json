@@ -69,7 +69,8 @@
                 "refresh": "Refresh all sounds",
                 "macro": "Toggle macro-mode",
                 "deleteMacros": "Delete all SoundBoard macros",
-                "openPackMan": "Open package manager"
+                "openPackMan": "Open package manager",
+                "help": "Open help app"
             },
             "help": {
                 "title": "SoundBoard Help"
