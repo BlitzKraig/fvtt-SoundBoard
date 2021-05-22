@@ -27,23 +27,22 @@ class SBAudioHelper {
     };
 
     //0.8.1+ goodies
-    static hasHowler(){
+    static hasHowler() {
         return typeof Howl != 'undefined';
     }
-    detuneNode(soundNode, detuneBy){
-        if(detuneBy == 0){
+    detuneNode(soundNode, detuneBy) {
+        if (detuneBy == 0) {
             return;
         }
-        
-        if(SBAudioHelper.hasHowler()){
+
+        if (SBAudioHelper.hasHowler()) {
             soundNode.rate(detuneBy);
         } else {
             soundNode.node.detune.value = detuneBy;
         }
     }
-    lowpassFilter(){
-        let lowPassCoefs = [
-            {
+    lowpassFilter() {
+        let lowPassCoefs = [{
                 frequency: 200,
                 feedforward: [0.00020298, 0.0004059599, 0.00020298],
                 feedback: [1.0126964558, -1.9991880801, 0.9873035442]
@@ -85,7 +84,7 @@ class SBAudioHelper {
         if (!SBAudioHelper.hasHowler()) {
             // SoundNode required to support 0.8.1, Sound for 0.8.2+
             var soundNode = typeof SoundNode != "undefined" ? new SoundNode(src) : new Sound(src);
-            soundNode.on('end', (id)=>{
+            soundNode.on('end', (id) => {
                 this.removeActiveSound(id);
                 if (sound?.isLoop) {
                     if (!sound?.loopDelay || sound?.loopDelay == 0) {
@@ -98,7 +97,7 @@ class SBAudioHelper {
                     }
                 }
             });
-            soundNode.on('stop', ()=>{
+            soundNode.on('stop', () => {
                 if (sound?.isLoop) {
                     sound.isLoop = false;
                 }
@@ -115,11 +114,11 @@ class SBAudioHelper {
                 // soundNode.node.connect(iirfilter).connect(AudioHelper.soundboardGain);
                 this.activeSounds.push(soundNode);
             });
-            if(!soundNode.loaded){
+            if (!soundNode.loaded) {
                 await soundNode.load();
             }
 
-            if(!game.audio.soundboardGain){
+            if (!game.audio.soundboardGain) {
                 game.audio.soundboardGain = game.audio.context.createGain();
                 game.audio.soundboardGain.connect(game.audio.context.destination);
             }
@@ -214,7 +213,7 @@ class SBAudioHelper {
     }
 
     stop(soundObj) {
-        if(SBAudioHelper.hasHowler()){
+        if (SBAudioHelper.hasHowler()) {
             this.activeSounds.filter(sound => {
                 return soundObj.src.includes(sound._src);
             }).forEach(sound => {
@@ -231,7 +230,7 @@ class SBAudioHelper {
     }
 
     stopAll() {
-        for (let sound of this.activeSounds){
+        for (let sound of this.activeSounds) {
             sound.stop();
         }
         this.activeSounds = [];
@@ -274,7 +273,6 @@ class SBAudioHelper {
             }
 
         }
-
     }
 
 }
