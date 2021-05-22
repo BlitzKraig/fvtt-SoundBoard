@@ -215,7 +215,8 @@ class SoundBoard {
             if (push) {
                 SoundBoard.socketHelper.sendData({
                     type: SBSocketHelper.SOCKETMESSAGETYPE.PLAY,
-                    payload
+                    payload,
+                    soundExtras: {identifyingPath: sound.identifyingPath, individualVolume: sound.individualVolume}
                 });
             }
         }

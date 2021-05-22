@@ -26,7 +26,7 @@ class SBSocketHelper {
             switch (data.type) {
             case SBSocketHelper.SOCKETMESSAGETYPE.PLAY:
                 if (!data.payload.target || data.payload.target == game.userId) {
-                    SoundBoard.audioHelper.play(data.payload);
+                    SoundBoard.audioHelper.play(data.payload, data.soundExtras);
                 }
                 break;
             case SBSocketHelper.SOCKETMESSAGETYPE.STOP:
