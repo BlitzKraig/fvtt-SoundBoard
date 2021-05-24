@@ -69,7 +69,8 @@
                 "refresh": "Refresh all sounds",
                 "macro": "Toggle macro-mode",
                 "deleteMacros": "Delete all SoundBoard macros",
-                "openPackMan": "Open package manager"
+                "openPackMan": "Open package manager",
+                "help": "Open help app"
             },
             "help": {
                 "title": "SoundBoard Help"
@@ -96,7 +97,8 @@
             "macroCreated": "Created Macro: {macro}",
             "macroExists": "{macro} already exists",
             "deleteMacros": "Deleted all SoundBoard macros",
-            "noMacros": "No SoundBoard macros to delete"
+            "noMacros": "No SoundBoard macros to delete",
+            "individualVolumeVersionIncorrect": "Changing individual sound volumes is only supported on Foundry 0.8+"
         },
 
         "whetstone": {

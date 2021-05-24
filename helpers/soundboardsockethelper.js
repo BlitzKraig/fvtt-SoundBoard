@@ -26,7 +26,7 @@ class SBSocketHelper {
             switch (data.type) {
             case SBSocketHelper.SOCKETMESSAGETYPE.PLAY:
                 if (!data.payload.target || data.payload.target == game.userId) {
-                    SoundBoard.audioHelper.play(data.payload);
+                    SoundBoard.audioHelper.play(data.payload, data.soundExtras);
                 }
                 break;
             case SBSocketHelper.SOCKETMESSAGETYPE.STOP:
@@ -39,7 +39,7 @@ class SBSocketHelper {
                 SoundBoard.audioHelper.cache(data.payload);
                 break;
             case SBSocketHelper.SOCKETMESSAGETYPE.VOLUMECHANGE:
-                SoundBoard.audioHelper.onVolumeChange(data.payload?.volume);
+                SoundBoard.audioHelper.onVolumeChange(data.payload?.volume, data.payload?.individualVolumes);
                 break;
             default:
                 break;

@@ -26,6 +26,7 @@ class SoundBoardBundledApplication extends SoundBoardApplication {
         var targettedPlayer = SoundBoard.targettedPlayerID;
         var cacheMode = SoundBoard.cacheMode;
         var macroMode = SoundBoard.macroMode;
+        var volumeMode = SoundBoard.volumeMode;
         return {
             tab: {bundled:true},
             sounds,
@@ -34,7 +35,8 @@ class SoundBoardBundledApplication extends SoundBoardApplication {
             players,
             targettedPlayer,
             cacheMode,
-            macroMode
+            macroMode,
+            volumeMode
         };
     }
 }

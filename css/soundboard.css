@@ -345,3 +345,16 @@ button.open-soundboard {
 .soundboard-help {
   text-align: left;
 }
+
+.sb-individual-volume {
+  position: absolute !important;
+  left: 0px !important;
+  right: 0px !important;
+  margin: 0px !important;
+  padding: 0px !important;
+  bottom: -5px !important;
+}
+
+input[type=range].sb-individual-volume::-webkit-slider-thumb {
+  border-radius: 15px;
+}

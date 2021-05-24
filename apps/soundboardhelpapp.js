@@ -137,6 +137,21 @@ class SoundBoardHelp extends Application {
             <p>Holding Shift while activating the macro, either directly or through a journal, will force your players to load and cache the sound instead of playing it.</p>
             <p>This works in the same way as Caching Mode, allowing the GM to preload sounds so all of their players will hear them at the same time when they are played.</p>
             `},
+            {title:'Volume Mode', body:`
+            <p>Volume Mode can be activated by clicking the Toggle Volume Mode button in the toolbar.</p>
+            <p><button style="width: 40px;
+            height: 26px;
+            line-height: 0;
+            padding: 0;"
+            type="button" class="btn btn-secondary toolbar-btn ">
+            <i class="fas fa-volume-up"></i>
+          </button></p>
+            <p>When active, the button will turn green, and volume bars will appear on every sound. Note, this is only supported on Foundry 0.8+</p>
+            <p>Change the volume of an individual sound to tweak the final output. The SoundBoard volume, and interface volume are still respected.</p>
+            <p>Note that altered sound volumes are saved across sessions.</p>
+            <p>You can disable Volume Mode after changing the volume for a sound - the new volume will be kept.</p>
+            <p>Volume Mode can be activated to change individual volumes, then deactivated to clean up the UI.</p>
+            `},
         {title:'Refreshing Sounds', body:`
             <p>The Refresh toolbar button can be activated to scan for changes in your SoundBoard directory.</p>
             <p><button style="width: 40px;

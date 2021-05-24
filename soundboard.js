@@ -17,6 +17,7 @@ class SoundBoard {
     static targettedPlayerID;
     static cacheMode = false;
     static macroMode = false;
+    static volumeMode = false;
 
     static openedBoard;
 
@@ -54,6 +55,9 @@ class SoundBoard {
         },
         'soundboard-escape': (str) => {
             return str.replace(/(')/g, '\\$1');
+        },
+        'get-individual-volume': (identifyingPath) => {
+            return this.getVolumeForSound(identifyingPath);
         }
     }
 
@@ -109,9 +113,35 @@ class SoundBoard {
         game.settings.set('SoundBoard', 'soundboardServerVolume', volumePercentage);
     }
 
+    static updateVolumeForSound(volumePercentage, identifyingPath) {
+        const originalSoundVolumes = game.settings.get('SoundBoard', 'soundboardIndividualSoundVolumes');
+        let individualVolumes = { ...originalSoundVolumes, [identifyingPath]: volumePercentage }
+        game.settings.set('SoundBoard', 'soundboardIndividualSoundVolumes', individualVolumes);
+
+        let sbVolume = SoundBoard.getVolume()
+        SoundBoard.audioHelper.onVolumeChange(sbVolume, individualVolumes);
+        SoundBoard.socketHelper.sendData({
+            type: SBSocketHelper.SOCKETMESSAGETYPE.VOLUMECHANGE,
+            payload: {
+                volume: sbVolume,
+                individualVolumes
+            }
+        });
+        
+    }
+
     static getVolume() {
         let serverVolume = game.settings.get('SoundBoard', 'soundboardServerVolume') / 100;
         return serverVolume;
+    }
+
+    static getVolumeForSound(identifyingPath) {
+        const individualSoundVolumes = game.settings.get('SoundBoard', 'soundboardIndividualSoundVolumes');
+        if (individualSoundVolumes[identifyingPath]) {
+            return parseInt(individualSoundVolumes[identifyingPath]);
+        } else {
+            return 100;
+        }
     }
 
     static async playSoundOrStopLoop(identifyingPath) {
@@ -138,7 +168,8 @@ class SoundBoard {
     static async playSound(identifyingPath, push = true) {
 
         let sound = SoundBoard.getSoundFromIdentifyingPath(identifyingPath);
-        let volume = SoundBoard.getVolume();
+        let volume = SoundBoard.getVolume()
+        sound.individualVolume = SoundBoard.getVolumeForSound(identifyingPath) / 100
         let soundIndex = Math.floor(Math.random() * sound.src.length);
         if(sound.lastPlayedIndex >= 0 && sound.src.length > 1 && sound.lastPlayedIndex == soundIndex){
             if(++soundIndex > sound.src.length -1){
@@ -185,7 +216,8 @@ class SoundBoard {
             if (push) {
                 SoundBoard.socketHelper.sendData({
                     type: SBSocketHelper.SOCKETMESSAGETYPE.PLAY,
-                    payload
+                    payload,
+                    soundExtras: {identifyingPath: sound.identifyingPath, individualVolume: sound.individualVolume}
                 });
             }
         }
@@ -295,6 +327,21 @@ class SoundBoard {
         }
     }
 
+    static toggleVolumeMode(html) {
+        if(SBAudioHelper.hasHowler()){
+            ui.notifications.notify(game.i18n.localize("SOUNDBOARD.notif.individualVolumeVersionIncorrect"));
+            return;
+        }
+        SoundBoard.volumeMode = !SoundBoard.volumeMode;
+        if (SoundBoard.volumeMode) {
+            $(html).find('#volume-mode').addClass('active');
+            $('.sb-individual-volume').show("fast");
+        } else {
+            $(html).find('#volume-mode').removeClass('active');
+            $('.sb-individual-volume').hide("fast");
+        }
+    }
+
     static promptDeleteMacros() {
         new Dialog({
             title: 'Delete SoundBoard Macros',
@@ -331,6 +378,8 @@ class SoundBoard {
                 return element.identifyingPath == identifyingPath;
             });
         });
+        
+        sound.identifyingPath = identifyingPath;
         return sound;
     }
 
@@ -704,6 +753,14 @@ class SoundBoard {
             default: 100
         });
 
+        game.settings.register('SoundBoard', 'soundboardIndividualSoundVolumes', {
+            name: 'Server Volume',
+            scope: 'world',
+            config: false,
+            type: Object,
+            default: {}
+        });
+        
         game.settings.register('SoundBoard', 'favoritedSounds', {
             name: 'Favorited Sounds',
             scope: 'world',

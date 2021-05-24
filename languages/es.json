@@ -9,7 +9,8 @@
             "openSoundboardFav": "Abrir Favoritos SoundBoard",
             "openSoundboardBundled": "Abrir Paquete Básico SoundBoard",
             "stopAllTool": "Parar Todos los Sonidos SoundBoard",
-            "stopAll": "Parar Todos"
+            "stopAll": "Parar Todos",
+            "packageManagerTool": "Abrir el gestor de paquetes de SoundBoard"
         },
         "log": {
             "invalidSound": "no es un fichero de audio válido, saltando"
@@ -33,6 +34,14 @@
             "detune": {
                 "name": "Cantidad aleatoria de desafinado",
                 "hint": "Desafinado aleatoriamente un sonido cada vez que se reproduce. Ponga 0 para desactivar. Adaptado a 0.7, funciona mejor en 0.8.1+"
+            },
+            "macroRequest": {
+                "name":"Jugadores ejecutan macros SoundBoard",
+                "hint":"Habilita esta opción para permitir que los jugadores ejecuten macros para lanzar sonidos usando playSoundByName. Se requiere que haya un GM conectado"
+            },
+            "popoutCompat": {
+                "name":"Forzar compatibilidad con PopOut!",
+                "hint":"Sobrescribe parte del código de PopOut! para forzar la compatibilidad. El que Soundboard se ejecute en una nueva ventana puede producir una bajada en el rendimiento. Modificar esta configuración hará que se recargue el navegador"
             }
         },
 
@@ -47,6 +56,8 @@
             "expandAll": "Expandir Todo",
             "collapseAll": "Colapsar Todo",
             "stopAll": "Parar",
+            "noBundledSoundsHeader": "¡No hay ningún paquete de sonido activo!",
+            "noBundledSoundsDesc": "Instale paquetes de sonido y actívelos mediante el gestor de paquetes de SoundBoard",
             "exampleWarning": "No ha cambiado el directorio de SoundBoard por defecto exampleAudio. Si añade ficheros a ese directorio, serán borrados cuando se actualice el módulo. Haga clic en el botón de ayuda que hay en la parte superior derecha para saber como personalizar el audio",
             "nav": {
                 "mySounds": "Mis Sonidos",
@@ -61,10 +72,23 @@
                 "cache": "Activar modo-caché",
                 "refresh": "Actualizar todos los sonidos",
                 "macro": "Alternar modo-macro",
-                "deleteMacros": "Borrar todas las macros de SoundBoard"
+                "deleteMacros": "Borrar todas las macros de SoundBoard",
+                "openPackMan": "Abrir gestor de paquetes"
             },
             "help": {
                 "title": "Ayuda de SoundBoard"
+            },
+            "packman": {
+                "title": "Gestor de paquetes de SoundBoard",
+                "installedPacksHeader": "Paquetes de sonido activados",
+                "installedPacksDesc": "Haga clic para activar/desactivar paquetes instalados",
+                "package": {
+                    "link": "Enlace",
+                    "licenseLink": "Licencia",
+                    "licenseUnknown": "Desconocido"
+                },
+                "noPacksHeader": "No hay ningún paquete instalado",
+                "noPacksDesc": "Puede instalar el Blitz Free y otros paquetes de la comunidad buscando 'SoundBoard Pack' en el administrador de módulos"
             }
         },
         "notif": {

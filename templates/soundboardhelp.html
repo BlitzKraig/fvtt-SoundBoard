@@ -3,11 +3,14 @@
         $('.yt-help-video').width($('.soundboard-help').width());
         $('.yt-help-video').height(($('.soundboard-help').width() / 16) * 9);
     });
+    $(".sb-collapse-help-header").on("click", function (el) {
+      $(this).next(".sb-collapse-help-div").toggle()
+    });
 </script>
 <div class="soundboard-container soundboard-help">
-    <h2 data-toggle="collapse" data-target="#soundboard-intro" aria-expanded="true" aria-controls="soundboard-intro">
+    <h2 class="sb-collapse-help-header">
         SoundBoard by Blitz</h2>
-    <div class="collapse show" id="soundboard-intro">
+    <div class="sb-collapse-help-div collapse show" id="soundboard-intro">
         <p>A huge thanks to all of the great Foundry users who use my modules and provide feedback, you're awesome!</p>
         <p>I've created 10+ modules at this point, and still have lots of ideas for the future. I <b
                 style="color:red">love</b> Foundry, and the community around it.</p>
@@ -25,9 +28,8 @@
         </p>
     </div>
     {{#each help}}
-    <h2 data-toggle="collapse" data-target="#{{soundboard-safeid title}}" aria-expanded="true"
-        aria-controls="{{soundboard-safeid title}}">{{title}}
+    <h2 class="sb-collapse-help-header">{{title}}
     </h2>
-    <div class="collapse" id="{{soundboard-safeid title}}">{{{body}}}</div>
+    <div class="sb-collapse-help-div collapse" id="{{soundboard-safeid title}}">{{{body}}}</div>
     {{/each}}
 </div>
