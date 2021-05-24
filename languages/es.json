@@ -73,7 +73,8 @@
                 "refresh": "Actualizar todos los sonidos",
                 "macro": "Alternar modo-macro",
                 "deleteMacros": "Borrar todas las macros de SoundBoard",
-                "openPackMan": "Abrir gestor de paquetes"
+                "openPackMan": "Abrir gestor de paquetes",
+                "help": "Abrir ayuda"
             },
             "help": {
                 "title": "Ayuda de SoundBoard"
@@ -100,7 +101,8 @@
             "macroCreated": "Macro creada: {macro}",
             "macroExists": "{macro} ya existe",
             "deleteMacros": "Borradas todas las macros de SoundBoard",
-            "noMacros": "No hay macros de SoundBoard que borrar"
+            "noMacros": "No hay macros de SoundBoard que borrar",
+            "individualVolumeVersionIncorrect": "Solo Foundry 0.8+ soporta el cambio de volumen de los audios de manera individual"
         },
 
         "whetstone": {
