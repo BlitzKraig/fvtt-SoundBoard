@@ -1,5 +1,11 @@
 # SoundBoard Changelog
 
+## 1.5.2 - 2021/06/04
+
+* Updated localization
+* Added i18n-ally support
+* Updated version compatibility
+
 ## 1.5.1 - 2021/05/22
 
 * Updated to work with 0.8.2/3/4/5 - (Still supports previous versions)

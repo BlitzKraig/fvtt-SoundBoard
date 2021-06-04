@@ -9,7 +9,6 @@
             "openSoundboardFav": "Abrir Favoritos SoundBoard",
             "openSoundboardBundled": "Abrir Paquete Básico SoundBoard",
             "stopAllTool": "Parar Todos los Sonidos SoundBoard",
-            "stopAll": "Parar Todos",
             "packageManagerTool": "Abrir el gestor de paquetes de SoundBoard"
         },
         "log": {
@@ -20,7 +19,7 @@
                 "name": "Directorio Personalizado de SoundBoard",
                 "hint": "Debería se un lugar con subdirectorios que contengan ficheros de audio. Puede consultar un ejemplo en modules/SoundBoard/exampleAudio/"
             },
-            "source":{
+            "source": {
                 "name": "Tipo de Fuente",
                 "hint": "Si los audios están en Recursos de Forge, seleccione Forge. Si lo están en un cubo S3, seleccione S3. En caso contrario, seleccione Datos",
                 "data": "Datos",
@@ -36,21 +35,19 @@
                 "hint": "Desafinado aleatoriamente un sonido cada vez que se reproduce. Ponga 0 para desactivar. Adaptado a 0.7, funciona mejor en 0.8.1+"
             },
             "macroRequest": {
-                "name":"Jugadores ejecutan macros SoundBoard",
-                "hint":"Habilita esta opción para permitir que los jugadores ejecuten macros para lanzar sonidos usando playSoundByName. Se requiere que haya un GM conectado"
+                "name": "Jugadores ejecutan macros SoundBoard",
+                "hint": "Habilita esta opción para permitir que los jugadores ejecuten macros para lanzar sonidos usando playSoundByName. Se requiere que haya un GM conectado"
             },
             "popoutCompat": {
-                "name":"Forzar compatibilidad con PopOut!",
-                "hint":"Sobrescribe parte del código de PopOut! para forzar la compatibilidad. El que Soundboard se ejecute en una nueva ventana puede producir una bajada en el rendimiento. Modificar esta configuración hará que se recargue el navegador"
+                "name": "Forzar compatibilidad con PopOut!",
+                "hint": "Sobrescribe parte del código de PopOut! para forzar la compatibilidad. El que Soundboard se ejecute en una nueva ventana puede producir una bajada en el rendimiento. Modificar esta configuración hará que se recargue el navegador"
             }
         },
-
         "app": {
             "title": "Mis Sonidos - SoundBoard, por Blitz",
             "favTitle": "Sonidos Favoritos - SoundBoard, por Blitz",
             "bundledTitle": "Sonidos Paquete Básico - SoundBoard, por Blitz",
             "instructions": "Haga clic izquierdo para enviar un audio a los jugadores, botón derecho para que lo escuche únicamente el GM. Haga clic en los tres puntos para acceder a las opciones de los sonidos Favoritos y En Bucle. Haga clic en un audio en bucle para pararlo tras la reproducción actual. Haga clic en parar para detener todos los sonidos inmediatamente.",
-            "instructionsExtended": "Haga clic en 'Parar Todo' para finalizar todos los sonidos actuales",
             "volume": "Volumen",
             "filterText": "Buscar...",
             "expandAll": "Expandir Todo",
@@ -74,7 +71,8 @@
                 "macro": "Alternar modo-macro",
                 "deleteMacros": "Borrar todas las macros de SoundBoard",
                 "openPackMan": "Abrir gestor de paquetes",
-                "help": "Abrir ayuda"
+                "help": "Abrir ayuda",
+                "volume": "Alternar modo de volumen"
             },
             "help": {
                 "title": "Ayuda de SoundBoard"
@@ -85,7 +83,6 @@
                 "installedPacksDesc": "Haga clic para activar/desactivar paquetes instalados",
                 "package": {
                     "link": "Enlace",
-                    "licenseLink": "Licencia",
                     "licenseUnknown": "Desconocido"
                 },
                 "noPacksHeader": "No hay ningún paquete instalado",
@@ -104,7 +101,6 @@
             "noMacros": "No hay macros de SoundBoard que borrar",
             "individualVolumeVersionIncorrect": "Solo Foundry 0.8+ soporta el cambio de volumen de los audios de manera individual"
         },
-
         "whetstone": {
             "theme": {
                 "default": {
@@ -121,8 +117,7 @@
                     "hint": "Añadir animación entre colores de Inicio y de Fin"
                 },
                 "loopanimationtime": {
-                    "title": "Activar Tiempo de Animación de Bucle",
-                    "hint": ""
+                    "title": "Activar Tiempo de Animación de Bucle"
                 },
                 "loopactiveiconcolor": {
                     "title": "Activar Color de Icono de Bucle",
@@ -137,8 +132,7 @@
                     "hint": "Cambia tanto el color de la estrella de favoritos como el color del borde del botón"
                 },
                 "textshadow": {
-                    "title": "Sombra de Texto General",
-                    "hint": ""
+                    "title": "Sombra de Texto General"
                 },
                 "morebuttonactive": {
                     "title": "Botón Más Activo",
@@ -176,7 +170,6 @@
                     "hint": "Color del botón de la barra de herramientas activa en ese momento (p.ej. si se activa Selección de Jugador)"
                 }
             }
-
         }
     }
 }

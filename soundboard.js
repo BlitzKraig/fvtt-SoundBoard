@@ -663,8 +663,8 @@ class SoundBoard {
         Hooks.callAll('SBPackageManagerReady');
 
         game.settings.register('SoundBoard', 'soundboardDirectory', {
-            name: 'SOUNDBOARD.settings.directory.name',
-            hint: 'SOUNDBOARD.settings.directory.hint',
+            name: game.i18n.localize('SOUNDBOARD.settings.directory.name'),
+            hint: game.i18n.localize('SOUNDBOARD.settings.directory.hint'),
             scope: 'world',
             config: true,
             default: 'modules/SoundBoard/exampleAudio/',
@@ -677,15 +677,15 @@ class SoundBoard {
         });
 
         game.settings.register('SoundBoard', 'source', {
-            name: 'SOUNDBOARD.settings.source.name',
-            hint: 'SOUNDBOARD.settings.source.hint',
+            name: game.i18n.localize('SOUNDBOARD.settings.source.name'),
+            hint: game.i18n.localize('SOUNDBOARD.settings.source.hint'),
             scope: 'world',
             config: true,
             type: String,
             choices: {
-                'data': 'SOUNDBOARD.settings.source.data',
-                'forgevtt': 'SOUNDBOARD.settings.source.forgevtt',
-                's3': 'SOUNDBOARD.settings.source.s3'
+                'data': game.i18n.localize('SOUNDBOARD.settings.source.data'),
+                'forgevtt': game.i18n.localize('SOUNDBOARD.settings.source.forgevtt'),
+                's3': game.i18n.localize('SOUNDBOARD.settings.source.s3')
             },
             default: 'data',
             // eslint-disable-next-line no-unused-vars
@@ -694,8 +694,8 @@ class SoundBoard {
             }
         });
         game.settings.register('SoundBoard', 'opacity', {
-            name: 'SOUNDBOARD.settings.opacity.name',
-            hint: 'SOUNDBOARD.settings.opacity.hint',
+            name: game.i18n.localize('SOUNDBOARD.settings.opacity.name'),
+            hint: game.i18n.localize('SOUNDBOARD.settings.opacity.hint'),
             scope: 'world',
             config: true,
             type: Number,
@@ -711,8 +711,8 @@ class SoundBoard {
         });
 
         game.settings.register('SoundBoard', 'detuneAmount', {
-            name: 'SOUNDBOARD.settings.detune.name',
-            hint: 'SOUNDBOARD.settings.detune.hint',
+            name: game.i18n.localize('SOUNDBOARD.settings.detune.name'),
+            hint: game.i18n.localize('SOUNDBOARD.settings.detune.hint'),
             scope: 'world',
             config: true,
             type: Number,
@@ -725,8 +725,8 @@ class SoundBoard {
         });
 
         game.settings.register('SoundBoard', 'allowPlayersMacroRequest', {
-            name: 'SOUNDBOARD.settings.macroRequest.name',
-            hint: 'SOUNDBOARD.settings.macroRequest.hint',
+            name: game.i18n.localize('SOUNDBOARD.settings.macroRequest.name'),
+            hint: game.i18n.localize('SOUNDBOARD.settings.macroRequest.hint'),
             scope: 'world',
             config: true,
             type: Boolean,
@@ -734,8 +734,8 @@ class SoundBoard {
         });
 
         game.settings.register('SoundBoard', 'forcePopoutCompat', {
-            name: 'SOUNDBOARD.settings.popoutCompat.name',
-            hint: 'SOUNDBOARD.settings.popoutCompat.hint',
+            name: game.i18n.localize('SOUNDBOARD.settings.popoutCompat.name'),
+            hint: game.i18n.localize('SOUNDBOARD.settings.popoutCompat.hint'),
             scope: 'world',
             config: true,
             type: Boolean,
@@ -823,7 +823,7 @@ class SoundBoard {
         let soundControls = controls.find(control => control.name === 'sounds');
         soundControls.tools.push({
             name: 'soundboard',
-            title: 'SOUNDBOARD.button.openSoundboard',
+            title: game.i18n.localize('SOUNDBOARD.button.openSoundboard'),
             icon: 'fas fa-border-all',
             visible: game.user.isGM,
             onClick: SoundBoard.openSoundBoard,
@@ -831,7 +831,7 @@ class SoundBoard {
         });
         soundControls.tools.push({
             name: 'soundboardfav',
-            title: 'SOUNDBOARD.button.openSoundboardFav',
+            title: game.i18n.localize('SOUNDBOARD.button.openSoundboardFav'),
             icon: 'fas fa-star',
             visible: game.user.isGM,
             onClick: SoundBoard.openSoundBoardFav,
@@ -839,7 +839,7 @@ class SoundBoard {
         });
         soundControls.tools.push({
             name: 'soundboardbundled',
-            title: 'SOUNDBOARD.button.openSoundboardBundled',
+            title: game.i18n.localize('SOUNDBOARD.button.openSoundboardBundled'),
             icon: 'fas fa-box-open',
             visible: game.user.isGM,
             onClick: SoundBoard.openSoundBoardBundled,
@@ -847,7 +847,7 @@ class SoundBoard {
         });
         soundControls.tools.push({
             name: 'soundboardstop',
-            title: 'SOUNDBOARD.button.stopAllTool',
+            title: game.i18n.localize('SOUNDBOARD.button.stopAllTool'),
             icon: 'far fa-stop-circle',
             visible: game.user.isGM,
             onClick: SoundBoard.stopAllSounds,
@@ -855,7 +855,7 @@ class SoundBoard {
         });
         soundControls.tools.push({
             name: 'soundboardpackman',
-            title: 'SOUNDBOARD.button.packageManagerTool',
+            title: game.i18n.localize('SOUNDBOARD.button.packageManagerTool'),
             icon: 'fas fa-tasks',
             visible: game.user.isGM,
             onClick: ()=>SoundBoard.openSoundBoardPackageManager(SoundBoard.packageManager),

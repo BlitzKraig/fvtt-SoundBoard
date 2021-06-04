@@ -5,7 +5,6 @@
             "openSoundboardFav": "Open SoundBoard Favorites",
             "openSoundboardBundled": "Open SoundBoard Bundled",
             "stopAllTool": "Stop All SoundBoard Sounds",
-            "stopAll": "Stop All",
             "packageManagerTool": "Open SoundBoard Package Manager"
         },
         "log": {
@@ -16,7 +15,7 @@
                 "name": "Custom SoundBoard Directory",
                 "hint": "This should point to a folder containing subfolders, each containing audio files. See modules/SoundBoard/exampleAudio/ for an example"
             },
-            "source":{
+            "source": {
                 "name": "Source Type",
                 "hint": "If your sounds are stored in your Forge Assets, select Forge. If they are stored in an S3 bucket, select S3. Otherwise, select Data",
                 "data": "Data",
@@ -32,21 +31,19 @@
                 "hint": "Randomly detune a sound each time it plays. 0 to disable. Backported to 0.7, works best in 0.8.1+"
             },
             "macroRequest": {
-                "name":"Players trigger SoundBoard macros",
-                "hint":"Enable this to allow players to trigger a sound using a macro with playSoundByName. Requires a connected GM."
+                "name": "Players trigger SoundBoard macros",
+                "hint": "Enable this to allow players to trigger a sound using a macro with playSoundByName. Requires a connected GM."
             },
             "popoutCompat": {
-                "name":"Force PopOut! Compatibility",
-                "hint":"Override some PopOut! code to force compatibility. Note that this may reduce performance while the SoundBoard is popped out. Changing this setting will refresh your browser."
+                "name": "Force PopOut! Compatibility",
+                "hint": "Override some PopOut! code to force compatibility. Note that this may reduce performance while the SoundBoard is popped out. Changing this setting will refresh your browser."
             }
         },
-
         "app": {
             "title": "My Sounds - SoundBoard by Blitz",
             "favTitle": "Favorite Sounds - SoundBoard by Blitz",
             "bundledTitle": "Bundled Sounds - SoundBoard by Blitz",
             "instructions": "Left click a sound button to broadcast it to all players, right click to preview a sound for the GM only. Click the 3 dots to open options for Favoriting and Looping sounds. Click a looping sound to stop it after the current loop. Click Stop to stop all sounds immediately.",
-            "instructionsExtended": "Click 'Stop All' to end all currently playing sounds",
             "volume": "Volume",
             "filterText": "Search...",
             "expandAll": "Expand All",
@@ -65,9 +62,10 @@
             },
             "tooltip": {
                 "target": "Player targeting",
-                "cache": "Toggle caching-mode",
+                "cache": "Toggle Caching Mode",
                 "refresh": "Refresh all sounds",
-                "macro": "Toggle macro-mode",
+                "macro": "Toggle Macro Mode",
+                "volume": "Toggle Volume Mode",
                 "deleteMacros": "Delete all SoundBoard macros",
                 "openPackMan": "Open package manager",
                 "help": "Open help app"
@@ -81,7 +79,6 @@
                 "installedPacksDesc": "Click to activate or deactivate an installed pack",
                 "package": {
                     "link": "Link",
-                    "licenseLink": "License",
                     "licenseUnknown": "Unknown"
                 },
                 "noPacksHeader": "No Soundpacks Installed",
@@ -100,7 +97,6 @@
             "noMacros": "No SoundBoard macros to delete",
             "individualVolumeVersionIncorrect": "Changing individual sound volumes is only supported on Foundry 0.8+"
         },
-
         "whetstone": {
             "theme": {
                 "default": {
@@ -117,8 +113,7 @@
                     "hint": "Animates between Start and End colors"
                 },
                 "loopanimationtime": {
-                    "title": "Active Loop Animation Time",
-                    "hint": ""
+                    "title": "Active Loop Animation Time"
                 },
                 "loopactiveiconcolor": {
                     "title": "Active Loop Icon Color",
@@ -133,8 +128,7 @@
                     "hint": "Changes the favorite star color, and button border color"
                 },
                 "textshadow": {
-                    "title": "General Text Shadow",
-                    "hint": ""
+                    "title": "General Text Shadow"
                 },
                 "morebuttonactive": {
                     "title": "More Button Active",
@@ -172,7 +166,10 @@
                     "hint": "Color of a currently active toolbar button (eg. Target Player is selected)"
                 }
             }
-
+        },
+        "I18N": {
+            "LANGUAGE": "English",
+            "MAINTAINERS": "@Blitz#6797"
         }
     }
 }

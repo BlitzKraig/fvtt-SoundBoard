@@ -1,0 +1,15 @@
+{
+    "i18n-ally.localesPaths": [
+        "languages"
+    ],
+    "i18n-ally.keystyle": "nested",
+    "i18n-ally.localeCountryMap": {
+        "en": "gb",
+    },
+    "i18n-ally.keysInUse": [
+        "SOUNDBOARD\\.whetstone\\.*",
+        "SOUNDBOARD\\.I18N\\.*"
+    ],
+    "i18n-ally.indent": 4
+    
+}
