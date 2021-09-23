@@ -36,7 +36,7 @@ class SoundBoardFavApplication extends SoundBoardApplication {
         });
 
         var volume = game.settings.get('SoundBoard', 'soundboardServerVolume');
-        var players = game.users.entities.filter((el)=>el.active && !el.isGM).map((el)=>{return {name: el.name, id: el.id, isTarget:el.id==SoundBoard.targettedPlayerID?true:false};});
+        var players = (game.users.entities || game.users.contents).filter((el)=>el.active && !el.isGM).map((el)=>{return {name: el.name, id: el.id, isTarget:el.id==SoundBoard.targettedPlayerID?true:false};});
         var targettedPlayer = SoundBoard.targettedPlayerID;
         var cacheMode = SoundBoard.cacheMode;
         var macroMode = SoundBoard.macroMode;

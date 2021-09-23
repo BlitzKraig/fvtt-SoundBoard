@@ -72,7 +72,9 @@ class SoundBoard {
         }
         SoundBoard.openedBoard = new SoundBoardApplication();
         SoundBoard.openedBoard.render(true);
-        SoundBoard.openedBoard.bringToTop();
+        try{
+            SoundBoard.openedBoard.bringToTop();
+        } catch(e){}
     }
     static openSoundBoardFav() {
         if (!SoundBoard.soundsLoaded) {
@@ -81,7 +83,9 @@ class SoundBoard {
         }
         SoundBoard.openedBoard = new SoundBoardFavApplication();
         SoundBoard.openedBoard.render(true);
-        SoundBoard.openedBoard.bringToTop();
+        try{
+            SoundBoard.openedBoard.bringToTop();
+        } catch(e){}
     }
     static openSoundBoardBundled() {
         if (!SoundBoard.soundsLoaded) {
@@ -90,15 +94,21 @@ class SoundBoard {
         }
         SoundBoard.openedBoard = new SoundBoardBundledApplication();
         SoundBoard.openedBoard.render(true);
-        SoundBoard.openedBoard.bringToTop();
+        try{
+            SoundBoard.openedBoard.bringToTop();
+        } catch(e){}
     }
 
     static openSoundBoardHelp() {
-        new SoundBoardHelp().render(true).bringToTop();
+        try{
+            new SoundBoardHelp().render(true).bringToTop();
+        } catch(e){}
     }
 
     static openSoundBoardPackageManager() {
-        new SoundBoardPackageManagerApplication(SoundBoard.packageManager).render(true).bringToTop();
+        try{
+            new SoundBoardPackageManagerApplication(SoundBoard.packageManager).render(true).bringToTop();
+        } catch(e){}
     }
 
     static updateVolume(volumePercentage) {
