@@ -1,5 +1,10 @@
 # SoundBoard Changelog
 
+## 1.5.3 - 2021/09/23
+
+* Added support for v9p2/9.224
+* Added directory picker for soundboard dir setting
+
 ## 1.5.2 - 2021/06/04
 
 * Updated localization
