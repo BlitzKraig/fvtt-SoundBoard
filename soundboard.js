@@ -677,13 +677,15 @@ class SoundBoard {
             hint: game.i18n.localize('SOUNDBOARD.settings.directory.hint'),
             scope: 'world',
             config: true,
-            default: 'modules/SoundBoard/exampleAudio/',
+            default: 'modules/SoundBoard/exampleAudio',
             onChange: value => {
                 if (value.length <= 0) {
-                    game.settings.set('SoundBoard', 'soundboardDirectory', 'modules/SoundBoard/exampleAudio/');
+                    game.settings.set('SoundBoard', 'soundboardDirectory', 'modules/SoundBoard/exampleAudio');
                 }
                 SoundBoard.getSounds();
-            }
+            },
+            type: String,
+            filePicker: true
         });
 
         game.settings.register('SoundBoard', 'source', {
