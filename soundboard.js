@@ -514,6 +514,8 @@ class SoundBoard {
                         case '.ogg':
                         case '.oga':
                         case '.mp3':
+                        case '.webm':
+                        case '.opus':
                         case '.wav':
                         case 'flac':
                             return true;
@@ -536,6 +538,8 @@ class SoundBoard {
                     case '.ogg':
                     case '.oga':
                     case '.mp3':
+                    case '.webm':
+                    case '.opus':
                     case '.wav':
                     case 'flac':
                         SoundBoard.bundledSounds[dirShortName].push({
