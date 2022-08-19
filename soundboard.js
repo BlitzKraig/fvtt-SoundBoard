@@ -157,7 +157,7 @@ class SoundBoard {
     static async playSoundOrStopLoop(identifyingPath) {
         let sound = SoundBoard.getSoundFromIdentifyingPath(identifyingPath);
 
-        if (keyboard._downKeys.has('Alt')) {
+        if(SBCompatLayer.getKeyDown('Alt', 'AltLeft')){
             if (sound.isFavorite) {
                 this.unfavoriteSound(identifyingPath);
             } else {
@@ -165,9 +165,9 @@ class SoundBoard {
             }
         } else if (sound.isLoop) {
             SoundBoard.stopLoop(identifyingPath);
-        } else if (keyboard._downKeys.has('Control')) {
+        } else if (SBCompatLayer.getKeyDown('Control', 'ControlLeft')) {
             this.stopSound(identifyingPath);
-        } else if (keyboard._downKeys.has('Shift')) {
+        } else if (SBCompatLayer.getKeyDown('Shift', 'ShiftLeft')) {
             this.startLoop(identifyingPath);
         } else {
             SoundBoard.playSound(identifyingPath);
