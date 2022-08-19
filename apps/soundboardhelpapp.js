@@ -41,7 +41,8 @@ class SoundBoardHelp extends Application {
             <li>Fully searchable</li>
             <li>Favoriting</li>
             <li>Simple journal embeds
-            <ul><li>Prepare scenes ahead of time! Use the Macro Mode button in the toolbar while a journal entry is being actively edited to instantly link a sound in the journal.</li></ul>
+            <ul><li>Prepare scenes ahead of time! Use the Macro Mode button in the toolbar while a journal entry is being actively edited to instantly link a sound in the journal.</li>
+            <li>Note: This no longer works in Foundry 10+. You can instead drag the new macro into your journal from your macro folder.</li></ul>
             </li>
             <li>Wildcard sounds, linking multiple sounds to a single button</li>
             <li>Automatic macro creation
@@ -131,7 +132,8 @@ class SoundBoardHelp extends Application {
             <li>Check if a macro already exists for that sound</li>
             <li>Generate a macro if it doesn't exist</li>
             <li>Insert a link to the macro in the active Journal Entry editor</li>
-            <ul><li>The link will be inserted at the last known position of your text cursor, allowing you to type up some notes and instantly link to a sound.</li></ul>
+            <ul><li>The link will be inserted at the last known position of your text cursor, allowing you to type up some notes and instantly link to a sound.</li>
+            <li>Note: This no longer works in Foundry 10+. You can instead drag the new macro into your journal from your macro folder.</li></ul>
             </ol>
             <p>Activating a macro, either directly or through a journal, will broadcast the sound through SoundBoard</p>
             <p>Holding Shift while activating the macro, either directly or through a journal, will force your players to load and cache the sound instead of playing it.</p>
