@@ -13,6 +13,7 @@ class SoundBoardHelp extends Application {
     }
 
     _onResize() {
+        super._onResize();
         $('.yt-help-video').width($('.soundboard-help').width());
         $('.yt-help-video').height(($('.soundboard-help').width() / 16) * 9);
         
@@ -40,7 +41,8 @@ class SoundBoardHelp extends Application {
             <li>Fully searchable</li>
             <li>Favoriting</li>
             <li>Simple journal embeds
-            <ul><li>Prepare scenes ahead of time! Use the Macro Mode button in the toolbar while a journal entry is being actively edited to instantly link a sound in the journal.</li></ul>
+            <ul><li>Prepare scenes ahead of time! Use the Macro Mode button in the toolbar while a journal entry is being actively edited to instantly link a sound in the journal.</li>
+            <li>Note: This no longer works in Foundry 10+. You can instead drag the new macro into your journal from your macro folder.</li></ul>
             </li>
             <li>Wildcard sounds, linking multiple sounds to a single button</li>
             <li>Automatic macro creation
@@ -130,11 +132,27 @@ class SoundBoardHelp extends Application {
             <li>Check if a macro already exists for that sound</li>
             <li>Generate a macro if it doesn't exist</li>
             <li>Insert a link to the macro in the active Journal Entry editor</li>
-            <ul><li>The link will be inserted at the last known position of your text cursor, allowing you to type up some notes and instantly link to a sound.</li></ul>
+            <ul><li>The link will be inserted at the last known position of your text cursor, allowing you to type up some notes and instantly link to a sound.</li>
+            <li>Note: This no longer works in Foundry 10+. You can instead drag the new macro into your journal from your macro folder.</li></ul>
             </ol>
             <p>Activating a macro, either directly or through a journal, will broadcast the sound through SoundBoard</p>
             <p>Holding Shift while activating the macro, either directly or through a journal, will force your players to load and cache the sound instead of playing it.</p>
             <p>This works in the same way as Caching Mode, allowing the GM to preload sounds so all of their players will hear them at the same time when they are played.</p>
+            `},
+            {title:'Volume Mode', body:`
+            <p>Volume Mode can be activated by clicking the Toggle Volume Mode button in the toolbar.</p>
+            <p><button style="width: 40px;
+            height: 26px;
+            line-height: 0;
+            padding: 0;"
+            type="button" class="btn btn-secondary toolbar-btn ">
+            <i class="fas fa-volume-up"></i>
+          </button></p>
+            <p>When active, the button will turn green, and volume bars will appear on every sound. Note, this is only supported on Foundry 0.8+</p>
+            <p>Change the volume of an individual sound to tweak the final output. The SoundBoard volume, and interface volume are still respected.</p>
+            <p>Note that altered sound volumes are saved across sessions.</p>
+            <p>You can disable Volume Mode after changing the volume for a sound - the new volume will be kept.</p>
+            <p>Volume Mode can be activated to change individual volumes, then deactivated to clean up the UI.</p>
             `},
         {title:'Refreshing Sounds', body:`
             <p>The Refresh toolbar button can be activated to scan for changes in your SoundBoard directory.</p>
@@ -183,7 +201,30 @@ class SoundBoardHelp extends Application {
             <h3>Random Detune Amount</h3>
             <p>Increase this value to randomly alter the pitch of sounds each time they are played.</p>
             <p>This can be useful to provide some variety in sounds that are played repeatedly.</p>
-            `}
+            `},
+        {title: 'Bundled Sounds & Sound Packs', body:`
+        <h3>Bundled Sounds</h3>
+        <p>As of 1.4.0, SoundBoard's old Bundled Sounds have been moved into the <a href="https://github.com/BlitzKraig/fvtt-SoundBoard-BlitzFreePack">Blitz Free Pack</a> and the <a href="https://github.com/BlitzKraig/fvtt-SoundBoard-BlitzCommunityPack">Community Pack</a></p>
+        <h3>Sound Packs</h3>
+        <p>Sound Packs are small modules containing a collection of SoundBoard sounds. They can be installed and activated, and should instantly appear in your Bundled Sounds soundboard.</p>
+        <p>You can enable and disable individual packs using the Package Manager, which can be accessed via the button at the top right of the SoundBoard</p>
+        <p><button style="width: 40px;
+            height: 26px;
+            line-height: 0;
+            padding: 0;"
+            type="button" class="btn btn-secondary toolbar-btn ">
+            <i class="fas fa-tasks"></i>
+          </button></p>
+        <p>Any module can provide sounds for SoundBoard to use as a Sound Pack. The sounds should be placed in the same directory structure as Custom Sounds, and some code should be called:</p>
+        <ol>
+        <li>Listen for the <code>SBPackageManagerReady</code> Hook</li>
+        <li>Call <code>SoundBoard.packageManager.addSoundPack(packName, packDir, moduleName, {licenses, description, link, author});</code></li>
+        <ul><li>The final object is optional, but recommended.</li>
+        <li><code>licenses</code> should be an array of license objects, containing <code>licenseUrl, licenseType</code> and <code>licenseDescription</code>. See one of the sound packs linked above for an example.</li>
+        </ul>
+        </ol>
+        <p>This approach allows users to create dedicated Sound Packs, or ship SoundBoard sounds with their existing modules, worlds and systems.</p>
+        `}
         ];
         // Filepicker to get files from help-partials
         // readFromFile to read content to array

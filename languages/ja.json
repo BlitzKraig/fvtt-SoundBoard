@@ -5,7 +5,7 @@
             "openSoundboardFav": "サウンドボードのお気に入りを開く",
             "openSoundboardBundled": "バンドルされたサウンドボードを開く",
             "stopAllTool": "全てのサウンドを停止",
-            "stopAll": "全停止"
+            "packageManagerTool": "サウンドボード パッケージ マネージャーを開く"
         },
         "log": {
             "invalidSound": "有効なオーディオファイルでは無いためスキップできません"
@@ -15,7 +15,7 @@
                 "name": "カスタム サウンドボード ディレクトリ",
                 "hint": "これはサブディレクトリを含むディレクトリを指しており、それぞれの中にオーディオファイルを含みます。（例：modules/SouseBoard/exampleAudio/"
             },
-            "source":{
+            "source": {
                 "name": "ソースの種類",
                 "hint": "あなたのサウンドがフォージに保存されている場合、[Forge]を選択します。S3バケットに保存されている場合は、[S3]を選択してください。それ以外の場合は、[Data]を選択します",
                 "data": "Data",
@@ -29,15 +29,21 @@
             "detune": {
                 "name": "ランダムデチューン量",
                 "hint": "再生するたびにサウンドをランダムにデチューンします。0 で無効化します。0.8.1以降に追加された優良機能で、0.7に移植。"
+            },
+            "macroRequest": {
+                "hint": "これを有効にすると、playSoundByName でマクロを使用してプレーヤーがサウンドをトリガーできるようになります。\n接続された GM が必要です。",
+                "name": "プレーヤーはSoundBoardマクロをトリガーします"
+            },
+            "popoutCompat": {
+                "hint": "一部の PopOut をオーバーライドします。\n互換性を強制するコード。\nこれにより、SoundBoard が飛び出している間、パフォーマンスが低下する可能性があることに注意してください。\nこの設定を変更すると、ブラウザが更新されます。",
+                "name": "強制ポップアウト！\n互換性"
             }
         },
-
         "app": {
             "title": "マイ･サウンド - サウンドボード",
             "favTitle": "お気に入り･サウンド - サウンドボード",
             "bundledTitle": "バンドル･サウンド - サウンドボード",
             "instructions": "ボタンを左クリックすると全てのプレイヤーにサウンドを配信し、右クリックするとGMのみサウンド プレビューします。オプションを開くには、3点リーダーをクリックしてオプションを開きます。ループ再生の再開/停止をするには、ループボタンをクリックします。サウンドを停止したいときは[停止]をクリックします。お気に入りへの追加もできます。",
-            "instructionsExtended": "現在再生されている全てのサウンドを終了するには、[停止]をクリックします。",
             "volume": "音量",
             "filterText": "検索...",
             "expandAll": "全て表示",
@@ -57,10 +63,26 @@
                 "cache": "キャッシング モードを切替",
                 "refresh": "全てのサウンドを更新",
                 "macro": "マクロモード切替",
-                "deleteMacros": "全てのサウンドボードマクロを削除"
+                "deleteMacros": "全てのサウンドボードマクロを削除",
+                "volume": "音量モードの切り替え",
+                "help": "ヘルプアプリを開く",
+                "openPackMan": "パッケージマネージャーを開く"
             },
             "help": {
                 "title": "サウンドボード ヘルプ"
+            },
+            "noBundledSoundsDesc": "サウンド パックをインストールし、SoundBoard パッケージ マネージャーを介してアクティブ化します。",
+            "noBundledSoundsHeader": "アクティブなサウンド パックはありません。",
+            "packman": {
+                "installedPacksDesc": "クリックして、インストールされたパックをアクティブ化または非アクティブ化します",
+                "installedPacksHeader": "インストールされているサウンドパック",
+                "noPacksDesc": "モジュール ブラウザで「SoundBoard Pack」を検索することで、Blitz Free および Community パックをインストールできます。",
+                "noPacksHeader": "サウンドパックがインストールされていません",
+                "package": {
+                    "licenseUnknown": "わからない",
+                    "link": "リンク"
+                },
+                "title": "サウンドボード パッケージ マネージャー"
             }
         },
         "notif": {
@@ -72,9 +94,9 @@
             "macroCreated": "マクロ作成: {macro}",
             "macroExists": "{macro} は既に存在しています",
             "deleteMacros": "全てのサウンドボード マクロを削除",
-            "noMacros": "削除可能なサウンドボード マクロがありません"
+            "noMacros": "削除可能なサウンドボード マクロがありません",
+            "individualVolumeVersionIncorrect": "個々の音量の変更は、Foundry 0.8 でのみサポートされています。"
         },
-
         "whetstone": {
             "theme": {
                 "default": {
@@ -91,8 +113,7 @@
                     "hint": "開始と終了で色がアニメーションします"
                 },
                 "loopanimationtime": {
-                    "title": "アクティブ ループ アニメーション時間",
-                    "hint": ""
+                    "title": "アクティブ ループ アニメーション時間"
                 },
                 "loopactiveiconcolor": {
                     "title": "アクティブ ループのアイコン色",
@@ -107,8 +128,7 @@
                     "hint": "お気に入りボタンの枠線色を変更"
                 },
                 "textshadow": {
-                    "title": "一般テキストの影",
-                    "hint": ""
+                    "title": "一般テキストの影"
                 },
                 "morebuttonactive": {
                     "title": "その他のアクティブ ボタン",
@@ -146,7 +166,6 @@
                     "hint": "現在アクティブなツールバーボタンの色（例：ターゲットプレイヤーが選択されています）"
                 }
             }
-
         }
     }
 }

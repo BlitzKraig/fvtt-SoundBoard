@@ -1,5 +1,32 @@
 # SoundBoard Changelog
 
+## 1.5.3 - 2021/09/23
+
+* Added support for v9p2/9.224
+* Added directory picker for soundboard dir setting
+
+## 1.5.2 - 2021/06/04
+
+* Updated localization
+* Added i18n-ally support
+* Updated version compatibility
+
+## 1.5.1 - 2021/05/22
+
+* Updated to work with 0.8.2/3/4/5 - (Still supports previous versions)
+* Added individual sound volume mode
+  * Added help section for mode
+* Removed bootstrap dependency (still using some CSS)
+
+## 1.4.0 - 2021/04/23
+
+* Added package manager
+* Added external sound pack support
+  * Removed bundled sounds - the Blitz Free Pack and Blitz Community Pack should be installed to get these sounds
+* Fixed an issue where changing tabs in SoundBoard sometimes did not register the close event properly
+* Added option for players to trigger SoundBoard macros
+* Added experimental PopOut! compatibility
+
 ## 1.3.0 - 2021/03/30
 
 ### New Features & Enhancements

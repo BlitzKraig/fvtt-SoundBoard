@@ -8,12 +8,11 @@
             onclick="SoundBoard.$loopFn('$identifyingPath'); SoundBoardApplication.toggleExtendedOptions(this);">
             <i class="fas fa-sync-alt $loopClass"></i>
         </button>
-        <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-            class="sb-repeatdelay-button sb-extended-info-button col">
+        <button id="dLabel" type="button" class="sb-dropdown-button sb-repeatdelay-button sb-extended-info-button col">
             <i class="fas fa-history"></i>
             <span class="badge badge-light $delayClass">$delayValue</span>
         </button>
-        <div class="dropdown-menu" aria-labelledby="dLabel">
+        <div class="dropdown-menu">
             <button class="dropdown-item"
                 onclick="SoundBoard.setLoopDelay('$identifyingPath', 0, this); SoundBoardApplication.toggleExtendedOptions(this);">
                 Immediate

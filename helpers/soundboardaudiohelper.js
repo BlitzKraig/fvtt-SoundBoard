@@ -27,23 +27,22 @@ class SBAudioHelper {
     };
 
     //0.8.1+ goodies
-    static hasHowler(){
+    static hasHowler() {
         return typeof Howl != 'undefined';
     }
-    detuneNode(soundNode, detuneBy){
-        if(detuneBy == 0){
+    detuneNode(soundNode, detuneBy) {
+        if (detuneBy == 0) {
             return;
         }
-        
-        if(SBAudioHelper.hasHowler()){
+
+        if (SBAudioHelper.hasHowler()) {
             soundNode.rate(detuneBy);
         } else {
             soundNode.node.detune.value = detuneBy;
         }
     }
-    lowpassFilter(){
-        let lowPassCoefs = [
-            {
+    lowpassFilter() {
+        let lowPassCoefs = [{
                 frequency: 200,
                 feedforward: [0.00020298, 0.0004059599, 0.00020298],
                 feedback: [1.0126964558, -1.9991880801, 0.9873035442]
@@ -83,8 +82,9 @@ class SBAudioHelper {
         volume *= game.settings.get('core', 'globalInterfaceVolume');
 
         if (!SBAudioHelper.hasHowler()) {
-            var soundNode = new SoundNode(src);
-            soundNode.on('end', (id)=>{
+            // SoundNode required to support 0.8.1, Sound for 0.8.2+
+            var soundNode = typeof SoundNode != "undefined" ? new SoundNode(src) : new Sound(src);
+            soundNode.on('end', (id) => {
                 this.removeActiveSound(id);
                 if (sound?.isLoop) {
                     if (!sound?.loopDelay || sound?.loopDelay == 0) {
@@ -97,30 +97,37 @@ class SBAudioHelper {
                     }
                 }
             });
-            soundNode.on('stop', ()=>{
+            soundNode.on('stop', () => {
                 if (sound?.isLoop) {
                     sound.isLoop = false;
                 }
             });
-            soundNode.on('start', ()=>{
+            soundNode.on('start', () => {
                 this.detuneNode(soundNode, detune);
-            
+
+                let individualGainNode = game.audio.context.createGain();
+                individualGainNode.gain.value = soundNode.individualVolume;
                 soundNode.node.disconnect();
+                individualGainNode.connect(game.audio.soundboardGain);
+                soundNode.node.connect(individualGainNode);
+                soundNode.individualGainNode = individualGainNode;
                 // soundNode.node.connect(iirfilter).connect(AudioHelper.soundboardGain);
-                soundNode.node.connect(game.audio.soundboardGain);
-    
                 this.activeSounds.push(soundNode);
             });
-            if(!soundNode.loaded){
+            if (!soundNode.loaded) {
                 await soundNode.load();
             }
 
-            if(!game.audio.soundboardGain){
+            if (!game.audio.soundboardGain) {
                 game.audio.soundboardGain = game.audio.context.createGain();
                 game.audio.soundboardGain.connect(game.audio.context.destination);
             }
             game.audio.soundboardGain.gain.value = volume;
-            soundNode.play({volume});
+            soundNode.identifyingPath = sound.identifyingPath;
+            soundNode.individualVolume = sound.individualVolume
+            soundNode.play({
+                volume
+            });
         } else {
             let sbhowl = new Howl({
                 src,
@@ -164,7 +171,8 @@ class SBAudioHelper {
         volume
     }) {
         if (!SBAudioHelper.hasHowler()) {
-            var soundNode = new SoundNode(src);
+            // SoundNode required to support 0.8.1, Sound for 0.8.2+
+            var soundNode = typeof SoundNode != "undefined" ? new SoundNode(src) : new Sound(src);
             await soundNode.load();
             let player = game.user.name;
             SoundBoard.socketHelper.sendData({
@@ -205,7 +213,7 @@ class SBAudioHelper {
     }
 
     stop(soundObj) {
-        if(SBAudioHelper.hasHowler()){
+        if (SBAudioHelper.hasHowler()) {
             this.activeSounds.filter(sound => {
                 return soundObj.src.includes(sound._src);
             }).forEach(sound => {
@@ -215,15 +223,23 @@ class SBAudioHelper {
             this.activeSounds.filter(sound => {
                 return soundObj.src.includes(sound.src);
             }).forEach(sound => {
-                sound.stop();
+                try {
+                    sound.stop();
+                } catch(e) {
+                    // Do nothing
+                }
                 this.removeActiveSound(sound);
             });
         }
     }
 
     stopAll() {
-        for (let sound of this.activeSounds){
-            sound.stop();
+        for (let sound of this.activeSounds) {
+            try {
+                sound.stop();
+            } catch(e) {
+                // Do nothing
+            }
         }
         this.activeSounds = [];
     }
@@ -248,16 +264,23 @@ class SBAudioHelper {
         }
     }
 
-    onVolumeChange(volume) {
+    onVolumeChange(volume, individualVolumes) {
+
         volume *= game.settings.get('core', 'globalInterfaceVolume');
+        if(game.audio.soundboardGain){
+            game.audio.soundboardGain.gain.value = volume;
+        }
         this.activeSounds.forEach(sound => {
-            if(SBAudioHelper.hasHowler()){
+            if (SBAudioHelper.hasHowler()) {
                 sound.volume(volume);
             } else {
-                sound._adjust({volume});
-                game.audio.soundboardGain.gain.value = volume;
+                if (individualVolumes) {
+                    if (individualVolumes[sound.identifyingPath]) {
+                        let individualVolume = parseInt(individualVolumes[sound.identifyingPath]) / 100
+                        sound.individualGainNode.gain.value = individualVolume;
+                    }
+                }
             }
         });
     }
-
 }

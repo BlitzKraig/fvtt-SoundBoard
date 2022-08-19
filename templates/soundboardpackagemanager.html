@@ -1,0 +1,20 @@
+<script>
+    $(document).ready(function () {
+        $('.soundboard-packman-container a').click((el)=>{
+            console.log(el);
+            el.stopPropagation();
+            el.preventDefault();
+            window.open(el.currentTarget.href);
+        })
+    });
+</script>
+<h2>{{localize 'SOUNDBOARD.app.packman.installedPacksHeader'}}</h2>
+<p>{{localize 'SOUNDBOARD.app.packman.installedPacksDesc'}}</p>
+<div class="soundboard-packman-container">
+    {{#each package}}
+        {{> SoundBoardPackageCard this}}
+    {{else}}
+        <h3 class="no-packs">{{localize 'SOUNDBOARD.app.packman.noPacksHeader'}}<i class="fas fa-heart-broken"></i></h3>
+        <p class="no-packs">{{localize 'SOUNDBOARD.app.packman.noPacksDesc'}}</p>
+    {{/each}}
+</div>
