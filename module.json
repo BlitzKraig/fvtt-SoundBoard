@@ -15,7 +15,8 @@
     "./helpers/soundboardaudiohelper.js",
     "./helpers/soundboardmacrohelper.js",
     "./helpers/soundboardwhetstoneconfig.js",
-    "./helpers/soundboardpackagemanager.js"
+    "./helpers/soundboardpackagemanager.js",
+    "./helpers/soundboardcompatlayer.js"
   ],
   "styles": [
     "./css/soundboard.css",
