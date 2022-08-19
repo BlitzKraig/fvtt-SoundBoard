@@ -1,5 +1,12 @@
 # SoundBoard Changelog
 
+## 1.6.0 - 2022/08/19
+
+* Added support for Foundry v10
+* Should remain backwards compatible
+* Added support for opus & webm (thanks dan-kez)
+* Fixed hotkeys not working (Improvements for this still needed, should be using Foundry hotkeys)
+
 ## 1.5.3 - 2021/09/23
 
 * Added support for v9p2/9.224
