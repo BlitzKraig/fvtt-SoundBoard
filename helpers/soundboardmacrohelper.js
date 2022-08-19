@@ -38,7 +38,7 @@ SoundBoard.playSoundByName("${soundName}");
     static async deleteAllMacros() {
         let existingMacros = game.macros.filter(macro =>macro.name.indexOf('SoundBoard - ') == 0).map(macro=>macro.id);
         if(existingMacros.length > 0){
-            await Macro.delete(existingMacros);
+            await SBCompatLayer.deleteMacros(existingMacros);
             ui.notifications.notify(game.i18n.localize('SOUNDBOARD.notif.deleteMacros'));
         } else {
             ui.notifications.notify(game.i18n.localize('SOUNDBOARD.notif.noMacros'));
