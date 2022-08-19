@@ -223,7 +223,11 @@ class SBAudioHelper {
             this.activeSounds.filter(sound => {
                 return soundObj.src.includes(sound.src);
             }).forEach(sound => {
-                sound.stop();
+                try {
+                    sound.stop();
+                } catch(e) {
+                    // Do nothing
+                }
                 this.removeActiveSound(sound);
             });
         }
@@ -231,7 +235,11 @@ class SBAudioHelper {
 
     stopAll() {
         for (let sound of this.activeSounds) {
-            sound.stop();
+            try {
+                sound.stop();
+            } catch(e) {
+                // Do nothing
+            }
         }
         this.activeSounds = [];
     }
