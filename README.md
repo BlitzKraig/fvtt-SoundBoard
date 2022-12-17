@@ -14,7 +14,7 @@ Any sounds placed here will be deleted when the module updates.
 Looking for collaborators - Hoping to build a decent library of sounds to bundle with the module to provide a nice starting point for users.
 Anyone who is able to create or provide sound effects with the proper licensing, please contact me on Discord.
 
-An easy to use soundboard for the GM.
+An easy-to-use soundboard for the GM.
 
 ## Using SoundBoard
 
@@ -32,7 +32,7 @@ Place your sounds in these folders. WAV, MP3 & OGG/OGA are supported.
 
 Place another directory inside one of these category directories to create a 'Wildcard Sound'. Clicking these sounds will play a random selection from any sound files placed inside this directory
 
-Sound effect names are generated from the file name. CamelCase, underscores and hypens/dashes are all parsed, split and recapitalized to generate the sound name.
+Sound effect names are generated from the file name. CamelCase, underscores and hyphens/dashes are all parsed, split and recapitalized to generate the sound name.
 
 Open module settings and set the path pointing to your new soundboard directory
 
@@ -52,7 +52,7 @@ eg.
 
 Select the Ambient Sound Controls in Foundry, then the new Open Soundboard control
 
-Note that the Volume slider on SoundBoard is a broadcasted-volume. Players will hear a louder/quiter sound when this is changed. Players should use their "Interface" volume in the Playlists sidebar to tweak the volume of soundboard if it's too quiet or too loud for them individually.
+Note that the Volume slider on SoundBoard is a broadcasted-volume. Players will hear a louder/quieter sound when this is changed. Players should use their "Interface" volume in the Playlists sidebar to tweak the volume of soundboard if it's too quiet or too loud for them individually.
 
 ## Known issues / future improvements
 
@@ -66,7 +66,7 @@ Option to save a "soundscape". All currently looping & delayed looping sounds li
 
 ## Troubleshooting
 
-Please create a github issue, or contact me on Discord at Blitz#6797
+Please create a GitHub issue, or contact me on Discord at Blitz#6797
 
 ## Manifest
 

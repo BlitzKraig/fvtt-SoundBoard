@@ -1,30 +1,31 @@
 <script>
-    $(document).ready(function () {
-        $('.yt-help-video').width($('.soundboard-help').width());
-        $('.yt-help-video').height(($('.soundboard-help').width() / 16) * 9);
+    $(() => {
+        const ytHelpEl = $('.yt-help-video');
+        const sbHelpEl = $('.soundboard-help');
+        ytHelpEl.width(sbHelpEl.width());
+        ytHelpEl.height((sbHelpEl.width() / 16) * 9);
     });
-    $(".sb-collapse-help-header").on("click", function (el) {
-      $(this).next(".sb-collapse-help-div").toggle()
+    $(".sb-collapse-help-header").on("click", function () {
+        $(this).next(".sb-collapse-help-div").toggle()
     });
 </script>
 <div class="soundboard-container soundboard-help">
     <h2 class="sb-collapse-help-header">
         SoundBoard by Blitz</h2>
     <div class="sb-collapse-help-div collapse show" id="soundboard-intro">
-        <p>A huge thanks to all of the great Foundry users who use my modules and provide feedback, you're awesome!</p>
-        <p>I've created 10+ modules at this point, and still have lots of ideas for the future. I <b
-                style="color:red">love</b> Foundry, and the community around it.</p>
+        <p>A huge thanks to all the great Foundry users who use my modules and provide feedback, you're awesome!</p>
         <p>If you'd like to support me, I have a ko-fi page where I accept donations - or you can just pop into the
             Foundry Discord and tell me if you're enjoying the modules!</p>
-        <p>Stay cool, and report any issues on the <a href="https://github.com/BlitzKraig/fvtt-SoundBoard">GitHub repo</a> ✌</p>
+        <p>Stay cool, and report any issues on the <a href="https://github.com/BlitzKraig/fvtt-SoundBoard">GitHub
+            repo</a> ✌</p>
         <p style="margin:0;"><a href="https://github.com/BlitzKraig/fvtt-SoundBoard"><img style="border: none;
             width: 150px;
-            height: 24px;" src="https://img.shields.io/badge/GitHub-Support_You-lightgrey"
-                    style="border: none; margin-top: 10px;"></a></p>
+            height: 24px;
+            margin: 10px 0 0;" src="https://img.shields.io/badge/GitHub-Support_You-lightgrey" alt="GitHub Image Link"></a></p>
         <p><a href="https://ko-fi.com/Q5Q01YIEJ"><img style="border: none;
             width: 150px;
             height: 24px;
-            margin-top: 4px;" src="https://img.shields.io/badge/!Ko--Fi!-Support_Me!-red" style="border: none;"></a>
+            margin-top: 4px;" src="https://img.shields.io/badge/!Ko--Fi!-Support_Me!-red" alt="KoFi Image Link"></a>
         </p>
     </div>
     {{#each help}}

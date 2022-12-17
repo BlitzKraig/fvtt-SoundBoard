@@ -2,47 +2,43 @@
 class SBSocketHelper {
     static socketName = 'module.SoundBoard';
     static SOCKETMESSAGETYPE = {
-        PLAY: 1,
-        STOP: 2,
-        STOPALL: 3,
-        CACHE: 4,
-        CACHECOMPLETE: 5,
-        VOLUMECHANGE: 6,
-        REQUESTMACROPLAY: 7
+        PLAY: 1, STOP: 2, STOPALL: 3, CACHE: 4, CACHECOMPLETE: 5, VOLUMECHANGE: 6, REQUESTMACROPLAY: 7
     }
+
     constructor() {
         game.socket.on(SBSocketHelper.socketName, this._onData);
     }
+
     _onData(data) {
         if (game.user.isGM) {
-            if(data.type === SBSocketHelper.SOCKETMESSAGETYPE.CACHECOMPLETE){
+            if (data.type === SBSocketHelper.SOCKETMESSAGETYPE.CACHECOMPLETE) {
                 SoundBoard.audioHelper.cacheComplete(data.payload);
-            } else if (data.type == SBSocketHelper.SOCKETMESSAGETYPE.REQUESTMACROPLAY){
-                if(game.settings.get('SoundBoard', 'allowPlayersMacroRequest')){
+            } else if (data.type === SBSocketHelper.SOCKETMESSAGETYPE.REQUESTMACROPLAY) {
+                if (game.settings.get('SoundBoard', 'allowPlayersMacroRequest')) {
                     SoundBoard.playSoundByName(data.payload);
                 }
             }
         } else {
             switch (data.type) {
-            case SBSocketHelper.SOCKETMESSAGETYPE.PLAY:
-                if (!data.payload.target || data.payload.target == game.userId) {
-                    SoundBoard.audioHelper.play(data.payload, data.soundExtras);
-                }
-                break;
-            case SBSocketHelper.SOCKETMESSAGETYPE.STOP:
-                SoundBoard.audioHelper.stop(data.payload);
-                break;
-            case SBSocketHelper.SOCKETMESSAGETYPE.STOPALL:
-                SoundBoard.audioHelper.stopAll();
-                break;
-            case SBSocketHelper.SOCKETMESSAGETYPE.CACHE:
-                SoundBoard.audioHelper.cache(data.payload);
-                break;
-            case SBSocketHelper.SOCKETMESSAGETYPE.VOLUMECHANGE:
-                SoundBoard.audioHelper.onVolumeChange(data.payload?.volume, data.payload?.individualVolumes);
-                break;
-            default:
-                break;
+                case SBSocketHelper.SOCKETMESSAGETYPE.PLAY:
+                    if (!data.payload.target || data.payload.target === game.userId) {
+                        SoundBoard.audioHelper.play(data.payload, data.soundExtras);
+                    }
+                    break;
+                case SBSocketHelper.SOCKETMESSAGETYPE.STOP:
+                    SoundBoard.audioHelper.stop(data.payload);
+                    break;
+                case SBSocketHelper.SOCKETMESSAGETYPE.STOPALL:
+                    SoundBoard.audioHelper.stopAll();
+                    break;
+                case SBSocketHelper.SOCKETMESSAGETYPE.CACHE:
+                    SoundBoard.audioHelper.cache(data.payload);
+                    break;
+                case SBSocketHelper.SOCKETMESSAGETYPE.VOLUMECHANGE:
+                    SoundBoard.audioHelper.onVolumeChange(data.payload?.volume, data.payload?.individualVolumes);
+                    break;
+                default:
+                    break;
             }
         }
     }

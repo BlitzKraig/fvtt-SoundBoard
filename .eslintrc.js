@@ -28,9 +28,13 @@ module.exports = {
         'Macro': true,
         'Hooks': true,
         'Application': true,
+        'Sound': true,
         'SoundBoardApplication': true,
         'SoundBoardFavApplication': true,
         'SoundBoardBundledApplication': true,
+        'SoundBoardPackageManagerApplication': true,
+        'SBCompatLayer': true,
+        'PopoutModule': true,
         'SoundBoardHelp': true,
         'SBAudioHelper': true,
         'SBMacroHelper': true,
@@ -43,7 +47,8 @@ module.exports = {
     'rules': {
         'indent': [
             'error',
-            4
+            4,
+            {'SwitchCase': 1}
         ],
         'linebreak-style': [
             'error',

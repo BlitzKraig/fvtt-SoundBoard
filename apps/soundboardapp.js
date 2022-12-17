@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 class SoundBoardApplication extends Application {
-    
+
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.title = `🔊${game.i18n.localize('SOUNDBOARD.app.title')}`;
@@ -14,38 +14,46 @@ class SoundBoardApplication extends Application {
 
 
     static toggleExtendedOptions(element, identifyingPath, favTab) {
-        if(!identifyingPath){
+        if (!identifyingPath) {
             // Nasty... Fix this soon
-            if($(element).parent().parent().parent().find('.sb-extended-option-container').length > 0) {
-                $(element).parent().parent().parent().find('.sb-extended-option-container').fadeOut(300, function() { $(this).remove(); });
+            if ($(element).parent().parent().parent().find('.sb-extended-option-container').length > 0) {
+                $(element).parent().parent().parent().find('.sb-extended-option-container').fadeOut(300, function () {
+                    $(this).remove();
+                });
                 return;
             }
-            if($(element).parent().parent().parent().parent().find('.sb-extended-option-container').length > 0) {
-                $(element).parent().parent().parent().parent().find('.sb-extended-option-container').fadeOut(300, function() { $(this).remove(); });
+            if ($(element).parent().parent().parent().parent().find('.sb-extended-option-container').length > 0) {
+                $(element).parent().parent().parent().parent().find('.sb-extended-option-container').fadeOut(300, function () {
+                    $(this).remove();
+                });
                 return;
             }
-            if($(element).parent().parent().parent().parent().parent().find('.sb-extended-option-container').length > 0) {
-                $(element).parent().parent().parent().parent().parent().find('.sb-extended-option-container').fadeOut(300, function() { $(this).remove(); });
+            if ($(element).parent().parent().parent().parent().parent().find('.sb-extended-option-container').length > 0) {
+                $(element).parent().parent().parent().parent().parent().find('.sb-extended-option-container').fadeOut(300, function () {
+                    $(this).remove();
+                });
                 return;
             }
             return;
         }
-        if($(element).parent().find('.sb-extended-option-container').length > 0) {
-            $(element).parent().find('.sb-extended-option-container').fadeOut(300, function() { $(this).remove(); });
+        if ($(element).parent().find('.sb-extended-option-container').length > 0) {
+            $(element).parent().find('.sb-extended-option-container').fadeOut(300, function () {
+                $(this).remove();
+            });
         } else {
             let sound = SoundBoard.getSoundFromIdentifyingPath(identifyingPath);
             let isFavorite = sound.isFavorite;
             let isLooping = sound.isLoop;
             let delayValue = sound.loopDelay || 0;
-            $.get('modules/SoundBoard/templates/extendedoptions.html', function(data){
+            $.get('modules/SoundBoard/templates/extendedoptions.html', function (data) {
                 data = data.replace(/\$identifyingPath/g, identifyingPath);
-                data = data.replace('$loopClass', isLooping?'loop-active':'');
-                data = data.replace('$loopFn', isLooping?'stopLoop':'startLoop');
-                data = data.replace('$star', isFavorite?'fas fa-star':'far fa-star');
-                data = data.replace('$favoriteFn', isFavorite?'unfavoriteSound':'favoriteSound');
+                data = data.replace('$loopClass', isLooping ? 'loop-active' : '');
+                data = data.replace('$loopFn', isLooping ? 'stopLoop' : 'startLoop');
+                data = data.replace('$star', isFavorite ? 'fas fa-star' : 'far fa-star');
+                data = data.replace('$favoriteFn', isFavorite ? 'unfavoriteSound' : 'favoriteSound');
                 data = data.replace(/\$delayValue/g, delayValue);
-                data = data.replace('$delayClass', delayValue==0?'hidden':'');
-                if(favTab){
+                data = data.replace('$delayClass', delayValue === 0 ? 'hidden' : '');
+                if (favTab) {
                     data = data.replace('$removeFavFn', '$(this).parent().parent().parent().remove();');
                 } else {
                     data = data.replace('$removeFavFn', '');
@@ -54,7 +62,7 @@ class SoundBoardApplication extends Application {
             });
         }
     }
-    
+
     async render(force = false, options = {}) {
         await super.render(force, options);
 
@@ -69,6 +77,7 @@ class SoundBoardApplication extends Application {
         }, 50);
     }
 
+    // noinspection JSUnusedGlobalSymbols
     getData() {
         var sounds = [];
         var totalCount = 0;
@@ -86,23 +95,25 @@ class SoundBoardApplication extends Application {
         var volume = game.settings.get('SoundBoard', 'soundboardServerVolume');
         var collapse = totalCount > 2000;
         // TODO: Subclass mySounds, set up getData with supers
-        var players = (game.users.entities || game.users.contents).filter((el)=>el.active && !el.isGM).map((el)=>{return {name: el.name, id: el.id, isTarget:el.id==SoundBoard.targettedPlayerID?true:false};});
-        var targettedPlayer = SoundBoard.targettedPlayerID;
+        var players = (game.users.entities || game.users.contents).filter((el) => el.active && !el.isGM).map((el) => {
+            return {name: el.name, id: el.id, isTarget: el.id === SoundBoard.targetedPlayerID};
+        });
+        var targetedPlayer = SoundBoard.targetedPlayerID;
         var cacheMode = SoundBoard.cacheMode;
         var macroMode = SoundBoard.macroMode;
         var volumeMode = SoundBoard.volumeMode;
-        var isExampleAudio = game.settings.get('SoundBoard', 'soundboardDirectory') == game.settings.settings.get('SoundBoard.soundboardDirectory').default;
+        var isExampleAudio = game.settings.get('SoundBoard', 'soundboardDirectory') === game.settings.settings.get('SoundBoard.soundboardDirectory').default;
 
         return {
             tab: {
-                main:true
+                main: true
             },
             sounds,
             volume,
             totalCount,
             collapse,
             players,
-            targettedPlayer,
+            targetedPlayer,
             cacheMode,
             macroMode,
             volumeMode,

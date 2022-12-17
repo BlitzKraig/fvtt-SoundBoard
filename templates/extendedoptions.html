@@ -1,11 +1,13 @@
 <div class="sb-extended-option-container">
     <div class="sb-extended-options row no-gutters active">
+        <!--suppress JSUnresolvedFunction, JSUnresolvedVariable -->
         <button class="sb-fav-button sb-extended-info-button col"
-            onclick="SoundBoard.$favoriteFn('$identifyingPath'); SoundBoardApplication.toggleExtendedOptions(this); $removeFavFn">
+                onclick="SoundBoard.$favoriteFn('$identifyingPath'); SoundBoardApplication.toggleExtendedOptions(this); $removeFavFn">
             <i class="$star"></i>
         </button>
+        <!--suppress JSUnresolvedFunction -->
         <button class="sb-repeat-button sb-extended-info-button col"
-            onclick="SoundBoard.$loopFn('$identifyingPath'); SoundBoardApplication.toggleExtendedOptions(this);">
+                onclick="SoundBoard.$loopFn('$identifyingPath'); SoundBoardApplication.toggleExtendedOptions(this);">
             <i class="fas fa-sync-alt $loopClass"></i>
         </button>
         <button id="dLabel" type="button" class="sb-dropdown-button sb-repeatdelay-button sb-extended-info-button col">
@@ -14,30 +16,31 @@
         </button>
         <div class="dropdown-menu">
             <button class="dropdown-item"
-                onclick="SoundBoard.setLoopDelay('$identifyingPath', 0, this); SoundBoardApplication.toggleExtendedOptions(this);">
+                    onclick="SoundBoard.setLoopDelay('$identifyingPath', 0, this); SoundBoardApplication.toggleExtendedOptions(this);">
                 Immediate
             </button>
             <button class=" dropdown-item"
-                onclick="SoundBoard.setLoopDelay('$identifyingPath', 5, this); SoundBoardApplication.toggleExtendedOptions(this);">
+                    onclick="SoundBoard.setLoopDelay('$identifyingPath', 5, this); SoundBoardApplication.toggleExtendedOptions(this);">
                 5s
             </button>
             <button class="dropdown-item"
-                onclick="SoundBoard.setLoopDelay('$identifyingPath', 15, this); SoundBoardApplication.toggleExtendedOptions(this);">
+                    onclick="SoundBoard.setLoopDelay('$identifyingPath', 15, this); SoundBoardApplication.toggleExtendedOptions(this);">
                 15s
             </button>
             <button class="dropdown-item"
-                onclick="SoundBoard.setLoopDelay('$identifyingPath', 30, this); SoundBoardApplication.toggleExtendedOptions(this);">
+                    onclick="SoundBoard.setLoopDelay('$identifyingPath', 30, this); SoundBoardApplication.toggleExtendedOptions(this);">
                 30s
             </button>
             <button class="dropdown-item"
-                onclick="SoundBoard.setLoopDelay('$identifyingPath', 60, this); SoundBoardApplication.toggleExtendedOptions(this);">
+                    onclick="SoundBoard.setLoopDelay('$identifyingPath', 60, this); SoundBoardApplication.toggleExtendedOptions(this);">
                 60s
             </button>
             <div class="row container">
+                <!--suppress HtmlFormInputWithoutLabel -->
                 <input type="number" min="0" max="600" id="custom-time-input" name="custom-time-input"
-                    value="$delayValue">
-                    <button class="dropdown-item col custom-time-button"
-                    onclick="SoundBoard.setLoopDelay('$identifyingPath', $(this).siblings('#custom-time-input').val(), this); SoundBoardApplication.toggleExtendedOptions(this);">
+                       value="$delayValue">
+                <button class="dropdown-item col custom-time-button"
+                        onclick="SoundBoard.setLoopDelay('$identifyingPath', $(this).siblings('#custom-time-input').val(), this); SoundBoardApplication.toggleExtendedOptions(this);">
                     s
                 </button>
             </div>

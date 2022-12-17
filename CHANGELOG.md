@@ -53,7 +53,7 @@
   * Using macro-mode when a Journal Entry is being edited will instantly link the sound in the Journal Entry
     * If a macro for that sound already exists, it will be automatically grabbed from your macros directory and inserted into the journal entry
   * Shift-clicking the embed will preload the sound for players
-  * Left clicking the embed will play the sound
+  * Left-clicking the embed will play the sound
 * Added random detune options
   * Randomly modulate the pitch each time a sound is played, providing some variation for repeated sounds
   * Works best on 0.8.1+, but has been backported to work for 0.6.x and 0.7.x
@@ -66,7 +66,7 @@
   * Change amount in module settings
   * Can be disabled by setting to 1
 * Added help app
-  * New tooblar button
+  * New toolbar button
   * Loads of information about using SoundBoard
 * Added Refresh Sounds toolbar button
   * Detect any changes in your SoundBoard audio directory and refresh the SoundBoard without requiring a Foundry refresh
@@ -95,7 +95,7 @@
 
 * Removed interface slider text override
 * Added Spanish translation
-* Fixed nullpointer on 'fresh' worlds with no playlist audio
+* Fixed null-pointer on 'fresh' worlds with no playlist audio
 * Added .oga file support
 * Added volume changing for sounds already playing
 * Updated CSS to play nicer with some systems
@@ -143,7 +143,7 @@
 ## 1.1.2 - 2020/09/23
 
 * Added new bundled sounds
-  * Added chants for a vampire-based campaign for "The world's greatest roleplaying game"
+  * Added chants for a vampire-based campaign for "The world's greatest role-playing game"
 
 ## 1.1.1 - 2020/09/22
 
@@ -151,7 +151,7 @@
 
 ## 1.1.0 - 2020/09/19
 
-* Added player-targetted sounds - Send sounds directly to a single player
+* Added player-targeted sounds - Send sounds directly to a single player
 * Added Whetstone support!
   * Added a customisable default theme
 * Updated translation file for easier maintenance
@@ -198,7 +198,7 @@
 * Bugfix - Filtering when a category is collapsed no longer breaks the UI
 * UI Tweaks
 * Added button to Playlists sidebar to open soundboard (tool button is also still there)
-* Improved filtering - Now matches against all words split by spaces (eg. 'thun str' will match 'thunder strike', 'cloth rip' will match 'ripping cloth 2' etc.)
+* Improved filtering - Now matches against all words split by spaces (e.g. 'thun str' will match 'thunder strike', 'cloth rip' will match 'ripping cloth 2' etc.)
 * Added 500ms timeout on filter search, should make larger soundboard a bit easier to filter
 * Added collapse/expand all buttons
 

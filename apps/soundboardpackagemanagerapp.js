@@ -1,11 +1,11 @@
 // eslint-disable-next-line no-unused-vars
 class SoundBoardPackageManagerApplication extends Application {
-    
-    constructor(packageManager){
+
+    constructor(packageManager) {
         super();
         this.packageManager = packageManager;
     }
-    
+
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.title = `🎁${game.i18n.localize('SOUNDBOARD.app.packman.title')}`;
@@ -17,6 +17,7 @@ class SoundBoardPackageManagerApplication extends Application {
         return options;
     }
 
+    // noinspection JSUnusedGlobalSymbols
     getData() {
         this.packageManager.alphabetizePacks();
         let packages = this.packageManager.soundPacks;

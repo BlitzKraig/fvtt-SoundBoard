@@ -110,7 +110,7 @@ button.open-soundboard {
   margin: 1px;
   white-space: initial;
   font-size: var(--SoundBoard-btn-text-size);
-  /* Counteract Plutioniums css*/
+  /* Counteract Plutoniums css*/
 }
 
 #soundboard-app .btn.loop-active {
@@ -234,7 +234,7 @@ button.open-soundboard {
 #soundboard-app .row {
   width: initial;
   z-index: 1;
-  /* Counteract Plutioniums css*/
+  /* Counteract Plutoniums css*/
 }
 
 #soundboard-app .short {
@@ -348,10 +348,10 @@ button.open-soundboard {
 
 .sb-individual-volume {
   position: absolute !important;
-  left: 0px !important;
-  right: 0px !important;
-  margin: 0px !important;
-  padding: 0px !important;
+  left: 0 !important;
+  right: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
   bottom: -5px !important;
 }
 

@@ -8,7 +8,7 @@ class SBMacroHelper {
         let macroData;
 
         let existingMacro = game.macros.find((macro) => {
-            return macro.name == macroName;
+            return macro.name === macroName;
         });
         if (existingMacro) {
             ui.notifications.notify(game.i18n.format('SOUNDBOARD.notif.macroExists', {macro: macroName}));
@@ -36,8 +36,8 @@ SoundBoard.playSoundByName("${soundName}");
     }
 
     static async deleteAllMacros() {
-        let existingMacros = game.macros.filter(macro =>macro.name.indexOf('SoundBoard - ') == 0).map(macro=>macro.id);
-        if(existingMacros.length > 0){
+        let existingMacros = game.macros.filter(macro => macro.name.indexOf('SoundBoard - ') === 0).map(macro => macro.id);
+        if (existingMacros.length > 0) {
             await SBCompatLayer.deleteMacros(existingMacros);
             ui.notifications.notify(game.i18n.localize('SOUNDBOARD.notif.deleteMacros'));
         } else {
