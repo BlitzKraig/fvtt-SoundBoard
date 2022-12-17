@@ -28,7 +28,7 @@
             },
             "detune": {
                 "name": "ランダムデチューン量",
-                "hint": "再生するたびにサウンドをランダムにデチューンします。0 で無効化します。0.8.1以降に追加された優良機能で、0.7に移植。"
+                "hint": "再生するたびにサウンドをランダムにデチューンします。0 で無効化します。"
             },
             "macroRequest": {
                 "hint": "これを有効にすると、playSoundByName でマクロを使用してプレーヤーがサウンドをトリガーできるようになります。\n接続された GM が必要です。",
@@ -94,8 +94,7 @@
             "macroCreated": "マクロ作成: {macro}",
             "macroExists": "{macro} は既に存在しています",
             "deleteMacros": "全てのサウンドボード マクロを削除",
-            "noMacros": "削除可能なサウンドボード マクロがありません",
-            "individualVolumeVersionIncorrect": "個々の音量の変更は、Foundry 0.8 でのみサポートされています。"
+            "noMacros": "削除可能なサウンドボード マクロがありません"
         },
         "whetstone": {
             "theme": {

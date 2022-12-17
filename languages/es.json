@@ -32,7 +32,7 @@
             },
             "detune": {
                 "name": "Cantidad aleatoria de desafinado",
-                "hint": "Desafinado aleatoriamente un sonido cada vez que se reproduce. Ponga 0 para desactivar. Adaptado a 0.7, funciona mejor en 0.8.1+"
+                "hint": "Desafinado aleatoriamente un sonido cada vez que se reproduce. Ponga 0 para desactivar."
             },
             "macroRequest": {
                 "name": "Jugadores ejecutan macros SoundBoard",
@@ -98,8 +98,7 @@
             "macroCreated": "Macro creada: {macro}",
             "macroExists": "{macro} ya existe",
             "deleteMacros": "Borradas todas las macros de SoundBoard",
-            "noMacros": "No hay macros de SoundBoard que borrar",
-            "individualVolumeVersionIncorrect": "Solo Foundry 0.8+ soporta el cambio de volumen de los audios de manera individual"
+            "noMacros": "No hay macros de SoundBoard que borrar"
         },
         "whetstone": {
             "theme": {

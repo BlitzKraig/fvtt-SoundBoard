@@ -20,7 +20,6 @@ module.exports = {
         'game': true,
         'ui': true,
         'keyboard': true,
-        'SoundNode': true,
         'SoundBoard': true,
         'Howl': true,
         'Howler': true,

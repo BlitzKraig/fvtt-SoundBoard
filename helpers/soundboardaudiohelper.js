@@ -28,20 +28,11 @@ class SBAudioHelper {
     };
 
     //0.8.1+ goodies
-    static hasHowler() {
-        return typeof Howl != 'undefined';
-    }
-
     detuneNode(soundNode, detuneBy) {
         if (detuneBy === 0) {
             return;
         }
-
-        if (SBAudioHelper.hasHowler()) {
-            soundNode.rate(detuneBy);
-        } else {
-            soundNode.node.detune.value = detuneBy;
-        }
+        soundNode.node.detune.value = detuneBy;
     }
 
     // lowpassFilter() {
@@ -76,112 +67,63 @@ class SBAudioHelper {
         }
         volume *= game.settings.get('core', 'globalInterfaceVolume');
 
-        if (!SBAudioHelper.hasHowler()) {
-            // SoundNode required to support 0.8.1, Sound for 0.8.2+
-            var soundNode = typeof SoundNode != 'undefined' ? new SoundNode(src) : new Sound(src);
-            soundNode.on('end', (id) => {
-                this.removeActiveSound(id);
-                if (sound?.isLoop) {
-                    if (!sound?.loopDelay || sound?.loopDelay === 0) {
+        var soundNode = new Sound(src);
+        soundNode.on('end', (id) => {
+            this.removeActiveSound(id);
+            if (sound?.isLoop) {
+                if (!sound?.loopDelay || sound?.loopDelay === 0) {
+                    SoundBoard.playSound(sound.identifyingPath, true);
+                } else {
+                    let interval = this.delayIntervals.make(() => {
                         SoundBoard.playSound(sound.identifyingPath, true);
-                    } else {
-                        let interval = this.delayIntervals.make(() => {
-                            SoundBoard.playSound(sound.identifyingPath, true);
-                            this.delayIntervals.clear(interval);
-                        }, sound.loopDelay * 1000);
-                    }
+                        this.delayIntervals.clear(interval);
+                    }, sound.loopDelay * 1000);
                 }
-            });
-            soundNode.on('stop', () => {
-                if (sound?.isLoop) {
-                    sound.isLoop = false;
-                }
-            });
-            soundNode.on('start', () => {
-                this.detuneNode(soundNode, detune);
-
-                let individualGainNode = game.audio.context.createGain();
-                individualGainNode.gain.value = soundNode.individualVolume;
-                soundNode.node.disconnect();
-                individualGainNode.connect(game.audio.soundboardGain);
-                soundNode.node.connect(individualGainNode);
-                soundNode.individualGainNode = individualGainNode;
-                // soundNode.node.connect(iirfilter).connect(AudioHelper.soundboardGain);
-                this.activeSounds.push(soundNode);
-            });
-            if (!soundNode.loaded) {
-                await soundNode.load();
             }
-
-            if (!game.audio.soundboardGain) {
-                game.audio.soundboardGain = game.audio.context.createGain();
-                game.audio.soundboardGain.connect(game.audio.context.destination);
+        });
+        soundNode.on('stop', () => {
+            if (sound?.isLoop) {
+                sound.isLoop = false;
             }
-            game.audio.soundboardGain.gain.value = volume;
-            soundNode.identifyingPath = sound.identifyingPath;
-            soundNode.individualVolume = sound.individualVolume;
-            soundNode.play({
-                volume
-            });
-        } else {
-            let sbhowl = new Howl({
-                src, volume, onend: (id) => {
-                    this.removeActiveSound(id);
-                    if (sound?.isLoop) {
-                        if (!sound?.loopDelay || sound?.loopDelay === 0) {
-                            SoundBoard.playSound(sound.identifyingPath, true);
-                        } else {
-                            let interval = this.delayIntervals.make(() => {
-                                SoundBoard.playSound(sound.identifyingPath, true);
-                                this.delayIntervals.clear(interval);
-                            }, sound.loopDelay * 1000);
-                        }
-                    }
-                }, onstop: (id) => {
-                    if (sound?.isLoop) {
-                        sound.isLoop = false;
-                    }
-                    this.removeActiveSound(id);
-                }
-            });
+        });
+        soundNode.on('start', () => {
+            this.detuneNode(soundNode, detune);
 
-            if (!Howler.soundboardGain) {
-                Howler.soundboardGain = Howler.ctx.createGain();
-                Howler.soundboardGain.connect(Howler.ctx.destination);
-            }
-
-            sbhowl._sounds[0]._node.disconnect();
-            sbhowl._sounds[0]._node.connect(Howler.soundboardGain);
-            this.detuneNode(sbhowl, detune);
-            sbhowl.play();
-            this.activeSounds.push(sbhowl);
+            let individualGainNode = game.audio.context.createGain();
+            individualGainNode.gain.value = soundNode.individualVolume;
+            soundNode.node.disconnect();
+            individualGainNode.connect(game.audio.soundboardGain);
+            soundNode.node.connect(individualGainNode);
+            soundNode.individualGainNode = individualGainNode;
+            // soundNode.node.connect(iirfilter).connect(AudioHelper.soundboardGain);
+            this.activeSounds.push(soundNode);
+        });
+        if (!soundNode.loaded) {
+            await soundNode.load();
         }
+
+        if (!game.audio.soundboardGain) {
+            game.audio.soundboardGain = game.audio.context.createGain();
+            game.audio.soundboardGain.connect(game.audio.context.destination);
+        }
+        game.audio.soundboardGain.gain.value = volume;
+        soundNode.identifyingPath = sound.identifyingPath;
+        soundNode.individualVolume = sound.individualVolume;
+        soundNode.play({
+            volume
+        });
+
     }
 
     async cache({src, volume}) {
-        if (!SBAudioHelper.hasHowler()) {
-            // SoundNode required to support 0.8.1, Sound for 0.8.2+
-            var soundNode = typeof SoundNode != 'undefined' ? new SoundNode(src) : new Sound(src);
-            await soundNode.load();
-            let player = game.user.name;
-            SoundBoard.socketHelper.sendData({
-                type: SBSocketHelper.SOCKETMESSAGETYPE.CACHECOMPLETE, payload: {
-                    src, volume, player
-                }
-            });
-
-        } else {
-            new Howl({
-                src, volume, onload: () => {
-                    let player = game.user.name;
-                    SoundBoard.socketHelper.sendData({
-                        type: SBSocketHelper.SOCKETMESSAGETYPE.CACHECOMPLETE, payload: {
-                            src, volume, player
-                        }
-                    });
-                }
-            });
-        }
+        var soundNode = new Sound(src);
+        await soundNode.load();
+        let player = game.user.name;
+        SoundBoard.socketHelper.sendData({
+            type: SBSocketHelper.SOCKETMESSAGETYPE.CACHECOMPLETE, payload: {
+                src, volume, player
+            }
+        });
     }
 
     // eslint-disable-next-line no-unused-vars
@@ -190,24 +132,16 @@ class SBAudioHelper {
     }
 
     stop(soundObj) {
-        if (SBAudioHelper.hasHowler()) {
-            this.activeSounds.filter(sound => {
-                return soundObj.src.includes(sound._src);
-            }).forEach(sound => {
+        this.activeSounds.filter(sound => {
+            return soundObj.src.includes(sound.src);
+        }).forEach(sound => {
+            try {
                 sound.stop();
-            });
-        } else {
-            this.activeSounds.filter(sound => {
-                return soundObj.src.includes(sound.src);
-            }).forEach(sound => {
-                try {
-                    sound.stop();
-                } catch (e) {
-                    // Do nothing
-                }
-                this.removeActiveSound(sound);
-            });
-        }
+            } catch (e) {
+                // Do nothing
+            }
+            this.removeActiveSound(sound);
+        });
     }
 
     stopAll() {
@@ -227,15 +161,9 @@ class SBAudioHelper {
 
     removeActiveSound(id) {
         let soundIndex;
-        if (!SBAudioHelper.hasHowler()) {
-            soundIndex = this.activeSounds.findIndex((element) => {
-                return element.id === id.id;
-            });
-        } else {
-            soundIndex = this.activeSounds.findIndex((element) => {
-                return element._getSoundIds()[0] === id;
-            });
-        }
+        soundIndex = this.activeSounds.findIndex((element) => {
+            return element.id === id.id;
+        });
         if (soundIndex > -1) {
             this.activeSounds.splice(soundIndex, 1);
         }
@@ -248,13 +176,9 @@ class SBAudioHelper {
             game.audio.soundboardGain.gain.value = volume;
         }
         this.activeSounds.forEach(sound => {
-            if (SBAudioHelper.hasHowler()) {
-                sound.volume(volume);
-            } else {
-                if (individualVolumes) {
-                    if (individualVolumes[sound.identifyingPath]) {
-                        sound.individualGainNode.gain.value = parseInt(individualVolumes[sound.identifyingPath]) / 100;
-                    }
+            if (individualVolumes) {
+                if (individualVolumes[sound.identifyingPath]) {
+                    sound.individualGainNode.gain.value = parseInt(individualVolumes[sound.identifyingPath]) / 100;
                 }
             }
         });

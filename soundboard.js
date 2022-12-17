@@ -202,15 +202,9 @@ class SoundBoard {
         let detune = game.settings.get('SoundBoard', 'detuneAmount');
 
         if (detune > 0) {
-            if (SBAudioHelper.hasHowler()) {
-                detune /= 100;
-                let normalizedAmount = Math.random() * detune;
-                detune = 1 - detune / 2 + normalizedAmount;
-            } else {
-                detune *= 10;
-                let normalizedAmount = Math.random() * detune;
-                detune = 0 - detune / 2 + normalizedAmount;
-            }
+            detune *= 10;
+            let normalizedAmount = Math.random() * detune;
+            detune = 0 - detune / 2 + normalizedAmount;
         }
 
         let payload = {
@@ -348,10 +342,6 @@ class SoundBoard {
     }
 
     static toggleVolumeMode(html) {
-        if (SBAudioHelper.hasHowler()) {
-            ui.notifications.notify(game.i18n.localize('SOUNDBOARD.notif.individualVolumeVersionIncorrect'));
-            return;
-        }
         SoundBoard.volumeMode = !SoundBoard.volumeMode;
         if (SoundBoard.volumeMode) {
             $(html).find('#volume-mode').addClass('active');

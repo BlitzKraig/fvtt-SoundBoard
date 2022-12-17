@@ -165,7 +165,7 @@ class SoundBoardHelp extends Application {
             type="button" class="btn btn-secondary toolbar-btn ">
             <i class="fas fa-volume-up"></i>
           </button></p>
-            <p>When active, the button will turn green, and volume bars will appear on every sound. Note, this is only supported on Foundry 0.8+</p>
+            <p>When active, the button will turn green, and volume bars will appear on every sound.</p>
             <p>Change the volume of an individual sound to tweak the final output. The SoundBoard volume, and interface volume are still respected.</p>
             <p>Note that altered sound volumes are saved across sessions.</p>
             <p>You can disable Volume Mode after changing the volume for a sound - the new volume will be kept.</p>

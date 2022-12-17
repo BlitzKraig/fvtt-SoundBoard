@@ -28,7 +28,7 @@
             },
             "detune": {
                 "name": "Random Detune Amount",
-                "hint": "Randomly detune a sound each time it plays. 0 to disable. Backported to 0.7, works best in 0.8.1+"
+                "hint": "Randomly detune a sound each time it plays. 0 to disable."
             },
             "macroRequest": {
                 "name": "Players trigger SoundBoard macros",
@@ -94,8 +94,7 @@
             "macroCreated": "Created Macro: {macro}",
             "macroExists": "{macro} already exists",
             "deleteMacros": "Deleted all SoundBoard macros",
-            "noMacros": "No SoundBoard macros to delete",
-            "individualVolumeVersionIncorrect": "Changing individual sound volumes is only supported on Foundry 0.8+"
+            "noMacros": "No SoundBoard macros to delete"
         },
         "whetstone": {
             "theme": {
