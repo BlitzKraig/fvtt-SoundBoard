@@ -565,8 +565,7 @@ class SoundBoard {
 
     static async getSounds() {
         const favoritesArray = game.settings.get('SoundBoard', 'favoritedSounds');
-
-        var source = game.settings.get('SoundBoard', 'source');
+        const source = game.settings.get('SoundBoard', 'source');
 
         SoundBoard.soundsError = false;
         SoundBoard.soundsLoaded = false;
@@ -576,12 +575,12 @@ class SoundBoard {
                 const bucketContainer = await FilePicker.browse(source, game.settings.get('SoundBoard', 'soundboardDirectory'));
                 var bucket = bucketContainer.dirs[0];
             }
-            var soundboardDirArray = await FilePicker.browse(source, game.settings.get('SoundBoard', 'soundboardDirectory'), {
+            const soundboardDirArray = await FilePicker.browse(source, game.settings.get('SoundBoard', 'soundboardDirectory'), {
                 ...(bucket && {
                     bucket
                 })
             });
-            if (soundboardDirArray.target !== game.settings.get('SoundBoard', 'soundboardDirectory')) {
+            if (soundboardDirArray.target !== game.settings.get('SoundBoard', 'soundboardDirectory').replace(' ', '%20')) {
                 // noinspection ExceptionCaughtLocallyJS
                 throw 'Filepicker target did not match input. Parent directory may be correct. Soft failure.';
             }
