@@ -32,7 +32,13 @@ class SBAudioHelper {
         if (detuneBy === 0) {
             return;
         }
-        soundNode.node.detune.value = detuneBy;
+        if (soundNode.container.isBuffer) {
+            soundNode.node.detune.value = detuneBy;
+        } else {
+            soundNode.container.element.preservesPitch = false;
+            // -500 to 500 mapped to 0.8 to 1.2
+            soundNode.container.element.playbackRate = 1 + ((detuneBy / 500) * 0.2);
+        }
     }
 
     // lowpassFilter() {
