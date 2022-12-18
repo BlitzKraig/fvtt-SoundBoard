@@ -74,8 +74,13 @@ class SBAudioHelper {
         volume *= game.settings.get('core', 'globalInterfaceVolume');
 
         var soundNode = new Sound(src);
-        soundNode.on('end', (id) => {
-            this.removeActiveSound(id);
+        soundNode.container._onEnd = () => {
+            this.removeActiveSound(soundNode);
+            try {
+                soundNode.stop();
+            } catch (e) {
+                // Do nothing
+            }
             if (sound?.isLoop) {
                 if (!sound?.loopDelay || sound?.loopDelay === 0) {
                     SoundBoard.playSound(sound.identifyingPath, true);
@@ -86,7 +91,7 @@ class SBAudioHelper {
                     }, sound.loopDelay * 1000);
                 }
             }
-        });
+        };
         soundNode.on('stop', () => {
             if (sound?.isLoop) {
                 sound.isLoop = false;
@@ -137,12 +142,23 @@ class SBAudioHelper {
         ui.notifications.notify(`${player} cache complete for ${src}`);
     }
 
+    _callStop(sound) {
+        if (!sound.container.isBuffer) {
+            sound.container.element.onended = undefined;
+            sound.container.element.pause();
+            sound.container.element.src = '';
+            sound.container.element.remove();
+        }
+
+        sound.stop();
+    }
+
     stop(soundObj) {
         this.activeSounds.filter(sound => {
             return soundObj.src.includes(sound.src);
         }).forEach(sound => {
             try {
-                sound.stop();
+                this._callStop(sound);
             } catch (e) {
                 // Do nothing
             }
@@ -153,7 +169,7 @@ class SBAudioHelper {
     stopAll() {
         for (let sound of this.activeSounds) {
             try {
-                sound.stop();
+                this._callStop(sound);
             } catch (e) {
                 // Do nothing
             }
@@ -165,10 +181,10 @@ class SBAudioHelper {
         return this.activeSounds;
     }
 
-    removeActiveSound(id) {
+    removeActiveSound(sound) {
         let soundIndex;
         soundIndex = this.activeSounds.findIndex((element) => {
-            return element.id === id.id;
+            return element.id === sound.id;
         });
         if (soundIndex > -1) {
             this.activeSounds.splice(soundIndex, 1);
