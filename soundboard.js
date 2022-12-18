@@ -509,7 +509,7 @@ class SoundBoard {
                     return;
                 }
             } catch (e) {
-                console.err(e);
+                console.error(e);
             }
         }
         localStorage.removeItem('SoundBoardModule.BundledSounds');
@@ -595,7 +595,7 @@ class SoundBoard {
                     return;
                 }
             } catch (e) {
-                console.err(e);
+                console.error(e);
             }
         }
         localStorage.removeItem('SoundBoardModule.UserSounds');
