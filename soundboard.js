@@ -60,6 +60,13 @@ class SoundBoard {
         }
     }
 
+    static setLocalStorage(key, value) {
+        localStorage.setItem(key, JSON.stringify(value));
+    }
+    static getLocalStorage(key) {
+        return JSON.parse(localStorage.getItem(key));
+    }
+
     static openSoundBoard() {
         if (SoundBoard.soundsError) {
             ui.notifications.error(game.i18n.localize('SOUNDBOARD.notif.soundsError'));
@@ -493,7 +500,19 @@ class SoundBoard {
         });
     }
 
-    static async _getBundledSounds() {
+    static async _getBundledSounds(forceRefresh = false) {
+        if (!forceRefresh) {
+            try {
+                SoundBoard.bundledSounds = SoundBoard.getLocalStorage('SoundBoardModule.BundledSounds');
+                if(SoundBoard.bundledSounds){
+                    SoundBoard.soundsLoaded = true;
+                    return;
+                }
+            } catch (e) {
+                console.err(e);
+            }
+        }
+        localStorage.removeItem('SoundBoardModule.BundledSounds');
         const favoritesArray = game.settings.get('SoundBoard', 'favoritedSounds');
         SoundBoard.bundledSounds = {};
 
@@ -559,11 +578,27 @@ class SoundBoard {
                 }
             }
         }
-
+        SoundBoard.setLocalStorage('SoundBoardModule.BundledSounds', SoundBoard.bundledSounds);
         SoundBoard.soundsLoaded = true;
+        if(!forceRefresh) {
+            ui.notifications.notify(game.i18n.localize('SOUNDBOARD.notif.soundsDiscovered'));
+        }
     }
 
-    static async getSounds() {
+    static async getSounds(forceRefresh = false) {
+
+        if (!forceRefresh) {
+            try {
+                SoundBoard.sounds = SoundBoard.getLocalStorage('SoundBoardModule.UserSounds');
+                if(SoundBoard.sounds){
+                    await SoundBoard._getBundledSounds();
+                    return;
+                }
+            } catch (e) {
+                console.err(e);
+            }
+        }
+        localStorage.removeItem('SoundBoardModule.UserSounds');
         const favoritesArray = game.settings.get('SoundBoard', 'favoritedSounds');
         const source = game.settings.get('SoundBoard', 'source');
 
@@ -644,12 +679,12 @@ class SoundBoard {
                     }
                 }
             }
-
+            SoundBoard.setLocalStorage('SoundBoardModule.UserSounds', SoundBoard.sounds);
         } catch (error) {
             SoundBoard.log(error, SoundBoard.LOGTYPE.ERR);
             SoundBoard.soundsError = true;
         } finally {
-            await SoundBoard._getBundledSounds();
+            await SoundBoard._getBundledSounds(forceRefresh);
         }
     }
 
@@ -660,7 +695,7 @@ class SoundBoard {
             }
             SoundBoard.stopAllSounds();
             SoundBoard.soundsError = false;
-            await SoundBoard.getSounds();
+            await SoundBoard.getSounds(true);
             if (SoundBoard.openedBoard?.rendered) {
                 SoundBoard.openedBoard.render();
                 if (bringToTop) {
@@ -688,7 +723,7 @@ class SoundBoard {
                 if (value.length <= 0) {
                     game.settings.set('SoundBoard', 'soundboardDirectory', 'modules/SoundBoard/exampleAudio');
                 }
-                SoundBoard.getSounds();
+                SoundBoard.getSounds(true);
             }
         });
 
@@ -707,7 +742,7 @@ class SoundBoard {
             default: 'data',
             // eslint-disable-next-line no-unused-vars
             onChange: value => {
-                SoundBoard.getSounds();
+                SoundBoard.getSounds(true);
             }
         });
         game.settings.register('SoundBoard', 'opacity', {

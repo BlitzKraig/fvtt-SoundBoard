@@ -94,7 +94,8 @@
             "macroCreated": "Created Macro: {macro}",
             "macroExists": "{macro} already exists",
             "deleteMacros": "Deleted all SoundBoard macros",
-            "noMacros": "No SoundBoard macros to delete"
+            "noMacros": "No SoundBoard macros to delete",
+            "soundsDiscovered": "All sounds discovered & paths cached. You must use the Refresh button in the SoundBoard UI to fetch new sounds."
         },
         "whetstone": {
             "theme": {
