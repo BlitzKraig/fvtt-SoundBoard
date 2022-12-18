@@ -1,5 +1,9 @@
 # SoundBoard Changelog
 
+## 1.7.1 - 2022/12/18
+
+* Re-added v9 support
+
 ## 1.7.0 - 2022/12/18
 
 * Updated support for Foundry v10
