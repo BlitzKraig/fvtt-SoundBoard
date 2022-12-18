@@ -27,6 +27,7 @@ module.exports = {
         'Macro': true,
         'Hooks': true,
         'Application': true,
+        'ForgeVTT': true,
         'Sound': true,
         'SoundBoardApplication': true,
         'SoundBoardFavApplication': true,
