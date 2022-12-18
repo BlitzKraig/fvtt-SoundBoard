@@ -1,5 +1,18 @@
 # SoundBoard Changelog
 
+## 1.7.0 - 2022/12/18
+
+* Updated support for Foundry v10
+  * Earlier versions are no longer supported
+* Fixed issue where custom directories with spaces would not load correctly
+* Added directory filepicker to module settings
+* Fixed Stop All & Stop (Ctrl+click) issue where sounds would sometimes continue playing
+* Fixed detuner bug where some streaming audio would not be detuned.
+* Major optimizations
+  * Added caching for directory structure.
+  * Added Forge specific directory parsing improvements. This should improve load times dramatically for Forge users.
+
+
 ## 1.6.0 - 2022/08/19
 
 * Added support for Foundry v10
