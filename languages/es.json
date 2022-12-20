@@ -98,7 +98,8 @@
             "macroCreated": "Macro creada: {macro}",
             "macroExists": "{macro} ya existe",
             "deleteMacros": "Borradas todas las macros de SoundBoard",
-            "noMacros": "No hay macros de SoundBoard que borrar"
+            "noMacros": "No hay macros de SoundBoard que borrar",
+            "soundsDiscovered": "Sonidos descubiertos y directorios añadidos a la caché. Deberá usar el botón refrescar en la IU de Soundboard para buscar nuevos sonidos"
         },
         "whetstone": {
             "theme": {
