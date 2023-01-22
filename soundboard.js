@@ -720,7 +720,7 @@ class SoundBoard {
                                     case 'flac': {
                                         const dirSpaceReplace = dir.replaceAll(' ', '%20');
                                         if (file.includes(dirSpaceReplace) &&
-                                            file.substring(file.lastIndexOf(dirSpaceReplace) + dirSpaceReplace.length).match(/\//g).length < 2) { // Not a wildcard sound
+                                            file.substring(file.lastIndexOf(dirSpaceReplace + '/') + dirSpaceReplace.length).match(/\//g).length < 2) { // Not a wildcard sound
                                             SoundBoard.sounds[dirShortName].push({
                                                 name: this._formatName(file.split(/[/]+/).pop()),
                                                 src: [file],
@@ -842,6 +842,7 @@ class SoundBoard {
             }
             SoundBoard.setLocalStorage('SoundBoardModule.UserSounds', SoundBoard.sounds);
         } catch (error) {
+            console.error(error);
             SoundBoard.log(error, SoundBoard.LOGTYPE.ERR);
             SoundBoard.soundsError = true;
         } finally {
