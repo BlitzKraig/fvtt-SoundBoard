@@ -43,11 +43,11 @@
     }
   ],
   "socket": true,
-  "minimumCoreVersion": 9,
-  "compatibleCoreVersion": "10.291",
+  "minimumCoreVersion": 12,
+  "compatibleCoreVersion": "12",
   "compatibility": {
-    "minimum": 9,
-    "verified": "10.291"
+    "minimum": 12,
+    "verified": "12"
   },
   "url": "https://github.com/BlitzKraig/fvtt-SoundBoard",
   "manifest": "https://raw.githubusercontent.com/BlitzKraig/fvtt-SoundBoard/master/module.json",

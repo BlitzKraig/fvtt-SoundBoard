@@ -73,15 +73,16 @@ class SBAudioHelper {
         }
         volume *= game.settings.get('core', 'globalInterfaceVolume');
 
-        var soundNode = new Sound(src);
-        soundNode.container._onEnd = () => {
+        var soundNode = new foundry.audio.Sound(src);
+        soundNode.loop = sound.loop;
+        soundNode.addEventListener('end', () => {
             this.removeActiveSound(soundNode);
             try {
                 soundNode.stop();
             } catch (e) {
                 // Do nothing
             }
-            if (sound?.isLoop) {
+            if (sound?.loop) {
                 if (!sound?.loopDelay || sound?.loopDelay === 0) {
                     SoundBoard.playSound(sound.identifyingPath, true);
                 } else {
@@ -91,20 +92,22 @@ class SBAudioHelper {
                     }, sound.loopDelay * 1000);
                 }
             }
-        };
-        soundNode.on('stop', () => {
-            if (sound?.isLoop) {
-                sound.isLoop = false;
+        });
+
+        soundNode.addEventListener('stop', () => {
+            if (sound?.loop) {
+                sound.loop = false;
             }
         });
-        soundNode.on('start', () => {
-            this.detuneNode(soundNode, detune);
 
+        soundNode.addEventListener("play", () => {
+            this.detuneNode(soundNode, detune);
+            
             let individualGainNode = game.audio.context.createGain();
             individualGainNode.gain.value = soundNode.individualVolume;
-            soundNode.node.disconnect();
+            soundNode.sourceNode.disconnect();
             individualGainNode.connect(game.audio.soundboardGain);
-            soundNode.node.connect(individualGainNode);
+            soundNode.sourceNode.connect(individualGainNode);
             soundNode.individualGainNode = individualGainNode;
             // soundNode.node.connect(iirfilter).connect(AudioHelper.soundboardGain);
             this.activeSounds.push(soundNode);
@@ -127,7 +130,7 @@ class SBAudioHelper {
     }
 
     async cache({src, volume}) {
-        var soundNode = new Sound(src);
+        var soundNode = new foundry.audio.Sound(src);
         await soundNode.load();
         let player = game.user.name;
         SoundBoard.socketHelper.sendData({
@@ -143,11 +146,11 @@ class SBAudioHelper {
     }
 
     _callStop(sound) {
-        if (!sound.container.isBuffer) {
-            sound.container.element.onended = undefined;
-            sound.container.element.pause();
-            sound.container.element.src = '';
-            sound.container.element.remove();
+        if (!sound.isBuffer) {
+            sound.element.onended = undefined;
+            sound.element.pause();
+            sound.element.src = '';
+            sound.element.remove();
         }
 
         sound.stop();

@@ -77,6 +77,10 @@ class SoundBoardApplication extends Application {
         }, 50);
     }
 
+    activateListeners(html) {
+        super.bringToTop();
+    }
+
     // noinspection JSUnusedGlobalSymbols
     getData() {
         var sounds = [];

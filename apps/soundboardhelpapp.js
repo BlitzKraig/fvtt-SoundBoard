@@ -22,6 +22,10 @@ class SoundBoardHelp extends Application {
 
     }
 
+    activateListeners(html) {
+        super.bringToTop();
+    }
+
     // TODO Localization
     // noinspection JSUnusedGlobalSymbols
     getData() {

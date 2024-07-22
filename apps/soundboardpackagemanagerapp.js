@@ -17,6 +17,10 @@ class SoundBoardPackageManagerApplication extends Application {
         return options;
     }
 
+    activateListeners(html) {
+        super.bringToTop();
+    }
+
     // noinspection JSUnusedGlobalSymbols
     getData() {
         this.packageManager.alphabetizePacks();

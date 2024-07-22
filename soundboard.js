@@ -79,11 +79,6 @@ class SoundBoard {
         }
         SoundBoard.openedBoard = new SoundBoardApplication();
         SoundBoard.openedBoard.render(true);
-        try {
-            SoundBoard.openedBoard.bringToTop();
-        } catch (e) {
-            console.error(e);
-        }
     }
 
     static openSoundBoardFav() {
@@ -93,11 +88,6 @@ class SoundBoard {
         }
         SoundBoard.openedBoard = new SoundBoardFavApplication();
         SoundBoard.openedBoard.render(true);
-        try {
-            SoundBoard.openedBoard.bringToTop();
-        } catch (e) {
-            console.error(e);
-        }
     }
 
     static openSoundBoardBundled() {
@@ -107,24 +97,15 @@ class SoundBoard {
         }
         SoundBoard.openedBoard = new SoundBoardBundledApplication();
         SoundBoard.openedBoard.render(true);
-        try {
-            SoundBoard.openedBoard.bringToTop();
-        } catch (e) {
-            console.error(e);
-        }
     }
 
     static openSoundBoardHelp() {
-        try {
-            new SoundBoardHelp().render(true).bringToTop();
-        } catch (e) {
-            console.error(e);
-        }
+        new SoundBoardHelp().render(true);
     }
 
     static openSoundBoardPackageManager() {
         try {
-            new SoundBoardPackageManagerApplication(SoundBoard.packageManager).render(true).bringToTop();
+            new SoundBoardPackageManagerApplication(SoundBoard.packageManager).render(true); //.bringToTop();
         } catch (e) {
             console.error(e);
         }
@@ -181,7 +162,7 @@ class SoundBoard {
             } else {
                 this.favoriteSound(identifyingPath);
             }
-        } else if (sound.isLoop) {
+        } else if (sound.loop) {
             SoundBoard.stopLoop(identifyingPath);
         } else if (SBCompatLayer.getKeyDown('Control', 'ControlLeft')) {
             this.stopSound(identifyingPath);
@@ -209,16 +190,18 @@ class SoundBoard {
 
         let detune = game.settings.get('SoundBoard', 'detuneAmount');
 
+        let loop = sound.loop;
+
         if (detune > 0) {
             detune *= 10;
             let normalizedAmount = Math.random() * detune;
             detune = 0 - detune / 2 + normalizedAmount;
         }
-
         let payload = {
             src,
             volume,
-            detune
+            detune,
+            loop
         };
         if (SoundBoard.cacheMode) {
             SoundBoard.audioHelper.cache(payload);
@@ -311,7 +294,6 @@ class SoundBoard {
     }
 
     static async targetPlayer(html, id) {
-        // console.log(html);
         $(html).addClass('active');
         $(html).siblings().removeClass('active');
         if (!id) {
@@ -445,17 +427,17 @@ class SoundBoard {
 
     static startLoop(identifyingPath) {
         let sound = SoundBoard.getSoundFromIdentifyingPath(identifyingPath);
-        if (sound.isLoop) {
+        if (sound.loop) {
             return;
         }
-        sound.isLoop = true;
+        sound.loop = true;
         SoundBoard.playSound(identifyingPath);
 
         $('#soundboard-app .btn').filter(`[uuid=${$.escapeSelector(identifyingPath)}]`).addClass('loop-active');
     }
 
     static stopLoop(identifyingPath) {
-        SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isLoop = false;
+        SoundBoard.getSoundFromIdentifyingPath(identifyingPath).loop = false;
         $('#soundboard-app .btn').filter(`[uuid=${$.escapeSelector(identifyingPath)}]`).removeClass('loop-active');
     }
 
@@ -466,7 +448,7 @@ class SoundBoard {
             delayInSeconds = 600;
         }
         SoundBoard.getSoundFromIdentifyingPath(identifyingPath).loopDelay = delayInSeconds;
-        if (!SoundBoard.getSoundFromIdentifyingPath(identifyingPath).isLoop) {
+        if (!SoundBoard.getSoundFromIdentifyingPath(identifyingPath).loop) {
             SoundBoard.startLoop(identifyingPath);
         }
         $(button).siblings('.dropdown-item').removeClass('active');
